@@ -1,23 +1,21 @@
 1. Requisitos funcionales:
 
-- Se efectuarán exposiciones de ventas de productos tecnológicos.
-- Habrá 3 categorías de usuarios: Administradores, Auditores y Clientes
+- Se efectuarán exposiciones de ventas de productos.
+- Habrá 3 categorías de usuarios: Administradores, Moderadores y Clientes
 - Los productos pueden ser nuevos o usados.
 - Los productos pertenecen a categorías.
-- Los productos nuevos pueden tener stock hasta que se agote.
-- Un producto se puede vender en varias exposiciones hasta que se agote.
 - Los productos usados tendrán descuento según el estado en que se encuentren
-- Los administradores registran/eliminan a los clientes que quieren acceder a las exposiciones 
-- Los administrados son los encargados de subir/eliminar artículos en venta
-- Los Auditores pueden consultar como van las ventas de cada exposición
-- Los Auditores pueden ver y exportar documentación relativa a ventas
+- Los administrados son los encargados de subir/eliminar artículos de las exposiciones
+- Los administradores registran a los clientes, consultores u otros administradores
+- Los clientes pueden acceder a las exposiciones
+- Los moderadores pueden consultar como van las ventas de cada exposición
+- Los moderadores pueden ver y exportar documentación relativa a ventas
 - Los clientes pueden ojear y filtrar para ver el catálogo de la exposición
 - Los clientes compran productos
 - Los clientes pueden ver la lista de sus productos comprados
+
+- FUNCION EXTRA DE MPO: los clientes tendrán un carrito de compra. Al meter un artículo, en caso que otro cliente se adelante a la compra, este artículo no podrá comprarlo ya el cliente si no es de los que tengan mas stock.
 - Se deben registrar las ventas para saber todo lo que se vende en cada exposición
-
-- FUNCION EXTRA DE MPO: los clientes tendrán un carrito de compra. en caso que otro cliente se adelante a la compra, este artículo no podrá comprarlo ya el cliente si no es de los que tengan mas stock.
-
 
 2. Requisitos de diseño en la APP
 
