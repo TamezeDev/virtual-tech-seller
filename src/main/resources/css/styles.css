@@ -1,0 +1,135 @@
+/* ROOT-COLORS */
+.root {
+    /* BACKGROUND */
+    -color-bg-main: #0E1838;
+    -color-bg-secondary: #16244D;
+    -color-bg-card: #24356B;
+    -color-border-soft: #4960A8;
+    /* GRADIENT */
+    -color-gradient-start: #15265F;
+    -color-gradient-middle: #9F81C0;
+    /* PRIMARY ACTIONS */
+    -color-primary: #8B7CFF;
+    -color-primary-hover: #A792FF;
+    -color-secondary: #2E437E;
+    -color-secondary-hover: #8645BE;
+    /* ACCENTS */
+    -color-accent-cold: #67D4FF;
+    -color-accent-warm: #FFBFA3;
+    -color-focus: #C6B6FF;
+    /* TEXT */
+    -color-text-main: #F8FAFC;
+    -color-text-secondary: #D9E2F2;
+    -color-text-muted: #AEBBD6;
+    /* STATES */
+    -color-success: #38D27A;
+    -color-warning: #F4B860;
+    -color-error: #F05D6C;
+    /* ROOT STYLE */
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, -color-gradient-start, -color-gradient-middle,-color-gradient-start);
+    -fx-font-family: "Segoe UI";
+}
+
+/* PANELS */
+.panel-a {
+    -fx-background-color: -color-bg-secondary;
+    -fx-background-radius: 14;
+    -fx-border-color: -color-border-soft;
+    -fx-border-radius: 14;
+}
+.card-a {
+    -fx-background-color: -color-bg-card;
+    -fx-background-radius: 14;
+    -fx-border-color: derive(-color-border-soft, 15%);
+    -fx-border-radius: 14;
+}
+/* LABELS */
+.label-a {
+    -fx-font-size: 16px;
+    -fx-text-fill: -color-text-secondary;
+}
+.label-title {
+    -fx-font-size: 60px;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-weight: bold;
+}
+
+
+/* BUTTONS */
+.button-a {
+    -fx-background-color: -color-secondary;
+    -fx-text-fill: -color-text-main;
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+.button-a:hover {
+    -fx-background-color: -color-secondary-hover;
+}
+.button-success {
+    -fx-background-color: -color-success;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+}
+.button-warning {
+    -fx-background-color: -color-warning;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+}
+.button-danger {
+    -fx-background-color: -color-error;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+}
+
+/* CHECKBOX */
+.check-box {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.check-box:hover {
+    -fx-text-fill: -color-text-main;
+}
+.check-box .box {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-soft;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 3;
+}
+.check-box:hover .box {
+    -fx-border-color: -color-focus;
+    -fx-background-color: derive(-color-bg-card, 8%);
+}
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+.check-box:focused .box {
+    -fx-border-color: -color-focus;
+    -fx-border-width: 1.5;
+}
+.check-box:disabled {
+    -fx-opacity: 0.55;
+}
+.check-box:selected .box {
+     -fx-background-color: -color-primary;
+     -fx-border-color: -color-primary;
+ }
+
+/* FIELDS */
+.text-field, .password-field {
+    -fx-background-color: -color-bg-card;
+    -fx-text-fill: -color-text-main;
+    -fx-prompt-text-fill: -color-text-muted;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: transparent;
+    -fx-font-size: 16px;
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -color-focus;
+    -fx-border-width: 1.5;
+}
