@@ -57,11 +57,12 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                            <padding>
-                              <Insets bottom="50.0" />
+                              <Insets bottom="20.0" />
                            </padding>
                         </Label>
                         <Button fx:id="addEventBtn" mnemonicParsing="false" styleClass="button-a" text="Nuevo Evento" />
-                        <Button fx:id="activateEventBtn" mnemonicParsing="false" styleClass="button-a" text="Control Eventos" />
+                        <Button fx:id="activateEventBtn" mnemonicParsing="false" styleClass="button-a" text="Activar Evento" />
+                        <Button fx:id="closeEventBtn" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" styleClass="button-a" text="Acabar evento" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="15.0" right="15.0" />
@@ -79,7 +80,7 @@
                         </Label>
                         <Button fx:id="addProductBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir producto" />
                         <Button fx:id="asignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar producto" />
-                        <Button fx:id="removeProductBtn" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" styleClass="button-a" text="Modificar producto " />
+                        <Button fx:id="removeProductBtn" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" styleClass="button-a" text="Retirar producto " />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" />
