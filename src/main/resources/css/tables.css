@@ -1,0 +1,74 @@
+/* TABLE */
+/* data background */
+.personalTable.table-view, #timeControlTable.table-view {
+    -fx-background-color: -color-bg-card;
+    -fx-table-cell-border-color: -color-bg-main;
+}
+/* data text */
+.personalTable .table-cell {
+    -fx-alignment: center;
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 16px;
+}
+/* container data */
+.personalTable .virtual-flow {
+    -fx-background-color: -color-bg-card;
+}
+/* header text */
+.personalTable .column-header .label {
+    -fx-alignment: center;
+    -fx-text-fill: -color-text-main;
+    -fx-font-size: 18px;
+}
+/* header background */
+.personalTable .column-header-background {
+    -fx-background-color: -color-bg-control;
+}
+.personalTable .column-header {
+    -fx-background-color: transparent;
+}
+/* internal lines */
+.personalTable .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: -color-bg-main;
+    -fx-table-cell-border-color: -color-bg-main;
+}
+/* external lines */
+.personalTable .table-view {
+    -fx-border-color: -color-accent-cold;
+    -fx-border-width: 2px;
+}
+/*  background-scroll */
+.personalTable .scroll-bar:vertical,
+.personalTable .scroll-bar:horizontal {
+    -fx-background-color: -color-bg-control;
+}
+/*  internal-scroll */
+.personalTable .scroll-bar .thumb {
+    -fx-background-color: -color-accent-cold;
+    -fx-background-radius: 5px;
+}
+.personalTable .scroll-bar .thumb:hover {
+    -fx-background-color: -color-border-soft;
+}
+/* limits arrows */
+.personalTable .scroll-bar .increment-button,
+.personalTable .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+.personalTable .scroll-bar .increment-arrow,
+.personalTable .scroll-bar .decrement-arrow {
+    -fx-background-color: -color-text-main;
+}
+/* corner */
+.personalTable .corner {
+    -fx-background-color: -color-bg-control;
+}
+/* corner hole upper-right */
+.personalTable .column-header-background .filler {
+    -fx-background-color: -color-bg-control;
+}
+.personalTable .show-hide-column-button {
+    -fx-background-color: -color-bg-control;
+}
