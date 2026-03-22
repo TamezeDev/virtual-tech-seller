@@ -7,6 +7,7 @@
 - Los productos usados tendrán descuento según el estado en que se encuentren
 - Los administrados son los encargados de subir/eliminar artículos de las exposiciones
 - Los administradores registran a los clientes, consultores u otros administradores
+- Los clientes pueden registrarse pero deben esperar autorización de algún administrador
 - Los clientes pueden acceder a las exposiciones
 - Los moderadores pueden consultar como van las ventas de cada exposición
 - Los moderadores pueden ver y exportar documentación relativa a ventas
