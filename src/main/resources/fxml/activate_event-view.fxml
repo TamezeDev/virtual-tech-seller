@@ -13,10 +13,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.PermissionViewController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.ActivateEventController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="40.0" styleClass="panel-a">
          <children>
+            <HBox fx:id="accessControlBOx" alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <TextField fx:id="eventNameTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText=" Nombre del evento" styleClass="text-field" />
+                  <Button fx:id="activateEvent" mnemonicParsing="false" styleClass="button-a" text="Activar evento" />
+               </children>
+            </HBox>
+            <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
+            <TableView fx:id="eventsTable" styleClass="personalTable">
+               <columns>
+                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre" />
+                  <TableColumn fx:id="descriptColumn" prefWidth="75.0" text="Descripción" />
+                  <TableColumn fx:id="dateInColumn" prefWidth="75.0" text="Fecha inicio" />
+                  <TableColumn fx:id="dateOutColumn" prefWidth="75.0" text="Fecha FiIn" />
+                  <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Estado" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
                   <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
@@ -28,28 +47,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="listUsersBtn" mnemonicParsing="false" styleClass="button-a" text="Listar usuarios" />
-                  <Button fx:id="addPermissionBtn" mnemonicParsing="false" styleClass="button-a" text="Listar bloqueados" />
-                  <Button fx:id="rmPermissionBtn" mnemonicParsing="false" styleClass="button-a" text="Listar permitidos" />
-               </children>
-            </HBox>
-            <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
-            <TableView fx:id="usersTable" styleClass="personalTable">
-               <columns>
-                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre" />
-                  <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Apellidos" />
-                  <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="Teléfono" />
-                  <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
-                  <TableColumn fx:id="accessColumn1" prefWidth="75.0" text="Acceso" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <HBox fx:id="accessControlBOx" alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
-               <children>
-                  <TextField fx:id="emailTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Introduce email a activar" styleClass="text-field" />
-                  <Button fx:id="authorizeBtn" mnemonicParsing="false" styleClass="button-a" text="Autorizar" />
+                  <Button fx:id="listEventsBtn" mnemonicParsing="false" styleClass="button-a" text="Listar eventos" />
                </children>
             </HBox>
          </children>
