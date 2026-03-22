@@ -8,13 +8,16 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ActivateEventController implements Initializable {
+public class ControlEventsViewController implements Initializable {
 
     @FXML
     private HBox accessControlBOx;
 
     @FXML
     private Button activateEvent;
+
+    @FXML
+    private Button finishEventBtn;
 
     @FXML
     private TableColumn<?, ?> dateInColumn;
