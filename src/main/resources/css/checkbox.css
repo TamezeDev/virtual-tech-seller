@@ -1,0 +1,34 @@
+/* CHECKBOX */
+.check-box {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.check-box:hover {
+    -fx-text-fill: -color-text-main;
+}
+.check-box .box {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-soft;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 3;
+}
+.check-box:hover .box {
+    -fx-border-color: -color-focus;
+    -fx-background-color: derive(-color-bg-card, 8%);
+}
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+.check-box:focused .box {
+    -fx-border-color: -color-focus;
+    -fx-border-width: 1.5;
+}
+.check-box:disabled {
+    -fx-opacity: 0.55;
+}
+.check-box:selected .box {
+     -fx-background-color: -color-primary;
+     -fx-border-color: -color-primary;
+ }
