@@ -5,6 +5,7 @@
     -color-bg-secondary: #16244D;
     -color-bg-card: #24356B;
     -color-border-soft: #4960A8;
+    -color-bg-control: #1D2B4F;
     /* GRADIENT */
     -color-gradient-start: #15265F;
     -color-gradient-middle: #9F81C0;
@@ -48,12 +49,15 @@
     -fx-font-size: 16px;
     -fx-text-fill: -color-text-secondary;
 }
+.label-b {
+    -fx-font-size: 18px;
+    -fx-text-fill: -color-warning;
+}
 .label-title {
     -fx-font-size: 60px;
     -fx-text-fill: -color-text-secondary;
     -fx-font-weight: bold;
 }
-
 
 /* BUTTONS */
 .button-a {
@@ -117,6 +121,38 @@
 .check-box:selected .box {
      -fx-background-color: -color-primary;
      -fx-border-color: -color-primary;
+ }
+
+ /* COMBO BOX */
+ .model-ComboBoxA.combo-box .list-cell {
+     -fx-background-color: -color-bg-card;
+     -fx-font-size: 16px;
+     -fx-text-fill: -color-text-secondary;
+     -fx-border-radius: 8px;
+ }
+ .model-ComboBoxA.combo-box:hover {
+     -fx-border-color: -color-focus;
+     -fx-border-radius: 8px;
+ }
+ .model-ComboBoxA.combo-box .arrow-button {
+     -fx-background-color: -color-bg-control;
+ }
+ .model-ComboBoxA.combo-box .arrow {
+     -fx-background-color: -color-text-main;
+
+ }
+ .model-ComboBoxA.combo-box-popup .list-view .list-cell {
+     -fx-background-color: -color-bg-card;
+         -fx-font-size: 16px;
+     -fx-text-fill: -color-text-secondary;
+ }
+ .model-ComboBoxA .combo-box-popup .list-view .list-cell:hover {
+     -fx-background-color: -color-focus;
+     -fx-text-fill: -color-text-main;
+ }
+ .model-ComboBoxA .combo-box-popup .list-view .list-cell:selected {
+     -fx-background-color:  -color-bg-selected;
+     -fx-text-fill: -color-text-main;
  }
 
 /* FIELDS */
