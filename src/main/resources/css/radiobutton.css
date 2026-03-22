@@ -1,0 +1,49 @@
+/* RADIO BUTTON */
+.availability-radio {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-padding: 4 6 4 6;
+}
+
+.availability-radio:hover {
+    -fx-text-fill: -color-text-main;
+}
+
+.availability-radio .radio {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-soft;
+    -fx-border-width: 2px;
+    -fx-border-radius: 100;
+    -fx-background-radius: 100;
+    -fx-padding: 4px;
+}
+
+.availability-radio:hover .radio {
+    -fx-border-color: -color-focus;
+    -fx-background-color: derive(-color-bg-card, 8%);
+}
+
+.availability-radio:selected .radio {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-primary;
+}
+
+.availability-radio .dot {
+    -fx-background-radius: 100;
+    -fx-padding: 5px;
+    -fx-background-color: transparent;
+}
+
+.availability-radio:selected .dot {
+    -fx-background-color: -color-primary;
+}
+
+.availability-radio:focused .radio {
+    -fx-border-color: -color-focus;
+    -fx-effect: dropshadow(gaussian, rgba(167,146,255,0.25), 8, 0.2, 0, 0);
+}
+
+.availability-radio:disabled {
+    -fx-opacity: 0.55;
+}
