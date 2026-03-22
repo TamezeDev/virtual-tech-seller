@@ -21,7 +21,7 @@
                <children>
                   <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
                      <graphic>
-                        <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/goback.png" />
                            </image>
