@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 public class PermissionViewController implements Initializable {
 
     @FXML
+    private TableColumn<?, ?> accessColumn1;
+
+    @FXML
     private HBox accessControlBOx;
 
     @FXML
@@ -20,16 +23,7 @@ public class PermissionViewController implements Initializable {
     private Button authorizeBtn;
 
     @FXML
-    private TableColumn<?, ?> dateHourColumn;
-
-    @FXML
-    private TableColumn<?, ?> dniColumn;
-
-    @FXML
     private TableColumn<?, ?> emailColumn;
-
-    @FXML
-    private TableColumn<?, ?> emailColumn1;
 
     @FXML
     private TextField emailTxt;
@@ -41,13 +35,19 @@ public class PermissionViewController implements Initializable {
     private Button gobackBtn;
 
     @FXML
+    private TableColumn<?, ?> lastNameColumn;
+
+    @FXML
     private Button listUsersBtn;
 
     @FXML
-    private Button rmPermissionBtn;
+    private TableColumn<?, ?> nameColumn;
 
     @FXML
-    private TableColumn<?, ?> typeColumn;
+    private TableColumn<?, ?> phoneColumn;
+
+    @FXML
+    private Button rmPermissionBtn;
 
     @FXML
     private TableView<?> usersTable;
