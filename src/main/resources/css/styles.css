@@ -6,6 +6,7 @@
     -color-bg-card: #24356B;
     -color-border-soft: #4960A8;
     -color-bg-control: #1D2B4F;
+    -color-bg-button: #565CB4;
     /* GRADIENT */
     -color-gradient-start: #15265F;
     -color-gradient-middle: #9F81C0;
@@ -58,15 +59,23 @@
     -fx-text-fill: -color-text-secondary;
     -fx-font-weight: bold;
 }
+.label-m{
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+.label-l {
+    -fx-font-size: 24px;
+    -fx-text-fill: -color-text-secondary;
+}
 
 /* BUTTONS */
 .button-a {
-    -fx-background-color: -color-secondary;
+    -fx-background-color: -color-bg-button;
     -fx-text-fill: -color-text-main;
     -fx-padding: 10px 10px 10px 10px;
     -fx-background-radius: 8;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-cursor: hand;
 }
 .button-a:hover {
