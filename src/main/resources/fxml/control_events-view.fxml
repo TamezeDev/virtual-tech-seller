@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.ActivateEventController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.ControlEventsViewController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="40.0" styleClass="panel-a">
          <children>
@@ -21,6 +21,7 @@
                <children>
                   <TextField fx:id="eventNameTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText=" Nombre del evento" styleClass="text-field" />
                   <Button fx:id="activateEvent" mnemonicParsing="false" styleClass="button-a" text="Activar evento" />
+                  <Button fx:id="finishEventBtn" mnemonicParsing="false" styleClass="button-a" text="Terminar evento" />
                </children>
             </HBox>
             <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
