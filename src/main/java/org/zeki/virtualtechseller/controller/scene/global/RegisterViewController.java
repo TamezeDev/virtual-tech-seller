@@ -46,7 +46,8 @@ public class RegisterViewController implements Initializable {
     @FXML
     private ComboBox<?> userRolCb;
 
-
+    @FXML
+    private Button gobackBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

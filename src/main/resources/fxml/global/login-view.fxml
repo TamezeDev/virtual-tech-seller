@@ -32,7 +32,7 @@
    <center>
       <VBox alignment="CENTER" spacing="50.0">
          <children>
-                <GridPane fx:id="loginPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="panel-a">
+                <GridPane fx:id="loginPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="panel-a">
 
                                 <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
@@ -98,8 +98,17 @@
                                 </HBox>
                         <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
       
-                                            <HBox alignment="CENTER" spacing="30.0">
+                                            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="359.0" spacing="30.0">
                                     <children>
+                              <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
+                                 <graphic>
+                                    <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/goback.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                                         <Button fx:id="loginBtn" mnemonicParsing="false" styleClass="button-a" text="Acceder" />
                                         <Button fx:id="clearBtn" mnemonicParsing="false" styleClass="button-a" text="Reiniciar" />
                                     </children>
