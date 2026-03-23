@@ -1,32 +1,34 @@
-package org.zeki.virtualtechseller.controller;
+package org.zeki.virtualtechseller.controller.scene.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RegisterViewController implements Initializable {
+public class ModifyUserViewController implements Initializable {
+    @FXML
+    private Button acceptBtn;
 
     @FXML
-    private Button clearBtn;
+    private HBox accessControlBOx;
 
     @FXML
     private TextField emailTxt;
 
     @FXML
+    private TextField emailTxt1;
+
+    @FXML
     private Label feedbackLabel;
 
     @FXML
+    private Button gobackBtn;
+
+    @FXML
     private TextField lastNameTxt;
-
-    @FXML
-    private Button loginBtn;
-
-    @FXML
-    private GridPane loginPane;
 
     @FXML
     private PasswordField passTxt;
@@ -38,15 +40,13 @@ public class RegisterViewController implements Initializable {
     private PasswordField repeatPassTxt;
 
     @FXML
+    private Button searchBtn;
+
+    @FXML
     private CheckBox showPassCb;
 
     @FXML
     private TextField userNameTxt;
-
-    @FXML
-    private ComboBox<?> userRolCb;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -62,7 +62,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.zeki.virtualtechseller/org.zeki.virtualtechseller.controller.InitStage
+                            <mainClass>org.zeki.virtualtechseller/org.zeki.virtualtechseller.controller.scene.global.InitStage
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -1,17 +1,15 @@
-package org.zeki.virtualtechseller.controller;
+package org.zeki.virtualtechseller.controller.scene.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddProductViewController implements Initializable {
+
     @FXML
     private Button addProductBtn;
 
@@ -31,11 +29,19 @@ public class AddProductViewController implements Initializable {
     private Button gobackBtn;
 
     @FXML
+    private RadioButton newProductRb;
+
+    @FXML
     private ImageView productImg;
 
     @FXML
     private TextField productNameTxt;
 
+    @FXML
+    private TextField stockTxt;
+
+    @FXML
+    private RadioButton usedProductRb;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
