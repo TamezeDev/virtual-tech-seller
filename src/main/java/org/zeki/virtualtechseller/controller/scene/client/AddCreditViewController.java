@@ -30,7 +30,6 @@ public class AddCreditViewController implements Initializable {
     @FXML
     private TextField quantityAddTxt;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

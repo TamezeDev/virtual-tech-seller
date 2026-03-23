@@ -30,6 +30,10 @@ public class LoginViewController implements Initializable {
 
     @FXML
     private TextField userNameTxt;
+
+    @FXML
+    private Button gobackBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
