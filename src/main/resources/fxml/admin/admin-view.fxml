@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.AdminViewController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.admin.AdminViewController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="40.0" styleClass="panel-a">
          <children>
@@ -20,7 +20,7 @@
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/salir.png" />
+                              <Image url="@../../img/salir.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -47,7 +47,7 @@
                         <Button fx:id="modUserBtn" layoutX="45.0" layoutY="188.0" mnemonicParsing="false" styleClass="button-a" text="Modificar datos" />
                      </children>
                      <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" />
+                        <Insets bottom="30.0" left="15.0" right="15.0" />
                      </padding>
                   </VBox>
                   <VBox alignment="TOP_CENTER" layoutX="555.0" layoutY="10.0" spacing="30.0" styleClass="card-a">
@@ -57,12 +57,11 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                            <padding>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="40.0" />
                            </padding>
                         </Label>
                         <Button fx:id="addEventBtn" mnemonicParsing="false" styleClass="button-a" text="Nuevo Evento" />
-                        <Button fx:id="activateEventBtn" mnemonicParsing="false" styleClass="button-a" text="Activar Evento" />
-                        <Button fx:id="closeEventBtn" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" styleClass="button-a" text="Acabar evento" />
+                        <Button fx:id="activateEventBtn" mnemonicParsing="false" styleClass="button-a" text="Gestion eventos" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="15.0" right="15.0" />
@@ -75,12 +74,11 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                            <padding>
-                              <Insets bottom="20.0" />
+                              <Insets bottom="40.0" />
                            </padding>
                         </Label>
                         <Button fx:id="addProductBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir producto" />
-                        <Button fx:id="asignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar producto" />
-                        <Button fx:id="removeProductBtn" layoutX="17.0" layoutY="48.0" mnemonicParsing="false" styleClass="button-a" text="Retirar producto " />
+                        <Button fx:id="asignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar productos" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" />
@@ -104,7 +102,7 @@
    <top>
       <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../img/logo.png" />
+            <Image url="@../../img/logo.png" />
          </image>
          <BorderPane.margin>
             <Insets top="30.0" />

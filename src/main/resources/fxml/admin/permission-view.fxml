@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.PermissionViewController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.admin.PermissionViewController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="40.0" styleClass="panel-a">
          <children>
@@ -23,7 +23,7 @@
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/goback.png" />
+                              <Image url="@../../img/goback.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -71,7 +71,7 @@
    <top>
       <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../img/logo.png" />
+            <Image url="@../../img/logo.png" />
          </image>
          <BorderPane.margin>
             <Insets top="30.0" />
@@ -79,7 +79,7 @@
       </ImageView>
    </top>
    <stylesheets>
-      <URL value="@../css/styles.css" />
-      <URL value="@../css/tables.css" />
+      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/tables.css" />
    </stylesheets>
 </BorderPane>

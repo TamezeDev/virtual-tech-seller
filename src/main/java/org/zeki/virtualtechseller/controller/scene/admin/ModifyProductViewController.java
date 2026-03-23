@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller;
+package org.zeki.virtualtechseller.controller.scene.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,13 +34,16 @@ public class ModifyProductViewController implements Initializable {
     private TextField nameTxt;
 
     @FXML
-    private RadioButton noAvailableRn;
+    private RadioButton noAvailableRb;
 
     @FXML
     private TextField priceTxt;
 
     @FXML
     private Button searchBtn;
+
+    @FXML
+    private TextField stockTxt;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

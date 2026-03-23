@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.ModifyProductViewController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.admin.ModifyProductViewController">
    <center>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" spacing="40.0" styleClass="panel-a">
          <children>
@@ -22,7 +22,7 @@
                      <graphic>
                         <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../img/goback.png" />
+                              <Image url="@../../img/goback.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -39,7 +39,12 @@
                <children>
                   <TextField fx:id="nameTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Nombre" styleClass="text-field" />
                   <TextField fx:id="descriptTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" promptText="Descripción" styleClass="text-field" />
-                  <TextField fx:id="priceTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="31.0" prefWidth="132.0" promptText="Precio base" styleClass="text-field" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <TextField fx:id="priceTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="31.0" prefWidth="132.0" promptText="Precio base" styleClass="text-field" />
+                        <TextField fx:id="stockTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="31.0" prefWidth="132.0" promptText="Stock" styleClass="text-field" />
+                     </children>
+                  </HBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label styleClass="label-m" text="Disponibilidad">
@@ -50,7 +55,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" spacing="100.0">
                            <children>
                               <RadioButton fx:id="availableRb" mnemonicParsing="false" styleClass="availability-radio" text="SI" />
-                              <RadioButton fx:id="noAvailableRn" mnemonicParsing="false" styleClass="availability-radio" text="No" />
+                              <RadioButton fx:id="noAvailableRb" mnemonicParsing="false" styleClass="availability-radio" text="No" />
                            </children>
                         </HBox>
                      </children>
@@ -77,7 +82,7 @@
    <top>
       <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../img/logo.png" />
+            <Image url="@../../img/logo.png" />
          </image>
          <BorderPane.margin>
             <Insets top="20.0" />
@@ -85,9 +90,9 @@
       </ImageView>
    </top>
    <stylesheets>
-      <URL value="@../css/styles.css" />
-      <URL value="@../css/checkbox.css" />
-      <URL value="@../css/comboBox.css" />
-      <URL value="@../css/radiobutton.css" />
+      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/checkbox.css" />
+      <URL value="@../../css/comboBox.css" />
+      <URL value="@../../css/radiobutton.css" />
    </stylesheets>
 </BorderPane>
