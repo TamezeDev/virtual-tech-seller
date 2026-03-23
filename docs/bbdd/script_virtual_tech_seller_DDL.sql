@@ -10,13 +10,13 @@ USE virtual_tech_seller_db;
 -- USERS
 CREATE TABLE
     users (
-        id_user INT AUTO_INCREMENTAL PRIMARY KEY,
+        id_user INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL,
         last_name VARCHAR(60) NOT NULL,
         phone VARCHAR(15),
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(150) NOT NULL,
-        rol VARCHAR(20) NOT NULL ENUM('CLIENT', 'ADMIN', 'MODERATOR'),
+        rol ENUM('CLIENT', 'ADMIN', 'MODERATOR') NOT NULL,
         created_date DATE NOT NULL DEFAULT CURRENT_DATE,
         credit DECIMAL(10, 2) NOT NULL DEFAULT 0.00 CHECK (credit >= 0),
         email_activate BOOLEAN NOT NULL DEFAULT FALSE
@@ -25,7 +25,7 @@ CREATE TABLE
 -- EXHIBITIONS
 CREATE TABLE
     exhibitions (
-        id_exhibition INT AUTO_INCREMENTAL PRIMARY KEY,
+        id_exhibition INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL UNIQUE,
         description VARCHAR(150) NOT NULL,
         init_date DATE NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE
 -- CATEGORIES
 CREATE TABLE
     categories (
-        id_category INT AUTO_INCREMENTAL PRIMARY KEY,
+        id_category INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(30) NOT NULL,
         description VARCHAR(150) NOT NULL
     );
@@ -44,7 +44,7 @@ CREATE TABLE
 -- PRODUCTS
 CREATE TABLE
     products (
-        id_product INT AUTO_INCREMENTAL PRIMARY KEY,
+        id_product INT AUTO_INCREMENT PRIMARY KEY,
         id_category INT NOT NULL,
         name VARCHAR(60) NOT NULL UNIQUE,
         description VARCHAR(250) NOT NULL,
@@ -71,6 +71,7 @@ CREATE TABLE
     products_exhibitions (
         id_product INT NOT NULL,
         id_exhibition INT NOT NULL,
+        quantity INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
         PRIMARY KEY (id_product, id_exhibition),
         CONSTRAINT fk_pe_product FOREIGN KEY (id_product) REFERENCES products (id_product) ON DELETE CASCADE,
         CONSTRAINT fk_pe_exhibition FOREIGN KEY (id_exhibition) REFERENCES exhibitions (id_exhibition) ON DELETE CASCADE
