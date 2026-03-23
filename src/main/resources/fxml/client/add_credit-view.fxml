@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.client.AddCreditViewController">
+   <center>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="501.0" spacing="40.0" styleClass="panel-a">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Label styleClass="label-m" text="Credito actual:" />
+                  <Label fx:id="creditLabel" styleClass="label-m" text="1000€" />
+               </children>
+            </HBox>
+            <TextField fx:id="quantityAddTxt" alignment="CENTER" maxWidth="-Infinity" prefHeight="32.0" prefWidth="216.0" promptText="Cantidad a ingresar" styleClass="text-field" />
+            <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
+            <HBox fx:id="accessControlBOx" alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/goback.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="acceptBtn" mnemonicParsing="false" styleClass="button-a" text="Confirmar cambios" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Label styleClass="label-a" text="Desarrollado por Ezequiel Tamayo - Versión: 1.0.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" right="50.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <top>
+      <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../img/logo.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
+   <stylesheets>
+      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/checkbox.css" />
+      <URL value="@../../css/comboBox.css" />
+   </stylesheets>
+</BorderPane>
