@@ -20,7 +20,7 @@
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/salir.png" />
+                              <Image url="@../../img/system/salir.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -102,7 +102,7 @@
    <top>
       <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../img/logo.png" />
+            <Image url="@../../img/system/logo.png" />
          </image>
          <BorderPane.margin>
             <Insets top="30.0" />

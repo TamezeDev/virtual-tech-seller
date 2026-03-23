@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0" version="29.6.4">
   <diagram name="Página-1" id="ZmMm75phYGozMyvEmQbK">
-    <mxGraphModel dx="2491" dy="2308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFB366)" math="0" shadow="0">
+    <mxGraphModel dx="2842" dy="2308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFB366)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -173,7 +173,7 @@
         <mxCell id="z2uRAjkeCn2i2T_VxJER-26" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" value="base_price" vertex="1">
           <mxGeometry height="40" width="90" x="480" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="z2uRAjkeCn2i2T_VxJER-27" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" value="status" vertex="1">
+        <mxCell id="z2uRAjkeCn2i2T_VxJER-27" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" value="available" vertex="1">
           <mxGeometry height="40" width="90" x="320" y="200" as="geometry" />
         </mxCell>
         <mxCell id="z2uRAjkeCn2i2T_VxJER-28" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" value="description" vertex="1">

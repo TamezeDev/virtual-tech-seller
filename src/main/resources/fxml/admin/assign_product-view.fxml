@@ -43,7 +43,7 @@
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/goback.png" />
+                              <Image url="@../../img/system/goback.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -72,7 +72,7 @@
    <top>
       <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../img/logo.png" />
+            <Image url="@../../img/system/logo.png" />
          </image>
          <BorderPane.margin>
             <Insets top="30.0" />
