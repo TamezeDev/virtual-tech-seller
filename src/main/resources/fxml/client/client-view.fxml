@@ -40,7 +40,7 @@
                   <Insets bottom="20.0" top="40.0" />
                </VBox.margin>
             </StackPane>
-            <HBox alignment="CENTER_LEFT" prefHeight="400.0" prefWidth="200.0" spacing="30.0">
+            <HBox prefHeight="400.0" prefWidth="200.0" spacing="30.0">
                <children>
                   <VBox alignment="CENTER" spacing="20.0">
                      <children>
@@ -63,15 +63,20 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <ScrollPane maxHeight="600.0" maxWidth="-Infinity" prefHeight="400.0" prefWidth="722.0">
-                     <content>
-                        <FlowPane fx:id="containerPane" alignment="CENTER" hgap="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="0.0" prefWidth="719.0" prefWrapLength="800.0" rowValignment="TOP" styleClass="panel-a" vgap="50.0" visible="false">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </FlowPane>
-                     </content>
-                  </ScrollPane>
+                  <VBox alignment="TOP_CENTER" spacing="30.0">
+                     <children>
+                        <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
+                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="730.0" styleClass="scroll-pane">
+                           <content>
+                              <FlowPane fx:id="containerPane" alignment="TOP_CENTER" hgap="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="720.0" prefWrapLength="800.0" rowValignment="TOP" styleClass="panel-a" vgap="50.0" visible="false">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </FlowPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
                </children>
                <VBox.margin>
                   <Insets />

@@ -4,24 +4,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientViewController implements Initializable {
+public class AddCreditViewController implements Initializable {
 
     @FXML
-    private Button accessEventBtn;
+    private Button acceptBtn;
 
     @FXML
-    private Button addCreditBtn;
-
-    @FXML
-    private Button cartItemBtn;
-
-    @FXML
-    private FlowPane containerPane;
+    private HBox accessControlBOx;
 
     @FXML
     private Label creditLabel;
@@ -30,13 +25,10 @@ public class ClientViewController implements Initializable {
     private Label feedbackLabel;
 
     @FXML
-    private Label fullNameLabel;
+    private Button gobackBtn;
 
     @FXML
-    private Button logoutBtn;
-
-    @FXML
-    private Button myProductsBtn;
+    private TextField quantityAddTxt;
 
 
     @Override
