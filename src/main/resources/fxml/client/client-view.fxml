@@ -50,13 +50,21 @@
                               <Label fx:id="creditLabel" layoutX="74.0" layoutY="26.0" styleClass="label-m" text="1000€" />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" maxHeight="-Infinity" spacing="30.0" styleClass="card-a">
+                        <VBox alignment="TOP_CENTER" prefHeight="309.0" prefWidth="224.0" spacing="30.0" styleClass="card-a">
                            <padding>
                               <Insets bottom="30.0" left="15.0" right="15.0" top="15.0" />
                            </padding>
                            <children>
                               <Button fx:id="accessEventBtn" mnemonicParsing="false" styleClass="button-a" text="Acceder a evento" />
-                              <Button fx:id="cartItemBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="161.0" styleClass="button-a" text="Ver mi carrito" />
+                              <Button fx:id="gobackBtn1" mnemonicParsing="false" styleClass="button-a" text=" Ver mi carrito">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/system/cart_item.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                               <Button fx:id="addCreditBtn" mnemonicParsing="false" styleClass="button-a" text="Recargar crédito" />
                               <Button fx:id="myProductsBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" styleClass="button-a" text="Mis productos" />
                            </children>
