@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.client.CatalogProductController">
+   <center>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" spacing="10.0" styleClass="panel-a">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="50.0">
+               <children>
+                  <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/system/goback.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cartItemsBtn" layoutX="259.0" layoutY="30.0" mnemonicParsing="false" styleClass="button-a" text=" Mi carrito">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/system/cart_item.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label styleClass="label-m" text="Catálogo de productos">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></Label>
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <Label styleClass="label-m" text="Credito:">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Label>
+                        <Label fx:id="creditLabel" styleClass="label-m" text="1000€" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <VBox alignment="TOP_CENTER" spacing="30.0">
+               <children>
+                  <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
+                  <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="860.0" styleClass="scroll-pane">
+                     <content>
+                        <FlowPane fx:id="productsBox" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="50.0" maxHeight="-Infinity" prefHeight="400.0" prefWidth="850.0" prefWrapLength="800.0" rowValignment="TOP" styleClass="panel-a" vgap="50.0">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Label styleClass="label-a" text="Desarrollado por Ezequiel Tamayo - Versión: 1.0.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" right="50.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <top>
+      <Label styleClass="label-title" text="Virtual Tech Seller" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <stylesheets>
+      <URL value="@../../css/global_styles.css" />
+      <URL value="@../../css/scroll.css" />
+   </stylesheets>
+</BorderPane>

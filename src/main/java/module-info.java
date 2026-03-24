@@ -2,6 +2,7 @@ module org.zeki.virtualtechseller {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires static lombok;
 
 
     opens org.zeki.virtualtechseller to javafx.fxml;
