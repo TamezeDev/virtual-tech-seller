@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.client.ClientMenuController">
+   <center>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="570.0" prefWidth="712.0" spacing="40.0" styleClass="panel-a">
+         <children>
+            <Label fx:id="fullNameLabel" styleClass="label-l" text="Bienvenid@ Nombre Apellido Apellido">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Label>
+            <VBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="500.0" spacing="30.0" styleClass="card-a">
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" spacing="30.0">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                           <children>
+                              <Label styleClass="label-l" text="Credito:" />
+                              <Label fx:id="creditLabel" styleClass="label-l" text="1000€" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="50.0">
+                           <children>
+                              <Button fx:id="accessEventBtn" mnemonicParsing="false" styleClass="button-a" text="Acceder a evento" />
+                              <Button fx:id="myProductsBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" styleClass="button-a" text="Mis productos" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="50.0">
+                           <children>
+                              <Button fx:id="gobackBtn1" mnemonicParsing="false" styleClass="button-a" text=" Ver mi carrito">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/system/cart_item.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="addCreditBtn" mnemonicParsing="false" styleClass="button-a" text="Recargar crédito" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+            <Button fx:id="logoutBtn" mnemonicParsing="false" styleClass="button-a" text="Cerrar sesión">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/system/salir.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Label styleClass="label-a" text="Desarrollado por Ezequiel Tamayo - Versión: 1.0.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" right="50.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <top>
+      <Label styleClass="label-title" text="Virtual Tech Seller" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="30.0" />
+         </BorderPane.margin></Label>
+   </top>
+   <stylesheets>
+      <URL value="@../../css/global_styles.css" />
+      <URL value="@../../css/scroll.css" />
+   </stylesheets>
+</BorderPane>
