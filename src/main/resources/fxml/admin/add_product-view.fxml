@@ -103,7 +103,7 @@
       </ImageView>
    </top>
    <stylesheets>
-      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/global_styles.css" />
       <URL value="@../../css/checkbox.css" />
       <URL value="@../../css/comboBox.css" />
       <URL value="@../../css/radiobutton.css" />

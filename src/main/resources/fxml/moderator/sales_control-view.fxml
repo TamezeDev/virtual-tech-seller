@@ -81,7 +81,7 @@
       </ImageView>
    </top>
    <stylesheets>
-      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/global_styles.css" />
       <URL value="@../../css/tables.css" />
       <URL value="@../../css/comboBox.css" />
    </stylesheets>

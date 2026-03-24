@@ -98,7 +98,7 @@
       </Label>
    </top>
    <stylesheets>
-      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/global_styles.css" />
       <URL value="@../../css/scroll.css" />
    </stylesheets>
 </BorderPane>

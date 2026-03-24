@@ -78,7 +78,7 @@
       </ImageView>
    </top>
    <stylesheets>
-      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/global_styles.css" />
       <URL value="@../../css/tables.css" />
    </stylesheets>
 </BorderPane>
