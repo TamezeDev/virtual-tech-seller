@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.scene.client.DetailProductViewController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="591.0" prefWidth="1023.0" spacing="20.0" styleClass="panel-a">
+         <children>
+            <VBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="50.0">
+                     <children>
+                        <ImageView fitHeight="249.0" fitWidth="331.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/products/retrobox.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox fx:id="descriptionBox" alignment="CENTER_LEFT" prefHeight="403.0" prefWidth="541.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="nameLabel" styleClass="label-m" text="Nombre:" />
+                              <Label fx:id="descriptionLabel" layoutX="33.0" layoutY="10.0" styleClass="label-m" text="Descripción:" />
+                              <Label fx:id="categoryLabel" layoutX="10.0" layoutY="82.0" styleClass="label-m" text="Categoría:" />
+                              <Label fx:id="priceLabel" layoutX="154.0" layoutY="34.0" styleClass="label-m" text="Precio:" />
+                              <Label fx:id="availableLabel" layoutX="178.0" layoutY="58.0" styleClass="label-m" text="Disponible: " />
+                           </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+            <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <Button fx:id="gobackBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="146.0" styleClass="button-a" text=" Regresar">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/system/goback.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="buyBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="130.0" styleClass="button-a" text="Comprar" />
+                  <Button fx:id="addCartItemBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir al carrito" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="5.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Label styleClass="label-a" text="Desarrollado por Ezequiel Tamayo - Versión: 1.0.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" right="50.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <stylesheets>
+      <URL value="@../../css/styles.css" />
+      <URL value="@../../css/checkbox.css" />
+      <URL value="@../../css/comboBox.css" />
+   </stylesheets>
+   <top>
+      <Label styleClass="label-title" text="Virtual Tech Seller" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+</BorderPane>
