@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -40,7 +42,14 @@ public class DetailProductViewController implements Initializable {
 
     @FXML
     private Label priceLabel;
-    
+
+    @FXML
+    private HBox quantityBox;
+
+    @FXML
+    private TextField quantityTxt;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
