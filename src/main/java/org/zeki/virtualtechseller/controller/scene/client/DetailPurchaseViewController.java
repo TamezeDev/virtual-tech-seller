@@ -4,24 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DetailProductViewController implements Initializable {
-
-    @FXML
-    private Button addCartItemBtn;
-
-    @FXML
-    private Label availableLabel;
-
-    @FXML
-    private Button buyBtn;
+public class DetailPurchaseViewController implements Initializable {
 
     @FXML
     private Label categoryLabel;
@@ -31,6 +20,9 @@ public class DetailProductViewController implements Initializable {
 
     @FXML
     private Label descriptionLabel;
+
+    @FXML
+    private Label eventLabel;
 
     @FXML
     private Label feedbackLabel;
@@ -45,13 +37,16 @@ public class DetailProductViewController implements Initializable {
     private Label priceLabel;
 
     @FXML
-    private HBox quantityBox;
-
-    @FXML
-    private TextField quantityTxt;
-
-    @FXML
     private ImageView productImg;
+
+    @FXML
+    private Label purchaseDatelabel;
+
+    @FXML
+    private Label quantityLabel;
+
+    @FXML
+    private Label tipoProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -1,6 +1,7 @@
 module org.zeki.virtualtechseller {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
 
     opens org.zeki.virtualtechseller to javafx.fxml;
