@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.moderator;
+package org.zeki.virtualtechseller.controller.moderator;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,10 +7,10 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class VisitControlController implements Initializable {
+public class SalesControlController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> eventNameColumn;
+    private TableColumn<?, ?> eventColumn;
 
     @FXML
     private Button exportXmlBtn;
@@ -28,25 +28,28 @@ public class VisitControlController implements Initializable {
     private Button importXmlBtn;
 
     @FXML
-    private TableColumn<?, ?> lastAccessColumn;
+    private Button listSalesBtn;
 
     @FXML
-    private Button listVisitsBtn;
+    private TableColumn<?, ?> priceColumn;
+
+    @FXML
+    private TableColumn<?, ?> productColumn;
 
     @FXML
     private TableColumn<?, ?> quantityColumn;
 
     @FXML
+    private TableColumn<?, ?> saleDateColumn;
+
+    @FXML
+    private TableView<?> salesTable;
+
+    @FXML
     private Button showFilteredBtn;
 
     @FXML
-    private TableColumn<?, ?> userLastNameColumn;
-
-    @FXML
-    private TableColumn<?, ?> userNameColumn;
-
-    @FXML
-    private TableView<?> visitsTable;
+    private TableColumn<?, ?> userColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

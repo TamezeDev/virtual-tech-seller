@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.global;
+package org.zeki.virtualtechseller.controller.global;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,19 +8,13 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable {
-
-    @FXML
-    private Button clearBtn;
-
-    @FXML
-    private TextField emailTxt;
+public class LoginController implements Initializable {
 
     @FXML
     private Label feedbackLabel;
 
     @FXML
-    private TextField lastNameTxt;
+    private Button clearBtn;
 
     @FXML
     private Button loginBtn;
@@ -32,19 +26,10 @@ public class RegisterController implements Initializable {
     private PasswordField passTxt;
 
     @FXML
-    private TextField phoneTxt;
-
-    @FXML
-    private PasswordField repeatPassTxt;
-
-    @FXML
     private CheckBox showPassCb;
 
     @FXML
     private TextField userNameTxt;
-
-    @FXML
-    private ComboBox<?> userRolCb;
 
     @FXML
     private Button gobackBtn;

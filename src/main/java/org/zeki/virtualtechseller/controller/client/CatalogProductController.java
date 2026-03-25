@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.client;
+package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,19 +9,11 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientMenuController implements Initializable {
+public class CatalogProductController implements Initializable {
+
 
     @FXML
-    private Button accessEventBtn;
-
-    @FXML
-    private Button addCreditBtn;
-
-    @FXML
-    private Button cartItemBtn;
-
-    @FXML
-    private FlowPane containerPane;
+    private Button cartItemsBtn;
 
     @FXML
     private Label creditLabel;
@@ -30,14 +22,10 @@ public class ClientMenuController implements Initializable {
     private Label feedbackLabel;
 
     @FXML
-    private Label fullNameLabel;
+    private Button gobackBtn;
 
     @FXML
-    private Button logoutBtn;
-
-    @FXML
-    private Button myProductsBtn;
-
+    private FlowPane productsBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

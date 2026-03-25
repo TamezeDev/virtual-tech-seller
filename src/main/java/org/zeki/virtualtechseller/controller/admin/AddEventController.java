@@ -1,22 +1,28 @@
-package org.zeki.virtualtechseller.controller.scene.client;
+package org.zeki.virtualtechseller.controller.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CatalogProductController implements Initializable {
-
-
-    @FXML
-    private Button cartItemsBtn;
+public class AddEventController implements Initializable {
 
     @FXML
-    private Label creditLabel;
+    private Button createEventBtn;
+
+    @FXML
+    private TextField descriptionTxt;
+
+    @FXML
+    private DatePicker endDatePk;
+
+    @FXML
+    private TextField eventNameTxt;
 
     @FXML
     private Label feedbackLabel;
@@ -25,7 +31,8 @@ public class CatalogProductController implements Initializable {
     private Button gobackBtn;
 
     @FXML
-    private FlowPane productsBox;
+    private DatePicker initDatePk;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

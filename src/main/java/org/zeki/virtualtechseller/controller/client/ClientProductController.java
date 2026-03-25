@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.client;
+package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,16 +9,7 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EventSelectController implements Initializable {
-
-    @FXML
-    private FlowPane availableEventsBox;
-
-    @FXML
-    private Label creditLabel;
-
-    @FXML
-    private FlowPane endEventsBox;
+public class ClientProductController implements Initializable {
 
     @FXML
     private Label feedbackLabel;
@@ -27,7 +18,8 @@ public class EventSelectController implements Initializable {
     private Button gobackBtn;
 
     @FXML
-    private FlowPane nextEventsBox;
+    private FlowPane productsBox;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
