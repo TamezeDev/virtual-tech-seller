@@ -9,10 +9,10 @@ import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.io.IOException;
 
-public class MainApp extends Application {
+public class MainStageApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ViewPath.START_VIEW));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(ViewPath.LOGIN_VIEW));
         Scene scene = new Scene(fxmlLoader.load(), 1200 , 800);
         stage.setResizable(false);
         stage.setTitle("Virtual Tech Seller");

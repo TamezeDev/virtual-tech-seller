@@ -14,7 +14,6 @@ public class SceneHelper {
     private SceneHelper() {
     }
 
-
     public static void changeScene(Node node, String viewPath) {
         // GLOBAL FUNCTION TO CHANGE AMONG SCENES
         try {
@@ -34,7 +33,6 @@ public class SceneHelper {
         } catch (IOException e) {
             AlertHelper.showErrorAlert("Error de escena", "Error en la carga de la escena");
         }
-
 
     }
 }

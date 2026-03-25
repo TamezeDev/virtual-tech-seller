@@ -32,7 +32,7 @@
    <center>
       <VBox alignment="CENTER" spacing="50.0">
          <children>
-                <GridPane fx:id="loginPane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="panel-a">
+                <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="panel-a">
 
                                 <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
@@ -72,14 +72,21 @@
                                         </ImageView>
                                     </children>
                                 </StackPane>
-      
-                                            <StackPane alignment="CENTER_LEFT" prefHeight="50.0">
+
+                                <StackPane alignment="CENTER_LEFT" prefHeight="50.0">
                                     <children>
                                         <PasswordField fx:id="passTxt" prefHeight="40.0" promptText="Password" styleClass="password-field">
                                             <padding>
                                                 <Insets left="35.0" />
                                             </padding>
                                         </PasswordField>
+
+                                        <TextField fx:id="visiblePasswordTxt" managed="false" prefHeight="40.0" promptText="Password" visible="false">
+                                            <padding>
+                                                <Insets left="35.0" />
+                                            </padding>
+                                        </TextField>
+
                                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../img/system/key_icon.png" />
