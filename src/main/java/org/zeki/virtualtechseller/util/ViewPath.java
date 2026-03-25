@@ -3,7 +3,7 @@ package org.zeki.virtualtechseller.util;
 public  class ViewPath {
     // FXML - GLOBAL
     public static final String START_VIEW = "/fxml/global/start-view.fxml";
-    public static final String LOGIN_VIEW = "/fxml/global/loin-view.fxml";
+    public static final String LOGIN_VIEW = "/fxml/global/login-view.fxml";
     public static final String REGISTER_VIEW = "/fxml/global/register-view.fxml";
     // FXML - CLIENT
     public static final String CLIENT_MENU_VIEW = "/fxml/client/client-menu-view.fxml";
