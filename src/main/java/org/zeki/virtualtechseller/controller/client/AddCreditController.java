@@ -1,28 +1,25 @@
-package org.zeki.virtualtechseller.controller.scene.admin;
+package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddEventController implements Initializable {
+public class AddCreditController implements Initializable {
 
     @FXML
-    private Button createEventBtn;
+    private Button acceptBtn;
 
     @FXML
-    private TextField descriptionTxt;
+    private HBox accessControlBOx;
 
     @FXML
-    private DatePicker endDatePk;
-
-    @FXML
-    private TextField eventNameTxt;
+    private Label creditLabel;
 
     @FXML
     private Label feedbackLabel;
@@ -31,8 +28,7 @@ public class AddEventController implements Initializable {
     private Button gobackBtn;
 
     @FXML
-    private DatePicker initDatePk;
-
+    private TextField quantityAddTxt;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

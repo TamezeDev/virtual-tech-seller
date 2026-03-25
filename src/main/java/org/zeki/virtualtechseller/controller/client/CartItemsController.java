@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.client;
+package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +9,16 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientProductController implements Initializable {
+public class CartItemsController implements Initializable {
+
+    @FXML
+    private Button buyBtn;
+
+    @FXML
+    private Button clearBtn;
+
+    @FXML
+    private Label creditLabel;
 
     @FXML
     private Label feedbackLabel;

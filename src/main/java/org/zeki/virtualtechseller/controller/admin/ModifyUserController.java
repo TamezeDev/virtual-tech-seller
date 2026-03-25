@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.controller.scene.admin;
+package org.zeki.virtualtechseller.controller.admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

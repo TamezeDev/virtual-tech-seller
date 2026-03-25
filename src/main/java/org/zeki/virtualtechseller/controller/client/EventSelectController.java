@@ -1,25 +1,24 @@
-package org.zeki.virtualtechseller.controller.scene.client;
+package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddCreditController implements Initializable {
+public class EventSelectController implements Initializable {
 
     @FXML
-    private Button acceptBtn;
-
-    @FXML
-    private HBox accessControlBOx;
+    private FlowPane availableEventsBox;
 
     @FXML
     private Label creditLabel;
+
+    @FXML
+    private FlowPane endEventsBox;
 
     @FXML
     private Label feedbackLabel;
@@ -28,7 +27,7 @@ public class AddCreditController implements Initializable {
     private Button gobackBtn;
 
     @FXML
-    private TextField quantityAddTxt;
+    private FlowPane nextEventsBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
