@@ -1,5 +1,6 @@
 package org.zeki.virtualtechseller.util;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 
@@ -14,9 +15,10 @@ public class FormularyHelper {
         fieldList.forEach(TextInputControl::clear);
     }
 
-    public static boolean emptyFields(List<TextField> fieldList) {
+    public static boolean emptyFields(List<TextField> fieldList, Label label) {
         for (TextField textField : fieldList) {
             if (textField.getText().isBlank()) {
+                label.setText("Debe completar todos los campos");
                 return true;
             }
         }

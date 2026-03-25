@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.controller.global;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.FormularyHelper;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
@@ -53,13 +54,12 @@ public class LoginController implements Initializable {
 
     private void initGUI() {
         visiblePasswordTxt.textProperty().bindBidirectional(passTxt.textProperty());
+        groupTextFields();
     }
-
 
     private void actions() {
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.START_VIEW));
-        loginBtn.setOnAction(event -> {
-        });
+        loginBtn.setOnAction(event -> checkLogin());
         clearBtn.setOnAction(event -> clearFields());
         showPassCb.selectedProperty().addListener((obs, oldValue, selected) -> {
             // INTERCHANGE BETWEEN HIDE OR VISIBLE TXT
@@ -67,7 +67,6 @@ public class LoginController implements Initializable {
             visiblePasswordTxt.setManaged(selected);
             passTxt.setVisible(!selected);
             passTxt.setManaged(!selected);
-
         });
     }
 
@@ -78,11 +77,14 @@ public class LoginController implements Initializable {
     }
 
     private void clearFields() {
-        groupTextFields();
         FormularyHelper.clearFields(textFields);
     }
 
-    private void checkLogin(){
-        
+    private void checkLogin() {
+        if (FormularyHelper.emptyFields(textFields, feedbackLabel)) {
+            Feedback.showFeedback(feedbackLabel);
+            return;
+        }
+
     }
 }

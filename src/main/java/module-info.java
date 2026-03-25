@@ -5,6 +5,7 @@ module org.zeki.virtualtechseller {
     requires static lombok;
     requires java.sql;
     requires java.desktop;
+    requires javafx.base;
 
 
     opens org.zeki.virtualtechseller to javafx.fxml;
