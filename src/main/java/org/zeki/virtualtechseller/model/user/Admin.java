@@ -1,6 +1,5 @@
 package org.zeki.virtualtechseller.model.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import org.zeki.virtualtechseller.model.product.Product;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public final class Admin extends User implements ProductManager, UserManager, ExhibitionManager {
 
     @Override
