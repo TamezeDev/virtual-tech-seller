@@ -3,6 +3,7 @@ module org.zeki.virtualtechseller {
     requires javafx.fxml;
     requires javafx.graphics;
     requires static lombok;
+    requires java.sql;
 
 
     opens org.zeki.virtualtechseller to javafx.fxml;
@@ -13,4 +14,6 @@ module org.zeki.virtualtechseller {
     opens org.zeki.virtualtechseller.controller.scene.admin to javafx.fxml;
     exports org.zeki.virtualtechseller.controller.scene.moderator;
     opens org.zeki.virtualtechseller.controller.scene.moderator to javafx.fxml;
+    exports org.zeki.virtualtechseller.app;
+    opens org.zeki.virtualtechseller.app to javafx.fxml;
 }

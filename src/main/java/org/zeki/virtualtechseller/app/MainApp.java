@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller;
+package org.zeki.virtualtechseller.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import org.zeki.virtualtechseller.controller.scene.global.LoginController;
 
 import java.io.IOException;
 
-public class InitStage extends Application {
+public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/fxml/global/start-view.fxml"));

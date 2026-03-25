@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.session;
+package org.zeki.virtualtechseller.app;
 
 import org.zeki.virtualtechseller.model.user.User;
 
