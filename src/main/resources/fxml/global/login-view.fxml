@@ -57,7 +57,7 @@
                             <children>
                                 <StackPane prefHeight="50.0">
                                     <children>
-                                        <TextField fx:id="userNameTxt" prefHeight="40.0" promptText="Usuario" styleClass="text-field">
+                                        <TextField fx:id="userEmailTxt" prefHeight="40.0" promptText="Usuario" styleClass="text-field">
                                             <padding>
                                                 <Insets left="35.0" />
                                             </padding>

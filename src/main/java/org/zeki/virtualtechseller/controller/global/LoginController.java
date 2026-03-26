@@ -3,6 +3,8 @@ package org.zeki.virtualtechseller.controller.global;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.zeki.virtualtechseller.app.AppContext;
+import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.FormularyHelper;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -34,12 +36,13 @@ public class LoginController implements Initializable {
     private CheckBox showPassCb;
 
     @FXML
-    private TextField userNameTxt;
+    private TextField userEmailTxt;
 
     @FXML
     private Button gobackBtn;
 
     private List<TextField> textFields;
+    private UserService userService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +53,7 @@ public class LoginController implements Initializable {
 
     private void instances() {
         textFields = new ArrayList<>();
+        userService = AppContext.getInstance().getUserService();
     }
 
     private void initGUI() {
@@ -60,7 +64,7 @@ public class LoginController implements Initializable {
     private void actions() {
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.START_VIEW));
         loginBtn.setOnAction(event -> checkLogin());
-        clearBtn.setOnAction(event -> clearFields());
+        clearBtn.setOnAction(event -> FormularyHelper.clearFields(textFields));
         showPassCb.selectedProperty().addListener((obs, oldValue, selected) -> {
             // INTERCHANGE BETWEEN HIDE OR VISIBLE TXT
             visiblePasswordTxt.setVisible(selected);
@@ -71,13 +75,9 @@ public class LoginController implements Initializable {
     }
 
     private void groupTextFields() {
-        textFields.add(userNameTxt);
+        textFields.add(userEmailTxt);
         textFields.add(passTxt);
         textFields.add(visiblePasswordTxt);
-    }
-
-    private void clearFields() {
-        FormularyHelper.clearFields(textFields);
     }
 
     private void checkLogin() {
@@ -85,6 +85,7 @@ public class LoginController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
+        userService.login(userEmailTxt.getText(), passTxt.getText());
 
     }
 }
