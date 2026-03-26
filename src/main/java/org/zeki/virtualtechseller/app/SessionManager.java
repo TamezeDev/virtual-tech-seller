@@ -1,7 +1,9 @@
 package org.zeki.virtualtechseller.app;
 
+import lombok.Getter;
 import org.zeki.virtualtechseller.model.user.User;
 
+@Getter
 public class SessionManager {
     // Singleton pattern to get only one user for session
     private static SessionManager INSTANCE;

@@ -4,9 +4,9 @@ import org.zeki.virtualtechseller.repository.ProductRepository;
 
 public class ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductService() {
+        this.productRepository = new ProductRepository();
     }
 }

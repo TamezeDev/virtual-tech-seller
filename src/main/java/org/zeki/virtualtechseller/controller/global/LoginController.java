@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
+import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.model.user.User;
+import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.FormularyHelper;
@@ -85,7 +88,13 @@ public class LoginController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
-        userService.login(userEmailTxt.getText(), passTxt.getText());
-
+        ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
+        if (!resultUser.isSuccess()) {
+            feedbackLabel.setText(resultUser.getMessage());
+            Feedback.showFeedback(feedbackLabel);
+            return;
+        }
+        SessionManager.getInstance().login(resultUser.getData());
+        SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
     }
 }

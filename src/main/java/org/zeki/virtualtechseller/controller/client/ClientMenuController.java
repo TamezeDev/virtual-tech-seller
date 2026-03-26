@@ -4,13 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientMenuController implements Initializable {
-
     @FXML
     private Button accessEventBtn;
 
@@ -21,13 +19,7 @@ public class ClientMenuController implements Initializable {
     private Button cartItemBtn;
 
     @FXML
-    private FlowPane containerPane;
-
-    @FXML
     private Label creditLabel;
-
-    @FXML
-    private Label feedbackLabel;
 
     @FXML
     private Label fullNameLabel;
@@ -37,7 +29,6 @@ public class ClientMenuController implements Initializable {
 
     @FXML
     private Button myProductsBtn;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

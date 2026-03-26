@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.app;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
@@ -20,20 +21,16 @@ public final class AppContext {
 
     private final ConnectionManager connectionManager;
 
-    private UserRepository userRepository;
-    private ProductRepository productRepository;
-    private ExhibitionRepository exhibitionRepository;
-
     private UserService userService;
     private ProductService productService;
     private ExhibitionService exhibitionService;
 
-    private AppContext() {
+    public AppContext() {
         connectionManager = new ConnectionManager();
     }
 
     public static AppContext getInstance() {
-        if (INSTANCE == null){
+        if (INSTANCE == null) {
             INSTANCE = new AppContext();
         }
         return INSTANCE;
@@ -41,24 +38,21 @@ public final class AppContext {
 
     public UserService getUserService() {
         if (userService == null) {
-            if (userRepository == null) userRepository = new UserRepository(connectionManager);
-            userService = new UserService(userRepository);
+            userService = new UserService();
         }
         return userService;
     }
 
     public ProductService getProductService() {
         if (productService == null) {
-            if (productRepository == null) productRepository = new ProductRepository(connectionManager);
-            productService = new ProductService(productRepository);
+            productService = new ProductService();
         }
         return productService;
     }
 
     public ExhibitionService getExhibitionService() {
         if (exhibitionService == null) {
-            if (exhibitionRepository == null) exhibitionRepository = new ExhibitionRepository(connectionManager);
-            exhibitionService = new ExhibitionService(exhibitionRepository);
+            exhibitionService = new ExhibitionService();
         }
         return exhibitionService;
     }

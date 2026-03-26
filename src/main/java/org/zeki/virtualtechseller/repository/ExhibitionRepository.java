@@ -1,12 +1,13 @@
 package org.zeki.virtualtechseller.repository;
 
+import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 
 public class ExhibitionRepository {
 
-    private ConnectionManager connectionManager;
+    private final ConnectionManager connectionManager;
 
-    public ExhibitionRepository(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
+    public ExhibitionRepository() {
+        this.connectionManager = AppContext.getInstance().getConnectionManager();
     }
 }

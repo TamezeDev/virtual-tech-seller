@@ -46,7 +46,7 @@
                         </HBox>
                         <HBox alignment="CENTER" spacing="50.0">
                            <children>
-                              <Button fx:id="gobackBtn1" mnemonicParsing="false" styleClass="button-a" text=" Ver mi carrito">
+                              <Button fx:id="cartItemBtn" mnemonicParsing="false" styleClass="button-a" text=" Ver mi carrito">
                                  <graphic>
                                     <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
