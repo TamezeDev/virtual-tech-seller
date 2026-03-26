@@ -12,7 +12,7 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.client.ClientMenuController">
    <center>
-      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="570.0" prefWidth="712.0" spacing="40.0" styleClass="panel-a">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="570.0" prefWidth="712.0" spacing="30.0" styleClass="panel-a">
          <children>
             <Label fx:id="fullNameLabel" styleClass="label-l" text="Bienvenid@ Nombre Apellido Apellido">
                <VBox.margin>
@@ -60,11 +60,12 @@
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets bottom="15.0" top="15.0" />
                      </VBox.margin>
                   </VBox>
                </children>
             </VBox>
+            <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
             <Button fx:id="logoutBtn" mnemonicParsing="false" styleClass="button-a" text="Cerrar sesión">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
@@ -75,6 +76,9 @@
                </graphic>
             </Button>
          </children>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
       </VBox>
    </center>
    <bottom>

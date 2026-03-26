@@ -21,7 +21,6 @@ public class CartService {
         List<CartItem> cartItems = cartRespository.getCartItem(currentUser);
         if (cartItems != null) {
             ((Client) currentUser).setCartItems(cartItems);
-            System.out.println(((Client) currentUser).getCartItems().getFirst().getProduct().getName());
         }
     }
 }

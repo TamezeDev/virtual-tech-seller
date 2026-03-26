@@ -30,6 +30,10 @@ public class ClientMenuController implements Initializable {
     @FXML
     private Button myProductsBtn;
 
+    @FXML
+    private Label feedbackLabel;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

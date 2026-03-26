@@ -1,15 +1,12 @@
 package org.zeki.virtualtechseller.service;
 
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.model.product.CartItem;
-import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.model.user.UserFactory;
 import org.zeki.virtualtechseller.repository.UserRepository;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class UserService {
 

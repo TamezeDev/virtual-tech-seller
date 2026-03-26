@@ -2,16 +2,9 @@ package org.zeki.virtualtechseller.app;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.database.ConnectionManager;
-import org.zeki.virtualtechseller.repository.ExhibitionRepository;
-import org.zeki.virtualtechseller.repository.ProductRepository;
-import org.zeki.virtualtechseller.repository.UserRepository;
-import org.zeki.virtualtechseller.service.CartService;
-import org.zeki.virtualtechseller.service.ExhibitionService;
-import org.zeki.virtualtechseller.service.ProductService;
-import org.zeki.virtualtechseller.service.UserService;
+import org.zeki.virtualtechseller.service.*;
 
 @Getter
 @Setter
@@ -26,6 +19,7 @@ public final class AppContext {
     private ProductService productService;
     private ExhibitionService exhibitionService;
     private CartService cartService;
+    private SaleService saleService;
 
     public AppContext() {
         connectionManager = new ConnectionManager();
@@ -64,5 +58,12 @@ public final class AppContext {
             cartService = new CartService();
         }
         return cartService;
+    }
+
+    public SaleService getSaleService() {
+        if (this.saleService == null) {
+            saleService = new SaleService();
+        }
+        return saleService;
     }
 }

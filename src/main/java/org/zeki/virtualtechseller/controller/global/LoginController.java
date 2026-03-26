@@ -10,6 +10,7 @@ import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.*;
 
@@ -48,6 +49,7 @@ public class LoginController implements Initializable {
     private List<TextField> textFields;
     private UserService userService;
     private CartService cartService;
+    private SaleService saleService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,6 +62,7 @@ public class LoginController implements Initializable {
         textFields = new ArrayList<>();
         userService = AppContext.getInstance().getUserService();
         cartService = AppContext.getInstance().getCartService();
+        saleService = AppContext.getInstance().getSaleService();
     }
 
     private void initGUI() {
@@ -102,6 +105,7 @@ public class LoginController implements Initializable {
             SessionManager.getInstance().login(resultUser.getData());
             if (resultUser.getData() instanceof Client) {
                 cartService.setCartItemList(resultUser.getData());
+                saleService.setSalesList(resultUser.getData());
             }
             SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
         } catch (DBConnectionException e) {   // SHOW CONNECTION ALERT TO USER
