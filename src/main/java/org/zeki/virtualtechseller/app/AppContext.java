@@ -8,6 +8,7 @@ import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
 import org.zeki.virtualtechseller.repository.ProductRepository;
 import org.zeki.virtualtechseller.repository.UserRepository;
+import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 import org.zeki.virtualtechseller.service.ProductService;
 import org.zeki.virtualtechseller.service.UserService;
@@ -24,6 +25,7 @@ public final class AppContext {
     private UserService userService;
     private ProductService productService;
     private ExhibitionService exhibitionService;
+    private CartService cartService;
 
     public AppContext() {
         connectionManager = new ConnectionManager();
@@ -55,5 +57,12 @@ public final class AppContext {
             exhibitionService = new ExhibitionService();
         }
         return exhibitionService;
+    }
+
+    public CartService getCartService() {
+        if (cartService == null) {
+            cartService = new CartService();
+        }
+        return cartService;
     }
 }

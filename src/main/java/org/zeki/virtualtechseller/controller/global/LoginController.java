@@ -5,15 +5,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
+import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
-import org.zeki.virtualtechseller.util.Feedback;
-import org.zeki.virtualtechseller.util.FormularyHelper;
-import org.zeki.virtualtechseller.util.SceneHelper;
-import org.zeki.virtualtechseller.util.ViewPath;
+import org.zeki.virtualtechseller.util.*;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -46,6 +47,7 @@ public class LoginController implements Initializable {
 
     private List<TextField> textFields;
     private UserService userService;
+    private CartService cartService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,6 +59,7 @@ public class LoginController implements Initializable {
     private void instances() {
         textFields = new ArrayList<>();
         userService = AppContext.getInstance().getUserService();
+        cartService = AppContext.getInstance().getCartService();
     }
 
     private void initGUI() {
@@ -88,13 +91,25 @@ public class LoginController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
-        ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
-        if (!resultUser.isSuccess()) {
-            feedbackLabel.setText(resultUser.getMessage());
-            Feedback.showFeedback(feedbackLabel);
-            return;
+        try {
+            ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
+
+            if (!resultUser.isSuccess()) {
+                feedbackLabel.setText(resultUser.getMessage());
+                Feedback.showFeedback(feedbackLabel);
+                return;
+            }
+            SessionManager.getInstance().login(resultUser.getData());
+            if (resultUser.getData() instanceof Client) {
+                cartService.setCartItemList(resultUser.getData());
+            }
+            SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
+        } catch (DBConnectionException e) {   // SHOW CONNECTION ALERT TO USER
+            AlertHelper.showDBConnectAlert();
+
+        } catch (SQLException e) {
+            AlertHelper.showSQLAlert(); // SHOW SQL ALERT TO USER
+            e.printStackTrace();
         }
-        SessionManager.getInstance().login(resultUser.getData());
-        SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
     }
 }

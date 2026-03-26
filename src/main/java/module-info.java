@@ -7,11 +7,10 @@ module org.zeki.virtualtechseller {
     requires java.desktop;
     requires javafx.base;
 
-
     opens org.zeki.virtualtechseller to javafx.fxml;
     exports org.zeki.virtualtechseller;
     opens org.zeki.virtualtechseller.controller.client to javafx.fxml;
-    exports  org.zeki.virtualtechseller.controller.client;
+    exports org.zeki.virtualtechseller.controller.client;
     exports org.zeki.virtualtechseller.controller.global;
     opens org.zeki.virtualtechseller.controller.global to javafx.fxml;
     exports org.zeki.virtualtechseller.controller.admin;

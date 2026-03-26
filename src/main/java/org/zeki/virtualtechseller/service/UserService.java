@@ -1,9 +1,15 @@
 package org.zeki.virtualtechseller.service;
 
+import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.model.product.CartItem;
+import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.model.user.UserFactory;
 import org.zeki.virtualtechseller.repository.UserRepository;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class UserService {
 
@@ -13,7 +19,7 @@ public class UserService {
         this.userRepository = new UserRepository();
     }
 
-    public ResultService<User> login(String email, String pass) {
+    public ResultService<User> login(String email, String pass) throws DBConnectionException, SQLException {
         // CHECK EMAIL
         if (!userRepository.emailExist(email)) {
             return new ResultService<>(false, "Email no registrado", null);
@@ -21,7 +27,7 @@ public class UserService {
         // CHECK CREDENTIALS
         else if (!userRepository.matchCredentials(email, pass)) {
             return new ResultService<>(false, "Credenciales incorrectas", null);
-        } else if (!userRepository.EmailActive(email)) {
+        } else if (!userRepository.emailActive(email)) {
             return new ResultService<>(false, "No autorizado, contacte con un admin", null);
         }
         // GET USER ROLE
@@ -34,6 +40,7 @@ public class UserService {
         User currentUser = userFactory.createUser(role);
         currentUser.setEmail(email);
         userRepository.getUserData(currentUser);
+
         return new ResultService<>(true, "Login correcto", currentUser);
     }
 }
