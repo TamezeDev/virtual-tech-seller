@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewProduct extends Product {
+public final class NewProduct extends Product {
 
     private int stock;
     private LocalDate releaseDate;

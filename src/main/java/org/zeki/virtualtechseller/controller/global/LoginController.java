@@ -90,18 +90,20 @@ public class LoginController implements Initializable {
     }
 
     private void checkLogin() {
+        // CHECK EMPTY FIELDS
         if (FormularyHelper.emptyFields(textFields, feedbackLabel)) {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
         try {
             ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
-
+            // ERROR CREDENTIALS
             if (!resultUser.isSuccess()) {
                 feedbackLabel.setText(resultUser.getMessage());
                 Feedback.showFeedback(feedbackLabel);
                 return;
             }
+            // SET CURRENT USER
             SessionManager.getInstance().login(resultUser.getData());
             if (resultUser.getData() instanceof Client) {
                 cartService.setCartItemList(resultUser.getData());

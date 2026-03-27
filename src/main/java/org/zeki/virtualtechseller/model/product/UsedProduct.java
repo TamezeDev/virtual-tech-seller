@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsedProduct extends Product {
+public final class UsedProduct extends Product {
 
     private double discountPercentage;
     private String remark;
