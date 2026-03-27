@@ -48,8 +48,6 @@ public class LoginController implements Initializable {
 
     private List<TextField> textFields;
     private UserService userService;
-    private CartService cartService;
-    private SaleService saleService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,8 +59,6 @@ public class LoginController implements Initializable {
     private void instances() {
         textFields = new ArrayList<>();
         userService = AppContext.getInstance().getUserService();
-        cartService = AppContext.getInstance().getCartService();
-        saleService = AppContext.getInstance().getSaleService();
     }
 
     private void initGUI() {
@@ -105,11 +101,8 @@ public class LoginController implements Initializable {
             }
             // SET CURRENT USER
             SessionManager.getInstance().login(resultUser.getData());
-            if (resultUser.getData() instanceof Client) {
-                cartService.setCartItemList(resultUser.getData());
-                saleService.setSalesList(resultUser.getData());
-            }
             SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
+            
         } catch (DBConnectionException e) {   // SHOW CONNECTION ALERT TO USER
             AlertHelper.showDBConnectAlert();
 

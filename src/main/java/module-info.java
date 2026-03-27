@@ -6,6 +6,7 @@ module org.zeki.virtualtechseller {
     requires java.sql;
     requires java.desktop;
     requires javafx.base;
+    requires org.zeki.virtualtechseller;
 
     opens org.zeki.virtualtechseller to javafx.fxml;
     exports org.zeki.virtualtechseller;

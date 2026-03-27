@@ -27,9 +27,11 @@ public class SessionManager {
 
     public void logout() {
         this.currentUser = null;
+        AppContext.getInstance().getConnectionManager().getDatabaseConfig().useDefaultConnection();
     }
 
     public boolean isLogged() {
         return currentUser != null;
     }
+
 }

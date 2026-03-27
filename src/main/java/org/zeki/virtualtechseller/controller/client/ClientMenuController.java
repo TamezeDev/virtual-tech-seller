@@ -13,6 +13,7 @@ import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.UserService;
+import org.zeki.virtualtechseller.util.AlertHelper;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
@@ -22,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ClientMenuController implements Initializable {
-
+    // COMPONENTS
     @FXML
     private Button accessEventBtn;
 
@@ -46,8 +47,11 @@ public class ClientMenuController implements Initializable {
 
     @FXML
     private Label feedbackLabel;
-
+    // USER
     private Client currentUser;
+    // SERVICES
+    private CartService cartService;
+    private SaleService saleService;
 
 
     @Override
@@ -58,6 +62,9 @@ public class ClientMenuController implements Initializable {
     }
 
     private void instances() {
+        AppContext.getInstance().getConnectionManager().getDatabaseConfig().useClientConnection(); // CHANGE DB USER
+        cartService = AppContext.getInstance().getCartService();
+        saleService = AppContext.getInstance().getSaleService();
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
     }
@@ -72,6 +79,7 @@ public class ClientMenuController implements Initializable {
             SessionManager.getInstance().logout();
             SceneHelper.changeScene(logoutBtn, ViewPath.START_VIEW);
         });
+
         addCreditBtn.setOnAction(event -> SceneHelper.changeScene(addCreditBtn, ViewPath.ADD_CREDIT_VIEW));
         cartItemBtn.setOnAction(event -> {
             if (currentUser.getCartItems().isEmpty()) {
@@ -107,5 +115,17 @@ public class ClientMenuController implements Initializable {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void loadCartUser() {
+        try {
+            saleService.setSalesList(currentUser);
+            cartService.setCartItemList(currentUser);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+        } catch (SQLException e) {
+            AlertHelper.showSQLAlert(); // SHOW SQL ALERT TO USER
+
+        }
     }
 }
