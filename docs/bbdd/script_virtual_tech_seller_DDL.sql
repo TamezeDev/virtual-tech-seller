@@ -18,8 +18,11 @@ CREATE TABLE
         password VARCHAR(150) NOT NULL,
         rol ENUM('CLIENT', 'ADMIN', 'MODERATOR') NOT NULL,
         created_date DATE NOT NULL DEFAULT CURRENT_DATE,
-        credit DECIMAL(10, 2) NOT NULL DEFAULT 0.00 CHECK (credit >= 0),
-        email_activate BOOLEAN NOT NULL DEFAULT FALSE
+        credit DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+        email_activate BOOLEAN NOT NULL DEFAULT FALSE,
+        CONSTRAINT chk_user_credit
+        CHECK ((rol = 'CLIENT' AND credit >= 0) OR (rol IN ('ADMIN', 'MODERATOR') AND credit = 0.00)
+        )
     );
 
 -- EXHIBITIONS
