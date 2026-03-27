@@ -67,7 +67,7 @@ public final class Client extends User implements Purchasable {
 
     @Override
     public void rechargeCredit(double quantity) {
-
+        setCredit(getCredit() + quantity);
     }
 
     @Override

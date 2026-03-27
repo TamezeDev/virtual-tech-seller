@@ -20,10 +20,10 @@ public class AlertHelper {
         );
     }
 
-    public static void showSQLAlert() {
+    public static void showSQLAlert(String message) {
         showErrorAlert(
                 "Error SQL",
-                "Se produjo un error en la consulta de datos"
+                message
         );
     }
 }

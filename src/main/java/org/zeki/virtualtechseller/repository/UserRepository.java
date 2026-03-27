@@ -104,4 +104,15 @@ public class UserRepository {
         }
     }
 
+    public boolean updateUserCredit(User user, double credit) throws DBConnectionException, SQLException {
+        String query = "UPDATE users SET credit = credit + ? WHERE id_user = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setDouble(1, credit);
+            ps.setDouble(2, user.getIdUser());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
 }

@@ -47,12 +47,13 @@ public class ClientMenuController implements Initializable {
 
     @FXML
     private Label feedbackLabel;
+
+    @FXML
+    private Label numItemCartLabel;
     // USER
     private Client currentUser;
     // SERVICES
     private CartService cartService;
-    private SaleService saleService;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,7 +65,6 @@ public class ClientMenuController implements Initializable {
     private void instances() {
         AppContext.getInstance().getConnectionManager().getDatabaseConfig().useClientConnection(); // CHANGE DB USER
         cartService = AppContext.getInstance().getCartService();
-        saleService = AppContext.getInstance().getSaleService();
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
     }
@@ -72,6 +72,10 @@ public class ClientMenuController implements Initializable {
     private void initGUI() {
         fullNameLabel.setText("Bienvenid@: " + currentUser.getFullName());
         creditLabel.setText(currentUser.getCredit() + " €");
+        if (!currentUser.getCartItems().isEmpty()) {
+            numItemCartLabel.setText("X" + currentUser.getCartItems().size() + " ITEM");
+            numItemCartLabel.setVisible(true);
+        }
     }
 
     private void actions() {
@@ -96,36 +100,19 @@ public class ClientMenuController implements Initializable {
             SceneHelper.changeScene(myProductsBtn, ViewPath.CLIENT_PRODUCT_VIEW);
         });
         accessEventBtn.setOnAction(event -> SceneHelper.changeScene(accessEventBtn, ViewPath.EVENT_SELECT_VIEW));
+    }
 
+    private void loadCartUser() {
+        cartService.setCartItemList(currentUser);
     }
 
     //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
         CartService cartService = AppContext.getInstance().getCartService();
-        SaleService saleService = AppContext.getInstance().getSaleService();
-        try {
-            ResultService<User> resultService = userService.login("client5@virtualtechseller.com", "client123");
-            SessionManager.getInstance().login(resultService.getData());
-            cartService.setCartItemList(resultService.getData());
-            saleService.setSalesList(resultService.getData());
-        } catch (DBConnectionException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        ResultService<User> resultService = userService.login("client5@virtualtechseller.com", "client123");
+        SessionManager.getInstance().login(resultService.getData());
+        cartService.setCartItemList(resultService.getData());
 
-    }
-
-    private void loadCartUser() {
-        try {
-            saleService.setSalesList(currentUser);
-            cartService.setCartItemList(currentUser);
-        } catch (DBConnectionException e) {
-            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
-        } catch (SQLException e) {
-            AlertHelper.showSQLAlert(); // SHOW SQL ALERT TO USER
-
-        }
     }
 }

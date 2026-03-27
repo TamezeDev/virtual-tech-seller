@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.client.ClientMenuController">
@@ -46,16 +47,27 @@
                         </HBox>
                         <HBox alignment="CENTER" spacing="50.0">
                            <children>
-                              <Button fx:id="cartItemBtn" mnemonicParsing="false" styleClass="button-a" text=" Ver mi carrito">
-                                 <graphic>
-                                    <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../img/system/cart_item.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="addCreditBtn" mnemonicParsing="false" styleClass="button-a" text="Recargar crédito" />
+                              <StackPane alignment="BOTTOM_CENTER" prefHeight="79.0" prefWidth="171.0">
+                                 <children>
+                                    <Button fx:id="cartItemBtn" mnemonicParsing="false" prefHeight="64.0" prefWidth="172.0" styleClass="button-a" text=" Ver mi carrito">
+                                       <graphic>
+                                          <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../img/system/cart_item.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <StackPane.margin>
+                                          <Insets bottom="20.0" />
+                                       </StackPane.margin>
+                                    </Button>
+                                    <Label fx:id="numItemCartLabel" text="Label" styleClass="label-a" visible="false"/>
+                                 </children>
+                              </StackPane>
+                              <Button fx:id="addCreditBtn" mnemonicParsing="false" styleClass="button-a" text="Recargar crédito">
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </HBox.margin></Button>
                            </children>
                         </HBox>
                      </children>

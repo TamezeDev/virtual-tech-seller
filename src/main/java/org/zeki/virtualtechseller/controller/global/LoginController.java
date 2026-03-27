@@ -91,24 +91,15 @@ public class LoginController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
-        try {
-            ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
-            // ERROR CREDENTIALS
-            if (!resultUser.isSuccess()) {
-                feedbackLabel.setText(resultUser.getMessage());
-                Feedback.showFeedback(feedbackLabel);
-                return;
-            }
-            // SET CURRENT USER
-            SessionManager.getInstance().login(resultUser.getData());
-            SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
-            
-        } catch (DBConnectionException e) {   // SHOW CONNECTION ALERT TO USER
-            AlertHelper.showDBConnectAlert();
-
-        } catch (SQLException e) {
-            AlertHelper.showSQLAlert(); // SHOW SQL ALERT TO USER
-            e.printStackTrace();
+        ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
+        // ERROR CREDENTIALS
+        if (!resultUser.isSuccess()) {
+            feedbackLabel.setText(resultUser.getMessage());
+            Feedback.showFeedback(feedbackLabel);
+            return;
         }
+        // SET CURRENT USER
+        SessionManager.getInstance().login(resultUser.getData());
+        SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
     }
 }
