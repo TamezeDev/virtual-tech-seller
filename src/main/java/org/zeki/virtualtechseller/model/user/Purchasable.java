@@ -8,7 +8,6 @@ import org.zeki.virtualtechseller.model.product.Sale;
 import java.util.List;
 
 public interface Purchasable {
-    void buyProduct(Product product, int quantity);
 
     void rechargeCredit(double quantity);
 
@@ -24,6 +23,5 @@ public interface Purchasable {
 
     List<Sale> buyCart(List<CartItem> cartItems);
 
-    List<Sale> getPurchaseList();
 
 }

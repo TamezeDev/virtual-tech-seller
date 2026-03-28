@@ -96,7 +96,7 @@ public class ClientMenuController implements Initializable {
             SceneHelper.changeScene(cartItemBtn, ViewPath.CART_ITEMS_VIEW);
         });
         myProductsBtn.setOnAction(event -> {
-            if (currentUser.getPurchaseList().isEmpty()) {
+            if (currentUser.getSales().isEmpty()) {
                 feedbackLabel.setText("Aún no ha hecho ninguna compra");
             }
             SceneHelper.changeScene(myProductsBtn, ViewPath.CLIENT_PRODUCT_VIEW);

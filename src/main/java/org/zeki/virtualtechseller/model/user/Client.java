@@ -69,16 +69,6 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public List<Sale> getPurchaseList() {
-        return sales;
-    }
-
-    @Override
-    public void buyProduct(Product product, int quantity) {
-
-    }
-
-    @Override
     public void rechargeCredit(double quantity) {
         setCredit(getCredit() + quantity);
     }

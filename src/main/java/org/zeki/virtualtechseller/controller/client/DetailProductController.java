@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.zeki.virtualtechseller.model.product.Product;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,8 +54,15 @@ public class DetailProductController implements Initializable {
     @FXML
     private ImageView productImg;
 
+    // PRODUCT
+    private Product product;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public  void setCurrentProduct(Product product){
+        this.product = product;
     }
 }

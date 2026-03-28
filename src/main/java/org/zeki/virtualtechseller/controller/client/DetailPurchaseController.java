@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.zeki.virtualtechseller.model.product.Product;
+import org.zeki.virtualtechseller.model.product.Sale;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,8 +50,28 @@ public class DetailPurchaseController implements Initializable {
     @FXML
     private Label tipoProduct;
 
+    // SALE
+    private Sale sale;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instances();
+        initGUI();
+        actions();
+    }
 
+    private void instances() {
+
+    }
+
+    private void initGUI() {
+    }
+
+    private void actions() {
+
+    }
+
+    public  void setCurrentSale(Sale sale){
+        this.sale = sale;
     }
 }
