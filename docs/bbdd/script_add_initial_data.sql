@@ -15,26 +15,26 @@ INSERT INTO categories(name, description) VALUES
 
 
 INSERT INTO products(id_product, name, description, base_price, url_image, available, id_category) VALUES
-    (1, 'Samsung Galaxy A56', '5G, Grey, Móvil Android, 256 GB, 8 GB RAM, 6,7 LCD, Processor, 5000 mAh', 280.50, 'src/main/resources/img/products/SamsungGalaxyA56.jpg', TRUE, 1),
-    (2, 'XIAOMI Redmi Note 14', 'Negro medianoche, Móvil Android, 128 GB, 6 GB RAM, 6,67 AMOLED FHD+, MediaTek Helio G99-Ultra, 5510 mAh', 123.49, 'src/main/resources/img/products/XIAOMIRedmiNote14.jpg', TRUE, 1),
-    (3, 'iPhone 17 Pro Max', '256 GB, 5G, 6.3 OLED Super Retina XDR, Chip A19 Pro, iOS', 1220.23, 'src/main/resources/img/products/iPhone17ProMax.jpg', TRUE, 1),
-    (4, 'Samsung Galaxy A36 5G', 'Negro, 256 GB, 8 GB RAM, 6.7 FHD+ Super AMOLED, Qualcomm Snapdragon 6 Gen 3, 5000 mAh, Android 15', 200.00, 'src/main/resources/img/products/SamsungGalaxyA365G.jpg', TRUE, 1),
-    (5, 'MY ARCADE DGUNL-3283', 'Maquina Arcade con el fantástico juego Street Fighter II', 60.89, 'src/main/resources/img/products/MYARCADEDGUNL-3283.jpg', TRUE, 4),
-    (6, 'Forspoken', 'Videojuego de consola PS5', 10.45, 'src/main/resources/img/products/PS5Forspoken.jpg', FALSE, 2),
-    (7, 'Zombie Cure Lab', 'Videojuego de consola PS5', 12.90, 'src/main/resources/img/products/ZombieCureLab.jpg', TRUE, 2),
-    (8, 'Final Fantasy VII', 'Remake Intergrade & Rebirth PS5', 28.45, 'src/main/resources/img/products/FinalFantasyVII.jpg', FALSE, 2),
-    (9, 'Leyendas Pokémon: Z-A', 'Videojuego de la consola Nintendo Switch 2', 28.45, 'src/main/resources/img/products/LeyendasPokemonZA.jpg', TRUE, 2),
-    (10, 'MARS GAMING MPB1000SIM', 'Fuente de alimentación PC MPB1000SIM MARS GAMING, Negro', 65.34, 'src/main/resources/img/products/FuentedealimentacionPC.jpg', TRUE, 3),
-    (11, 'MARS GAMING MF3AR', 'Ventilador PC', 10.00, 'src/main/resources/img/products/VentiladorPc.jpg', TRUE, 3),
-    (12, 'TP-Link ARCHER TX50E', 'Tarjeta de red, AX3000, Wi-Fi 6, Bluetooth 5.0 PCIe, Negro', 23.57, 'src/main/resources/img/products/TarjetaRed.jpg', FALSE, 3),
-    (13, 'KINGSTON ADATA', 'Memoria RAM', 100.50, 'src/main/resources/img/products/MemoriaRam.jpg', TRUE, 3),
-    (14, 'Consola PS5 Pro', 'PlayStation 5 Pro 2TB + Juego EA Sports FC 26 Digital, 2 TB, blanco', 550.45, 'src/main/resources/img/products/PS5PRO.jpg', TRUE, 4),
-    (15, 'RETROBOX 33K', 'Consola MANALEX RETROBOX33K, 64 GB, Azul', 50.03, 'src/main/resources/img/products/retrobox.jpg', TRUE, 4),
-    (16, 'Nintendo Switch 2', '7.9 Full HD HDR 120 Hz, 256 GB, Magnetic Joy-Con 2 con modo ratón, Azul y Rojo Neón', 350.44, 'src/main/resources/img/products/switch2.jpg', TRUE, 4),
-    (17, 'Xbox Series S', 'MICROSOFT EP2-00644, 1 TB, Blanco', 350.44, 'src/main/resources/img/products/xboxS.jpg', FALSE, 4),
-    (18, 'MARS GAMING MSAURA', 'Altavoces para PC - 15 W, 2.0 canales, Bluetooth, Negro', 10.12, 'src/main/resources/img/products/altavocesPc.jpg', TRUE, 5),
-    (19, 'Epson EcoTank ET-2865', 'Impresora multifunción tinta - Color, Tinta recargable, Negro', 133.65, 'src/main/resources/img/products/impresoraEpson.jpg', TRUE, 5),
-    (20, 'Xiaomi G34 34', 'Monitor gaming - Xiaomi G34, WQHD, 1 ms, 180 Hz, FreeSync, DisplayPort x2, HDMI x2, Negro', 200.12, 'src/main/resources/img/products/monitorXiaomi.jpg', TRUE, 5);
+    (1, 'Samsung Galaxy A56', '5G, Grey, Móvil Android, 256 GB, 8 GB RAM, 6,7 LCD, Processor, 5000 mAh', 280.50, '/img/products/SamsungGalaxyA56.jpg', TRUE, 1),
+    (2, 'XIAOMI Redmi Note 14', 'Negro medianoche, Móvil Android, 128 GB, 6 GB RAM, 6,67 AMOLED FHD+, MediaTek Helio G99-Ultra, 5510 mAh', 123.49, '/img/products/XIAOMIRedmiNote14.jpg', TRUE, 1),
+    (3, 'iPhone 17 Pro Max', '256 GB, 5G, 6.3 OLED Super Retina XDR, Chip A19 Pro, iOS', 1220.23, '/img/products/iPhone17ProMax.jpg', TRUE, 1),
+    (4, 'Samsung Galaxy A36 5G', 'Negro, 256 GB, 8 GB RAM, 6.7 FHD+ Super AMOLED, Qualcomm Snapdragon 6 Gen 3, 5000 mAh, Android 15', 200.00, '/img/products/SamsungGalaxyA365G.jpg', TRUE, 1),
+    (5, 'MY ARCADE DGUNL-3283', 'Maquina Arcade con el fantástico juego Street Fighter II', 60.89, '/img/products/MYARCADEDGUNL-3283.jpg', TRUE, 4),
+    (6, 'Forspoken', 'Videojuego de consola PS5', 10.45, '/img/products/PS5Forspoken.jpg', FALSE, 2),
+    (7, 'Zombie Cure Lab', 'Videojuego de consola PS5', 12.90, '/img/products/ZombieCureLab.jpg', TRUE, 2),
+    (8, 'Final Fantasy VII', 'Remake Intergrade & Rebirth PS5', 28.45, '/img/products/FinalFantasyVII.jpg', FALSE, 2),
+    (9, 'Leyendas Pokémon: Z-A', 'Videojuego de la consola Nintendo Switch 2', 28.45, '/img/products/LeyendasPokemonZA.jpg', TRUE, 2),
+    (10, 'MARS GAMING MPB1000SIM', 'Fuente de alimentación PC MPB1000SIM MARS GAMING, Negro', 65.34, '/img/products/FuentedealimentacionPC.jpg', TRUE, 3),
+    (11, 'MARS GAMING MF3AR', 'Ventilador PC', 10.00, '/img/products/VentiladorPc.jpg', TRUE, 3),
+    (12, 'TP-Link ARCHER TX50E', 'Tarjeta de red, AX3000, Wi-Fi 6, Bluetooth 5.0 PCIe, Negro', 23.57, '/img/products/TarjetaRed.jpg', FALSE, 3),
+    (13, 'KINGSTON ADATA', 'Memoria RAM', 100.50, '/img/products/MemoriaRam.jpg', TRUE, 3),
+    (14, 'Consola PS5 Pro', 'PlayStation 5 Pro 2TB + Juego EA Sports FC 26 Digital, 2 TB, blanco', 550.45, '/img/products/PS5PRO.jpg', TRUE, 4),
+    (15, 'RETROBOX 33K', 'Consola MANALEX RETROBOX33K, 64 GB, Azul', 50.03, '/img/products/retrobox.jpg', TRUE, 4),
+    (16, 'Nintendo Switch 2', '7.9 Full HD HDR 120 Hz, 256 GB, Magnetic Joy-Con 2 con modo ratón, Azul y Rojo Neón', 350.44, '/img/products/switch2.jpg', TRUE, 4),
+    (17, 'Xbox Series S', 'MICROSOFT EP2-00644, 1 TB, Blanco', 350.44, '/img/products/xboxS.jpg', FALSE, 4),
+    (18, 'MARS GAMING MSAURA', 'Altavoces para PC - 15 W, 2.0 canales, Bluetooth, Negro', 10.12, '/img/products/altavocesPc.jpg', TRUE, 5),
+    (19, 'Epson EcoTank ET-2865', 'Impresora multifunción tinta - Color, Tinta recargable, Negro', 133.65, '/img/products/impresoraEpson.jpg', TRUE, 5),
+    (20, 'Xiaomi G34 34', 'Monitor gaming - Xiaomi G34, WQHD, 1 ms, 180 Hz, FreeSync, DisplayPort x2, HDMI x2, Negro', 200.12, '/img/products/monitorXiaomi.jpg', TRUE, 5);
 
 
 INSERT INTO new_products(id_product, stock, release_date) VALUES

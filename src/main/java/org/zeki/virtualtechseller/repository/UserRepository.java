@@ -104,15 +104,32 @@ public class UserRepository {
         }
     }
 
-    public boolean updateUserCredit(User user, double credit) throws DBConnectionException, SQLException {
+    public boolean updateUserCredit(Client client, double credit) throws DBConnectionException, SQLException {
         String query = "UPDATE users SET credit = credit + ? WHERE id_user = ?;";
 
         try (Connection connection = connectionManager.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setDouble(1, credit);
-            ps.setDouble(2, user.getIdUser());
+            ps.setDouble(2, client.getIdUser());
 
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean enoughCredit(double amount, Client client) throws DBConnectionException, SQLException {
+        String query = "SELECT credit >= ? FROM users WHERE id_user = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setDouble(1, amount);
+            ps.setInt(2, client.getIdUser());
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+            return false;
         }
     }
 }

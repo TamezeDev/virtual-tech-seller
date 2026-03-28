@@ -1,6 +1,7 @@
 package org.zeki.virtualtechseller.util;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class AlertHelper {
     private AlertHelper() {
@@ -25,5 +26,13 @@ public class AlertHelper {
                 "Error SQL",
                 message
         );
+    }
+
+    public static boolean choiceAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setContentText(content);
+
+        return alert.showAndWait().get() == ButtonType.OK;
     }
 }

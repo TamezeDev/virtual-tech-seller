@@ -36,12 +36,13 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public void removeFromCart(Product product) {
-        cartItems.remove(product);
+    public void removeFromCart(CartItem cartItem) {
+        cartItems.remove(cartItem);
     }
 
     @Override
     public void clearCart() {
+        cartItems.clear();
 
     }
 

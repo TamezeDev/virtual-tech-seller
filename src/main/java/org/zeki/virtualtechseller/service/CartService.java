@@ -1,5 +1,6 @@
 package org.zeki.virtualtechseller.service;
 
+import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.user.Client;
@@ -30,6 +31,39 @@ public class CartService {
         } catch (SQLException e) {
             String message = "Error obteniendo datos de la cesta del usuario";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+        }
+    }
+
+    public boolean removeSingleCartItemFromDb(CartItem cartItem) {
+        try {
+
+            Client client = (Client) SessionManager.getInstance().getCurrentUser();
+            return cartRespository.removeUserCartItem(cartItem, client);
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+
+        } catch (SQLException e) {
+            String message = "Error eliminando del servidor producto del carrito";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
+    }
+
+    public boolean removeAllCartItemsFromDB() {
+        try {
+            Client client = (Client) SessionManager.getInstance().getCurrentUser();
+            return cartRespository.removeAllUserCartItems(client);
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+
+        } catch (SQLException e) {
+            String message = "Error eliminando del servidor los productos de la cesta del usuario";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
         }
     }
 }

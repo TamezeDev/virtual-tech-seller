@@ -32,6 +32,7 @@ public class SceneHelper {
 
         } catch (IOException e) {
             AlertHelper.showErrorAlert("Error de escena", "Error en la carga de la escena");
+            e.printStackTrace();
         }
 
     }

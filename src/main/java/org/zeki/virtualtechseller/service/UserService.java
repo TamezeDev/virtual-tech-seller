@@ -56,15 +56,15 @@ public class UserService {
     }
 
     public String addCredit(double credit) {
-        Client user = (Client) SessionManager.getInstance().getCurrentUser();
+        Client client = (Client) SessionManager.getInstance().getCurrentUser();
 
         try {
             // UPDATE CREDIT
-            if (!userRepository.updateUserCredit(user, credit)) {
+            if (!userRepository.updateUserCredit(client, credit)) {
                 return "Hubo un error al añadir el crédito";
             }
             // SET NEW CREDIT
-            user.rechargeCredit(credit);
+            client.rechargeCredit(credit);
             return "Operación realizada con éxito";
 
         } catch (DBConnectionException e) {

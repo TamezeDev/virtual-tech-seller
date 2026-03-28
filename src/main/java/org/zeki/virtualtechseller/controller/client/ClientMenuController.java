@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.CartService;
@@ -67,6 +68,7 @@ public class ClientMenuController implements Initializable {
         cartService = AppContext.getInstance().getCartService();
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
+        loadCartUser();
     }
 
     private void initGUI() {
@@ -109,10 +111,10 @@ public class ClientMenuController implements Initializable {
     //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
-        CartService cartService = AppContext.getInstance().getCartService();
         ResultService<User> resultService = userService.login("client5@virtualtechseller.com", "client123");
         SessionManager.getInstance().login(resultService.getData());
-        cartService.setCartItemList(resultService.getData());
-
+        Exhibition exhibition = new Exhibition();
+        exhibition.setIdExhibition(1);
+        ((Client) resultService.getData()).setCurrentExhibition(exhibition);
     }
 }

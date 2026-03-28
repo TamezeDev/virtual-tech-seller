@@ -4,6 +4,7 @@ import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.product.*;
+import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 
 import java.sql.Connection;
@@ -69,5 +70,27 @@ public class CartRespository {
             }
         }
         return cartItems;
+    }
+
+    public boolean removeUserCartItem(CartItem cartItem, Client client) throws DBConnectionException, SQLException {
+        String sql = "DELETE FROM cart_items WHERE id_user = ? AND id_product = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, client.getIdUser());
+            ps.setInt(2, cartItem.getProduct().getIdProduct());
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean removeAllUserCartItems(Client client) throws DBConnectionException, SQLException {
+        String sql = "DELETE FROM cart_items WHERE id_user = ?";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, client.getIdUser());
+            return ps.executeUpdate() > 0;
+        }
+
     }
 }
