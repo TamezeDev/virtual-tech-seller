@@ -84,20 +84,17 @@ public class CartItemsController implements Initializable {
 
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.CLIENT_MENU_VIEW));
 
-        clearBtn.setOnAction(event -> {
-            if (cartService.removeAllCartItemsFromDB()) {
-                currentUser.clearCart();
-                cartItems.clear();
-                reloadItems();
-            }
-        });
-        buyBtn.setOnAction(event -> {
-            if (checkCredit() && checkAvailableStock()){
+        clearBtn.setOnAction(event -> requestRemoveAllCartItems());
 
-            }
+        buyBtn.setOnAction(event -> requestCheckOutCart());
 
-        });
         cartItems.addListener((ListChangeListener<CartItem>) change -> reloadItems());
+    }
+
+    private void clearCartItems() {
+        currentUser.clearCart();
+        cartItems.clear();
+        reloadItems();
     }
 
     private boolean checkAvailableStock() {
@@ -106,6 +103,7 @@ public class CartItemsController implements Initializable {
         if (result == null) {
             return false;
         } else if (!result.isSuccess()) {
+            // SHOW FEEDBACK
             String message = result.getMessage() + result.getData().getProduct().getName();
             feedbackLabel.setText(message);
             Feedback.showFeedback(feedbackLabel);
@@ -114,12 +112,8 @@ public class CartItemsController implements Initializable {
         return true;
     }
 
-    private boolean checkCredit() {
+    private boolean checkCredit(double amountSale) {
         // CHECK CREDIT
-        double amountSale = 0;
-        for (CartItem cartItem : cartItems) {
-            amountSale += cartItem.calculateSubtotal();
-        }
         if (Boolean.FALSE.equals(userService.enoughCredit(amountSale))) {
             feedbackLabel.setText("Crédito insuficiente para realizar la operación");
             Feedback.showFeedback(feedbackLabel);
@@ -132,6 +126,43 @@ public class CartItemsController implements Initializable {
         //RELOAD CART BOX CONTENT
         productsBox.getChildren().clear();
         setCartItems();
+    }
+
+    private void requestCheckOutCart() {
+        String alertTitle = "Procedimiento de compra";
+        String content = "Se va a proceder al pago de los productos, ¿Continuar?";
+        if (AlertHelper.choiceAlert(alertTitle, content)) {
+            // CHECK CREDIT AND STOCK
+            double amountSale = cartItems.stream().mapToDouble(CartItem::calculateSubtotal).sum();
+            if (checkCredit(amountSale) && checkAvailableStock()) {
+                // DO TRANSACTION
+                ResultService<Void> resultTransaction = cartService.checkoutCart(currentUser.getCartItems(), amountSale);
+                feedbackLabel.setText(resultTransaction.getMessage());
+                Feedback.showFeedback(feedbackLabel);
+                // SUCCESS
+                if (resultTransaction.isSuccess()) {
+                    currentUser.decreaseCredit(amountSale);
+                    creditLabel.setText(String.format("%.2f €", currentUser.getCredit()));
+                    clearCartItems();
+                }
+            }
+        }
+    }
+
+    private void requestRemoveAllCartItems() {
+        String alertTitle = "Eliminar del carrito";
+        String content = "¿Realmente quieres eliminar todos los productos de la cesta?";
+        if (AlertHelper.choiceAlert(alertTitle, content)) {
+
+            if (cartService.removeAllCartItemsFromDB()) {
+                clearCartItems();
+                feedbackLabel.setText("Productos eliminados del carrito correctamente");
+
+            } else {
+                feedbackLabel.setText("Error al eliminar los productos del carrito");
+            }
+            Feedback.showFeedback(feedbackLabel);
+        }
     }
 
     private void requestRemoveCartItem(CartItem cartItem) {
@@ -201,7 +232,9 @@ public class CartItemsController implements Initializable {
             removeItem.setOnAction(event -> requestRemoveCartItem(cartItem));
 
         }
-        feedbackLabel.setText("Productos del carritos cargados con éxito");
-        Feedback.showFeedback(feedbackLabel);
+        if (!cartItems.isEmpty()) {
+            feedbackLabel.setText("Productos del carritos cargados con éxito");
+            Feedback.showFeedback(feedbackLabel);
+        }
     }
 }

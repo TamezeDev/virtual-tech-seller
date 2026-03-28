@@ -8,7 +8,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ResultService<T> {
-    private final boolean success;
-    private final String message;
-    private final T data;
+    private boolean success;
+    private String message;
+    private T data;
+
+    public ResultService(boolean success, String message) {
+        this.success = success;
+        this.message = message;
+    }
+
 }

@@ -7,10 +7,7 @@ import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.*;
 import org.zeki.virtualtechseller.model.user.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,5 +69,19 @@ public class SaleRepository {
         }
         return sales;
 
+    }
+
+    public boolean saveSale(Connection connection, Sale sale) throws SQLException {
+        String query = "INSERT INTO sales(id_user, id_product, id_exhibition, quantity, total_price, purchase_date) VALUES (?,?,?,?,?,?);";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, sale.getClient().getIdUser());
+            ps.setInt(2, sale.getProduct().getIdProduct());
+            ps.setInt(3, sale.getExhibition().getIdExhibition());
+            ps.setInt(4, sale.getQuantity());
+            ps.setDouble(5, sale.getTotalPrice());
+            ps.setDate(6, Date.valueOf(sale.getPurchaseDate()));
+
+            return ps.executeUpdate() > 0;
+        }
     }
 }

@@ -101,4 +101,13 @@ public class CartRespository {
         }
 
     }
+
+    public boolean removeAllUserCartItems(Connection connection, int idUser) throws SQLException {
+        String sql = "DELETE FROM cart_items WHERE id_user = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idUser);
+            return ps.executeUpdate() > 0;
+        }
+    }
 }

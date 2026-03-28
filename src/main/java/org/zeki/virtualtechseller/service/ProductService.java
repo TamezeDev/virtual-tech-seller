@@ -22,7 +22,7 @@ public class ProductService {
         List<CartItem> cartItems = ((Client) SessionManager.getInstance().getCurrentUser()).getCartItems();
         try {
             for (CartItem cartItem : cartItems) {
-                if (!productRepository.availableStock(cartItem.getProduct(), cartItem.getQuantity())) {
+                if (!productRepository.availableExhibitionStock(cartItem.getProduct(), cartItem.getExhibition(), cartItem.getQuantity())) {
                     return new ResultService<>(false, "Producto no disponible : ", cartItem);
                 }
 

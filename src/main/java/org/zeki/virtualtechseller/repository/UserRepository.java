@@ -3,7 +3,6 @@ package org.zeki.virtualtechseller.repository;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.model.product.*;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
 import org.zeki.virtualtechseller.model.user.User;
@@ -12,8 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserRepository {
 
@@ -130,6 +127,16 @@ public class UserRepository {
             }
 
             return false;
+        }
+    }
+
+    public int decreaseCredit(Connection connection, double amount, int idUser) throws SQLException {
+        String quey = "UPDATE users SET credit = credit - ? WHERE id_user = ? AND credit >= ?;";
+        try (PreparedStatement ps = connection.prepareStatement(quey)) {
+            ps.setDouble(1, amount);
+            ps.setInt(2, idUser);
+            ps.setDouble(3, amount);
+            return ps.executeUpdate();
         }
     }
 }

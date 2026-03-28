@@ -12,6 +12,8 @@ public interface Purchasable {
 
     void rechargeCredit(double quantity);
 
+    void decreaseCredit(double quantity);
+
     void addToCart(Product product, int quantity);
 
     void removeFromCart(CartItem cartItem);
@@ -20,7 +22,7 @@ public interface Purchasable {
 
     void buyProduct(Product product, int quantity, Exhibition event, Sale sale);
 
-    List<Sale> buyCart();
+    List<Sale> buyCart(List<CartItem> cartItems);
 
     List<Sale> getPurchaseList();
 

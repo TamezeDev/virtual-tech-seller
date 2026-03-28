@@ -53,7 +53,7 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public List<Sale> buyCart() {
+    public List<Sale> buyCart(List<CartItem> cartItems) {
         List<Sale> salesCart = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
             Sale sale = new Sale();
@@ -81,6 +81,11 @@ public final class Client extends User implements Purchasable {
     @Override
     public void rechargeCredit(double quantity) {
         setCredit(getCredit() + quantity);
+    }
+
+    @Override
+    public void decreaseCredit(double quantity) {
+        setCredit(getCredit() - quantity);
     }
 
     @Override
