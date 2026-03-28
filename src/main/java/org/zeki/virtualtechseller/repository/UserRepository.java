@@ -126,7 +126,7 @@ public class UserRepository {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getBoolean(1);
+                return rs.getBoolean(1); // RETURN TRUE HAVE ENOUGH CREDIT
             }
 
             return false;

@@ -76,4 +76,20 @@ public class UserService {
             return null;
         }
     }
+
+    public Boolean enoughCredit(double amount) {
+        Client client = ((Client) SessionManager.getInstance().getCurrentUser());
+        try {
+            return userRepository.enoughCredit(amount, client);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return null;
+        } catch (SQLException e) {
+            String message = "Error en consulta de crédito del cliente";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return null;
+        }
+    }
+
+
 }

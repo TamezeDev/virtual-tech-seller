@@ -47,7 +47,7 @@
                   <Label fx:id="feedbackLabel" alignment="CENTER" styleClass="label-b" text="Este será el texto de feedback" visible="false" />
                   <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="860.0" styleClass="scroll-pane">
                      <content>
-                        <FlowPane fx:id="productsBox" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="50.0" maxHeight="-Infinity" prefHeight="350.0" prefWidth="830.0" prefWrapLength="800.0" rowValignment="TOP" styleClass="panel-a" vgap="50.0">
+                        <FlowPane fx:id="productsBox" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="50.0" maxHeight="-Infinity" prefHeight="350.0" prefWidth="850.0" prefWrapLength="800.0" rowValignment="TOP" styleClass="panel-a" vgap="50.0">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>

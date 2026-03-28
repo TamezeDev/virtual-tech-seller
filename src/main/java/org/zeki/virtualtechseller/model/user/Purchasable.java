@@ -9,12 +9,19 @@ import java.util.List;
 
 public interface Purchasable {
     void buyProduct(Product product, int quantity);
+
     void rechargeCredit(double quantity);
+
     void addToCart(Product product, int quantity);
+
     void removeFromCart(CartItem cartItem);
+
     void clearCart();
+
     void buyProduct(Product product, int quantity, Exhibition event, Sale sale);
-    void buyCart(Exhibition exhibition, List<Sale> sales);
+
+    List<Sale> buyCart();
+
     List<Sale> getPurchaseList();
 
 }

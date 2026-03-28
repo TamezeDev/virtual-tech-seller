@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 
 @Getter
 @Setter
@@ -12,6 +13,7 @@ import lombok.Setter;
 public class CartItem {
 
     private Product product;
+    private Exhibition exhibition;
     private int quantity;
 
     public double calculateSubtotal() {

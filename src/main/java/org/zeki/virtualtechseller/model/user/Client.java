@@ -10,6 +10,7 @@ import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.model.product.Sale;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,13 +53,24 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public void buyCart(Exhibition exhibition, List<Sale> sales) {
-
+    public List<Sale> buyCart() {
+        List<Sale> salesCart = new ArrayList<>();
+        for (CartItem cartItem : cartItems) {
+            Sale sale = new Sale();
+            sale.setProduct(cartItem.getProduct());
+            sale.setClient(this);
+            sale.setExhibition(cartItem.getExhibition());
+            sale.setQuantity(cartItem.getQuantity());
+            sale.setTotalPrice(cartItem.calculateSubtotal());
+            sale.setPurchaseDate(LocalDate.now());
+            salesCart.add(sale);
+        }
+        return salesCart;
     }
 
     @Override
     public List<Sale> getPurchaseList() {
-        return List.of();
+        return sales;
     }
 
     @Override

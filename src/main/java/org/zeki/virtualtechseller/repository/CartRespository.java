@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.repository;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.*;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
@@ -25,11 +26,13 @@ public class CartRespository {
     public List<CartItem> getCartItem(User user) throws DBConnectionException, SQLException {
         String query = "SELECT p.id_product, cart.quantity, p.name, p.description, p.base_price, " +
                 "p.url_image, c.id_category, c.name, c.description, np.id_product AS new_id, np.stock, " +
-                "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity " +
+                "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity, " +
+                "e.id_exhibition, e.name AS ev_name " +
                 "FROM cart_items cart INNER JOIN products p ON p.id_product = cart.id_product " +
                 "LEFT JOIN new_products np ON np.id_product = p.id_product " +
                 "LEFT JOIN used_products up ON up.id_product = p.id_product " +
                 "INNER JOIN categories c ON c.id_category = p.id_category " +
+                "INNER JOIN exhibitions e ON cart.id_exhibition = e.id_exhibition " +
                 "WHERE cart.id_user = ?;";
         List<CartItem> cartItems = new ArrayList<>();
 
@@ -62,10 +65,15 @@ public class CartRespository {
                 category.setName(rs.getString("name"));
                 category.setDescription(rs.getString("description"));
                 product.setCategory(category);
+                //CREATE EXHIBITION
+                Exhibition exhibition = new Exhibition();
+                exhibition.setIdExhibition(rs.getInt("id_exhibition"));
+                exhibition.setName(rs.getString("ev_name"));
                 // CREATE CART ITEM
                 CartItem cartItem = new CartItem();
                 cartItem.setQuantity(rs.getInt("quantity"));
                 cartItem.setProduct(product);
+                cartItem.setExhibition(exhibition);
                 cartItems.add(cartItem);
             }
         }

@@ -1,12 +1,12 @@
 -- CREATE DATABASE
 -- ==========================================
 CREATE DATABASE virtual_tech_seller_db;
+
 -- ==========================================
 USE virtual_tech_seller_db;
+
 -- ==========================================
-
 -- CREATE TABLES
-
 -- USERS
 CREATE TABLE
     users (
@@ -16,12 +16,19 @@ CREATE TABLE
         phone VARCHAR(15),
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(150) NOT NULL,
-        rol ENUM('CLIENT', 'ADMIN', 'MODERATOR') NOT NULL,
+        rol ENUM ('CLIENT', 'ADMIN', 'MODERATOR') NOT NULL,
         created_date DATE NOT NULL DEFAULT CURRENT_DATE,
         credit DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
         email_activate BOOLEAN NOT NULL DEFAULT FALSE,
-        CONSTRAINT chk_user_credit
-        CHECK ((rol = 'CLIENT' AND credit >= 0) OR (rol IN ('ADMIN', 'MODERATOR') AND credit = 0.00)
+        CONSTRAINT chk_user_credit CHECK (
+            (
+                rol = 'CLIENT'
+                AND credit >= 0
+            )
+            OR (
+                rol IN ('ADMIN', 'MODERATOR')
+                AND credit = 0.00
+            )
         )
     );
 
@@ -121,8 +128,9 @@ CREATE TABLE
     cart_items (
         id_user INT NOT NULL,
         id_product INT NOT NULL,
+        id_exhibition INT NOT NULL,
         quantity INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
-        PRIMARY KEY(id_user, id_product),
+        PRIMARY KEY (id_user, id_product, id_exhibition),
         CONSTRAINT fk_cart_user FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE,
-        CONSTRAINT fk_cart_product FOREIGN KEY (id_product) REFERENCES products (id_product) ON DELETE CASCADE
+        CONSTRAINT fk_cart_items_product_exhibition FOREIGN KEY (id_product, id_exhibition) REFERENCES products_exhibitions (id_product, id_exhibition) ON DELETE CASCADE
     );

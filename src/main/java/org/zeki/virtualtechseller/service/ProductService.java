@@ -18,25 +18,25 @@ public class ProductService {
         this.productRepository = new ProductRepository();
     }
 
-    public boolean stockCartItems() {
+    public ResultService<CartItem> stockCartItems() {
         List<CartItem> cartItems = ((Client) SessionManager.getInstance().getCurrentUser()).getCartItems();
         try {
             for (CartItem cartItem : cartItems) {
                 if (!productRepository.availableStock(cartItem.getProduct(), cartItem.getQuantity())) {
-                    return false;
+                    return new ResultService<>(false, "Producto no disponible : ", cartItem);
                 }
 
             }
-            return true;
+            return new ResultService<>(true, "Hay stock y disponibilidad", null);
 
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
-            return false;
+            return null;
 
         } catch (SQLException e) {
             String message = "Error obteniendo disponibilidad de los productos";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
-            return false;
+            return null;
         }
     }
 }

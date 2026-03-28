@@ -24,7 +24,7 @@ INSERT INTO products(id_product, name, description, base_price, url_image, avail
     (7, 'Zombie Cure Lab', 'Videojuego de consola PS5', 12.90, '/img/products/ZombieCureLab.jpg', TRUE, 2),
     (8, 'Final Fantasy VII', 'Remake Intergrade & Rebirth PS5', 28.45, '/img/products/FinalFantasyVII.jpg', FALSE, 2),
     (9, 'Leyendas Pokémon: Z-A', 'Videojuego de la consola Nintendo Switch 2', 28.45, '/img/products/LeyendasPokemonZA.jpg', TRUE, 2),
-    (10, 'MARS GAMING MPB1000SIM', 'Fuente de alimentación PC MPB1000SIM MARS GAMING, Negro', 65.34, '/img/products/FuentedealimentacionPC.jpg', TRUE, 3),
+    (10, 'MARS GAMING MPB1000SIM', 'Fuente de alimentación PC MPB1000SIM MARS GAMING, Negro', 65.34, '/img/products/FuentedealimentaciónPC.jpg', TRUE, 3),
     (11, 'MARS GAMING MF3AR', 'Ventilador PC', 10.00, '/img/products/VentiladorPc.jpg', TRUE, 3),
     (12, 'TP-Link ARCHER TX50E', 'Tarjeta de red, AX3000, Wi-Fi 6, Bluetooth 5.0 PCIe, Negro', 23.57, '/img/products/TarjetaRed.jpg', FALSE, 3),
     (13, 'KINGSTON ADATA', 'Memoria RAM', 100.50, '/img/products/MemoriaRam.jpg', TRUE, 3),
@@ -132,12 +132,12 @@ INSERT INTO sales(id_sale, id_user, id_exhibition, id_product, quantity, total_p
     (13, 10, 1, 11, 1, 6.50, '2026-03-16');
 
 
-INSERT INTO cart_items(id_user, id_product, quantity) VALUES
-    (4, 14, 1),
-    (5, 2, 1),
-    (6, 16, 1),
-    (7, 1, 1),
-    (8, 10, 1),
-    (8, 18, 1),
-    (9, 20, 1),
-    (10, 19, 1);
+INSERT INTO cart_items(id_user, id_product, id_exhibition, quantity) VALUES
+    (4, 14, 1, 1),
+    (5, 2, 1, 1),
+    (6, 16, 3, 1),
+    (7, 1, 1, 1),
+    (8, 10, 1, 1),
+    (8, 18, 1, 1),
+    (9, 20, 1, 1),
+    (10, 19, 1, 1);

@@ -19,6 +19,9 @@ import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.service.CartService;
+import org.zeki.virtualtechseller.service.ProductService;
+import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.AlertHelper;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -53,6 +56,8 @@ public class CartItemsController implements Initializable {
     private ObservableList<CartItem> cartItems;
     // SERVICES
     private CartService cartService;
+    private UserService userService;
+    private ProductService productService;
 
 
     @Override
@@ -65,6 +70,8 @@ public class CartItemsController implements Initializable {
     private void instances() {
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
         cartService = AppContext.getInstance().getCartService();
+        userService = AppContext.getInstance().getUserService();
+        productService = AppContext.getInstance().getProductService();
         cartItems = FXCollections.observableArrayList(currentUser.getCartItems());
     }
 
@@ -85,9 +92,40 @@ public class CartItemsController implements Initializable {
             }
         });
         buyBtn.setOnAction(event -> {
+            if (checkCredit() && checkAvailableStock()){
+
+            }
 
         });
         cartItems.addListener((ListChangeListener<CartItem>) change -> reloadItems());
+    }
+
+    private boolean checkAvailableStock() {
+        // CHECK ITEM AVAILABLE AND ENOUGH STOCK
+        ResultService<CartItem> result = productService.stockCartItems();
+        if (result == null) {
+            return false;
+        } else if (!result.isSuccess()) {
+            String message = result.getMessage() + result.getData().getProduct().getName();
+            feedbackLabel.setText(message);
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkCredit() {
+        // CHECK CREDIT
+        double amountSale = 0;
+        for (CartItem cartItem : cartItems) {
+            amountSale += cartItem.calculateSubtotal();
+        }
+        if (Boolean.FALSE.equals(userService.enoughCredit(amountSale))) {
+            feedbackLabel.setText("Crédito insuficiente para realizar la operación");
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        return true;
     }
 
     private void reloadItems() {
