@@ -7,7 +7,7 @@ import javafx.scene.control.TextInputControl;
 import java.util.List;
 
 
-public class FormularyHelper {
+public final class FormularyHelper {
     private FormularyHelper() {
     }
 

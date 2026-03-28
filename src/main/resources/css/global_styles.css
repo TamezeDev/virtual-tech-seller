@@ -45,6 +45,10 @@
     -fx-border-color: derive(-color-border-soft, 15%);
     -fx-border-radius: 14;
 }
+.card-b:hover {
+    -fx-background-color: -color-secondary-hover;
+    -fx-cursor: hand;
+}
 /* LABELS */
 .label-a {
     -fx-font-size: 16px;

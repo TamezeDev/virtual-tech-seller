@@ -1,6 +1,6 @@
 package org.zeki.virtualtechseller.util;
 
-public  class ViewPath {
+public final class ViewPath {
     // FXML - GLOBAL
     public static final String START_VIEW = "/fxml/global/start-view.fxml";
     public static final String LOGIN_VIEW = "/fxml/global/login-view.fxml";

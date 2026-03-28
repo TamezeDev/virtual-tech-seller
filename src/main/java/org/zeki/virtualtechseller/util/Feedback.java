@@ -4,7 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class Feedback {
+public final class Feedback {
 
     private Feedback(){}
 

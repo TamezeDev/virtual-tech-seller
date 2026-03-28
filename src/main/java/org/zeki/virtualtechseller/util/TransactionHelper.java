@@ -6,7 +6,7 @@ import org.zeki.virtualtechseller.exception.DBConnectionException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class TransactionHelper {
+public final class TransactionHelper {
     private TransactionHelper() {
     }
 
