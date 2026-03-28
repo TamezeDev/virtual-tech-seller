@@ -22,10 +22,7 @@ import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ProductService;
 import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
-import org.zeki.virtualtechseller.util.AlertHelper;
-import org.zeki.virtualtechseller.util.Feedback;
-import org.zeki.virtualtechseller.util.SceneHelper;
-import org.zeki.virtualtechseller.util.ViewPath;
+import org.zeki.virtualtechseller.util.*;
 
 import java.net.URL;
 import java.util.Objects;
@@ -185,55 +182,15 @@ public class CartItemsController implements Initializable {
     }
 
     private void setCartItems() {
-        for (CartItem cartItem : cartItems) {
-            // COMPONENTS
-            Label title = new Label(cartItem.getProduct().getName());
-            Label quantity = new Label("Cantidad: " + cartItem.getQuantity());
-            Label price = new Label(String.format("Subtotal: %.2f €", cartItem.calculateSubtotal()));
-            ImageView itemImage = new ImageView();
-            Button removeItem = new Button("Eliminar");
-            //SET IMAGE
-            String pathImage = cartItem.getProduct().getUrlImage();
-            URL urlImage = getClass().getResource(pathImage);
-            if (urlImage != null) {
-                itemImage.setImage(new Image(urlImage.toExternalForm()));
-            } else {
-                String path = "/img/products/no_image.jpg";
-                itemImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
-            }
-            // CONFIG IMAGE
-            itemImage.setFitWidth(120);
-            itemImage.setFitHeight(120);
-            title.setTextAlignment(TextAlignment.CENTER);
-            title.setAlignment(Pos.CENTER);
-            itemImage.setPreserveRatio(true);
-            // STYLES
-            title.getStyleClass().add("label-a");
-            quantity.getStyleClass().add("label-a");
-            price.getStyleClass().add("label-a");
-            removeItem.getStyleClass().add("button-a");
-            // TITLE SIZE
-            title.setWrapText(true);
-            title.setPrefWidth(180);
-            title.setMaxWidth(180);
-            title.setMinHeight(Label.USE_PREF_SIZE);
-            // CARD
-            VBox card = new VBox(title, itemImage, quantity, price, removeItem);
-            card.getStyleClass().add("card-a");
-            card.setAlignment(Pos.CENTER);
-            card.setSpacing(10);
-            card.setMaxWidth(200);
-            card.setPrefWidth(200);
-            card.setPrefHeight(300);
-            card.setMaxHeight(300);
-            card.setPadding(new Insets(10, 10, 10, 10));
-            productsBox.getChildren().add(card);
-            // REMOVE ITEM ACTION
-            removeItem.setOnAction(event -> requestRemoveCartItem(cartItem));
+        productsBox.getChildren().clear();
 
+        for (CartItem cartItem : cartItems) {
+            VBox card = ProductCardHelper.createCartCard(cartItem, this::requestRemoveCartItem, null);
+            productsBox.getChildren().add(card);
         }
+
         if (!cartItems.isEmpty()) {
-            feedbackLabel.setText("Productos del carritos cargados con éxito");
+            feedbackLabel.setText("Productos del carrito cargados con éxito");
             Feedback.showFeedback(feedbackLabel);
         }
     }

@@ -3,7 +3,7 @@ package org.zeki.virtualtechseller.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-public class AlertHelper {
+public final class AlertHelper {
     private AlertHelper() {
     }
 

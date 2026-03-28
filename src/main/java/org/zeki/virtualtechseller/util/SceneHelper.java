@@ -10,7 +10,7 @@ import org.zeki.virtualtechseller.Main;
 import java.io.IOException;
 import java.net.URL;
 
-public class SceneHelper {
+public final class SceneHelper {
     private SceneHelper() {
     }
 

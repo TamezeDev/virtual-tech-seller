@@ -2,7 +2,7 @@ package org.zeki.virtualtechseller.util;
 
 import org.zeki.virtualtechseller.repository.VisitRepository;
 
-public class VisitService {
+public final class VisitService {
 
     private final VisitRepository visitRepository;
 
