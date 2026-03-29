@@ -48,7 +48,7 @@ public class ClientProductController implements Initializable {
     }
 
     private void initGUI() {
-        seSaleItems();
+        setSaleItems();
     }
 
     private void actions() {
@@ -60,10 +60,10 @@ public class ClientProductController implements Initializable {
     private void reloadItems() {
         //RELOAD CART BOX CONTENT
         productsBox.getChildren().clear();
-        seSaleItems();
+        setSaleItems();
     }
 
-    private void seSaleItems() {
+    private void setSaleItems() {
         productsBox.getChildren().clear();
         // CREATE CARD FOR EACH ITEM
         for (Sale sale : listSales) {

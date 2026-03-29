@@ -1,7 +1,10 @@
 package org.zeki.virtualtechseller.service;
 
+import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
+import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
 import org.zeki.virtualtechseller.util.AlertHelper;
 
@@ -30,6 +33,25 @@ public class ExhibitionService {
 
         } catch (SQLException e) {
             String message = "Error obteniendo listado de eventos";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return new ResultService<>(false, message, null);
+        }
+    }
+
+    public ResultService<List<ExhibitionItem>> getProductSelectedEvent() {
+        Exhibition selectedExhibition = ((Client) SessionManager.getInstance().getCurrentUser()).getCurrentExhibition();
+        try {
+            List<ExhibitionItem> exhibitionItems = exhibitionRepository.getExhibitionItemsFromDB(selectedExhibition.getIdExhibition());
+            if (exhibitionItems == null || exhibitionItems.isEmpty()) {
+                return new ResultService<>(false, "No se pudo cargar los productos del evento", null);
+            }
+            return new ResultService<>(true, "Mostrando productos del evento " + selectedExhibition.getName(), exhibitionItems);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return new ResultService<>(false, "Error de conexión con el servidor", null);
+
+        } catch (SQLException e) {
+            String message = "Error obteniendo productos del evento";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return new ResultService<>(false, message, null);
         }

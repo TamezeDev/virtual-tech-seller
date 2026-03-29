@@ -4,6 +4,8 @@ import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
+import org.zeki.virtualtechseller.model.product.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,5 +54,55 @@ public class ExhibitionRepository {
         }
 
         return exhibitions;
+    }
+
+    public List<ExhibitionItem> getExhibitionItemsFromDB(int id_exhibition) throws DBConnectionException, SQLException {
+        String query = "SELECT pe.quantity, p.id_product, p.name AS prod_name, p.description AS prod_description, p.url_image, p.base_price, " +
+                "p.available, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " +
+                "np.release_date, up.id_product AS used_id, up.discount, up.remark " +
+                "FROM products_exhibitions pe INNER JOIN products p ON p.id_product = pe.id_product " +
+                "LEFT JOIN new_products np ON np.id_product = p.id_product " +
+                "LEFT JOIN used_products up ON up.id_product = p.id_product " +
+                "INNER JOIN categories c ON c.id_category = p.id_category " +
+                "WHERE pe.id_exhibition = ?";
+
+        List<ExhibitionItem> exhibitionItems = new ArrayList<>();
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id_exhibition);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // CREATE PRODUCT (CHECK TYPE)
+                Product product = null;
+                if (rs.getObject("new_id") != null) {
+                    product = new NewProduct();
+                    ((NewProduct) product).setStock(rs.getInt("stock"));
+                    ((NewProduct) product).setReleaseDate(rs.getDate("release_Date").toLocalDate());
+                } else if (rs.getObject("used_id") != null) {
+                    product = new UsedProduct();
+                    ((UsedProduct) product).setDiscountPercentage(rs.getDouble("discount"));
+                    ((UsedProduct) product).setRemark(rs.getString("remark"));
+                }
+
+                product.setIdProduct(rs.getInt("id_product"));
+                product.setName(rs.getString("prod_name"));
+                product.setDescription(rs.getString("prod_description"));
+                product.setUrlImage(rs.getString("url_image"));
+                product.setBasePrice(rs.getDouble("base_price"));
+                // CREATE CATEGORY
+                Category category = new Category();
+                category.setIdCategory(rs.getInt("id_category"));
+                category.setName(rs.getString("cat_name"));
+                category.setDescription(rs.getString("cat_description"));
+                product.setCategory(category);
+                //CREATE EXHIBITION ITEM
+                ExhibitionItem exhibitionItem = new ExhibitionItem();
+                exhibitionItem.setQuantity(rs.getInt("quantity"));
+                exhibitionItem.setProduct(product);
+                exhibitionItems.add(exhibitionItem);
+            }
+        }
+        return exhibitionItems;
     }
 }

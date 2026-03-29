@@ -41,7 +41,7 @@ public final class ProductCardHelper {
         // CREATE CARD
         VBox card = new VBox(title, itemImage, quantity, price, extra);
         setCard(card);
-        if (item instanceof Sale || item instanceof Product) {
+        if (item instanceof Sale || item instanceof Product || item instanceof ExhibitionItem) {
             card.getStyleClass().add("card-b");
         }
         // CREATE BUTTON ONLY WHEN NECESSARY

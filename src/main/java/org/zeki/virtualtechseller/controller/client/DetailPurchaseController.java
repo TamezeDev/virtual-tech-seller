@@ -76,7 +76,7 @@ public class DetailPurchaseController implements Initializable {
         eventLabel.setText("Evento: " + sale.getExhibition().getName());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
         purchaseDatelabel.setText("Fecha de compra: " + sale.getPurchaseDate().format(formatter));
-
+        // CHECK TYPE PRODUCT
         if (sale.getProduct() instanceof NewProduct) {
             typeProduct.setText("Tipo de producto: Nuevo");
         } else if (sale.getProduct() instanceof UsedProduct) {

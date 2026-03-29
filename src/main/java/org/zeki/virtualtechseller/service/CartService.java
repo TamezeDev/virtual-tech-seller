@@ -3,10 +3,8 @@ package org.zeki.virtualtechseller.service;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.model.product.CartItem;
-import org.zeki.virtualtechseller.model.product.NewProduct;
-import org.zeki.virtualtechseller.model.product.Sale;
-import org.zeki.virtualtechseller.model.product.UsedProduct;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
+import org.zeki.virtualtechseller.model.product.*;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.repository.*;
@@ -77,6 +75,27 @@ public class CartService {
         } catch (SQLException e) {
             String message = "Error eliminando del servidor los productos de la cesta del usuario";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
+    }
+
+    public boolean addToCartItem(ExhibitionItem item, int quantity) {
+        Client client = (Client) SessionManager.getInstance().getCurrentUser();
+
+        try {
+            return cartRespository.saveCartItem(
+                    client.getIdUser(),
+                    item.getProduct().getIdProduct(),
+                    client.getCurrentExhibition().getIdExhibition(),
+                    quantity
+            );
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert();
+            return false;
+
+        } catch (SQLException e) {
+            AlertHelper.showSQLAlert("Error actualizando productos del carrito");
             return false;
         }
     }
@@ -175,6 +194,7 @@ public class CartService {
 
         return new ResultService<>(true, "OK");
     }
+
 
 }
 

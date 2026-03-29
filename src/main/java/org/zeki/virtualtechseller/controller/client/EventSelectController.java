@@ -74,10 +74,9 @@ public class EventSelectController implements Initializable {
         // GET EVENTS LIST
         ResultService<List<Exhibition>> result = exhibitionService.getAllExhibitions();
         String message = result.getMessage();
-        if (result.getData() == null) {
-            return;
+        if (result.getData() != null) {
+            createEventCart(result.getData());
         }
-        createEventCart(result.getData());
         feedbackLabel.setText(message);
         Feedback.showFeedback(feedbackLabel);
 
@@ -93,7 +92,8 @@ public class EventSelectController implements Initializable {
             Label initDate = new Label("Inicio: " + exhibition.getInitDate().format(formatter));
             Label endDate = new Label("Fin: " + exhibition.getEndDate().format(formatter));
             // SET STYLES
-            ProductCardHelper.setLabelsStyles(name, description, initDate, endDate);
+            name.getStyleClass().add("label-m");
+            ProductCardHelper.setLabelsStyles(description, initDate, endDate);
             ProductCardHelper.setConfigLabel(name);
             ProductCardHelper.setConfigLabel(description);
             // CREATE CARD

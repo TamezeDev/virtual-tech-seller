@@ -11,7 +11,7 @@ public final class ViewPath {
     public static final String CART_ITEMS_VIEW = "/fxml/client/cart-items-view.fxml";
     public static final String CATALOG_PRODUCT_VIEW = "/fxml/client/catalog-product-view.fxml";
     public static final String CLIENT_PRODUCT_VIEW = "/fxml/client/client-products-view.fxml";
-    public static final String DETAIL_PRODUCT_VIEW = "/fxml/client/detail-products-view.fxml";
+    public static final String DETAIL_PRODUCT_VIEW = "/fxml/client/detail-product-view.fxml";
     public static final String DETAIL_PURCHASE_VIEW = "/fxml/client/detail-purchase-view.fxml";
     public static final String EVENT_SELECT_VIEW = "/fxml/client/event-select-view.fxml";
     // FXML - ADMIN

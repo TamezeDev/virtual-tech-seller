@@ -5,17 +5,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
-import org.zeki.virtualtechseller.util.FormularyHelper;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
-import javax.swing.text.View;
 import java.net.URL;
 import java.util.ResourceBundle;
 

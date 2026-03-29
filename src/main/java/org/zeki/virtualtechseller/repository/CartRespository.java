@@ -24,20 +24,10 @@ public class CartRespository {
     }
 
     public List<CartItem> getCartItem(User user) throws DBConnectionException, SQLException {
-        String query = "SELECT p.id_product, cart.quantity, p.name, p.description, p.base_price, " +
-                "p.url_image, c.id_category, c.name, c.description, np.id_product AS new_id, np.stock, " +
-                "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity, " +
-                "e.id_exhibition, e.name AS ev_name " +
-                "FROM cart_items cart INNER JOIN products p ON p.id_product = cart.id_product " +
-                "LEFT JOIN new_products np ON np.id_product = p.id_product " +
-                "LEFT JOIN used_products up ON up.id_product = p.id_product " +
-                "INNER JOIN categories c ON c.id_category = p.id_category " +
-                "INNER JOIN exhibitions e ON cart.id_exhibition = e.id_exhibition " +
-                "WHERE cart.id_user = ?;";
+        String query = "SELECT p.id_product, cart.quantity, p.name AS prod_name, p.description AS prod_description, p.base_price, " + "p.url_image, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " + "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity, " + "e.id_exhibition, e.name AS ev_name " + "FROM cart_items cart INNER JOIN products p ON p.id_product = cart.id_product " + "LEFT JOIN new_products np ON np.id_product = p.id_product " + "LEFT JOIN used_products up ON up.id_product = p.id_product " + "INNER JOIN categories c ON c.id_category = p.id_category " + "INNER JOIN exhibitions e ON cart.id_exhibition = e.id_exhibition " + "WHERE cart.id_user = ?;";
         List<CartItem> cartItems = new ArrayList<>();
 
-        try (Connection connection = connectionManager.connect();
-             PreparedStatement ps = connection.prepareStatement(query)) {
+        try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, user.getIdUser());
             ResultSet rs = ps.executeQuery();
 
@@ -55,15 +45,15 @@ public class CartRespository {
                 }
 
                 product.setIdProduct(rs.getInt("id_product"));
-                product.setName(rs.getString("name"));
-                product.setDescription(rs.getString("description"));
+                product.setName(rs.getString("prod_name"));
+                product.setDescription(rs.getString("prod_description"));
                 product.setUrlImage(rs.getString("url_image"));
                 product.setBasePrice(rs.getDouble("base_price"));
                 // CREATE CATEGORY
                 Category category = new Category();
                 category.setIdCategory(rs.getInt("id_category"));
-                category.setName(rs.getString("name"));
-                category.setDescription(rs.getString("description"));
+                category.setName(rs.getString("cat_name"));
+                category.setDescription(rs.getString("cat_description"));
                 product.setCategory(category);
                 //CREATE EXHIBITION
                 Exhibition exhibition = new Exhibition();
@@ -83,8 +73,7 @@ public class CartRespository {
     public boolean removeUserCartItem(CartItem cartItem, Client client) throws DBConnectionException, SQLException {
         String sql = "DELETE FROM cart_items WHERE id_user = ? AND id_product = ?;";
 
-        try (Connection connection = connectionManager.connect();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, client.getIdUser());
             ps.setInt(2, cartItem.getProduct().getIdProduct());
             return ps.executeUpdate() > 0;
@@ -94,8 +83,7 @@ public class CartRespository {
     public boolean removeAllUserCartItems(Client client) throws DBConnectionException, SQLException {
         String sql = "DELETE FROM cart_items WHERE id_user = ?";
 
-        try (Connection connection = connectionManager.connect();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, client.getIdUser());
             return ps.executeUpdate() > 0;
         }
@@ -107,6 +95,21 @@ public class CartRespository {
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idUser);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean saveCartItem(int idClient, int idProduct, int idExhibition, int quantity) throws DBConnectionException, SQLException {
+
+        String query = "INSERT INTO cart_items(id_user, id_product, id_exhibition, quantity) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
+
+        try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, idClient);
+            ps.setInt(2, idProduct);
+            ps.setInt(3, idExhibition);
+            ps.setInt(4, quantity);
+
             return ps.executeUpdate() > 0;
         }
     }
