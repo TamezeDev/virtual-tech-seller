@@ -111,7 +111,7 @@ public class ClientMenuController implements Initializable {
     //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
-        ResultService<User> resultService = userService.login("client4@virtualtechseller.com", "client123");
+        ResultService<User> resultService = userService.login("client2@virtualtechseller.com", "client123");
         SessionManager.getInstance().login(resultService.getData());
         Exhibition exhibition = new Exhibition();
         exhibition.setIdExhibition(1);

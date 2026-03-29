@@ -185,7 +185,7 @@ public class CartItemsController implements Initializable {
         productsBox.getChildren().clear();
 
         for (CartItem cartItem : cartItems) {
-            VBox card = ProductCardHelper.createCartCard(cartItem, this::requestRemoveCartItem, null);
+            VBox card = ProductCardHelper.createCartCard(cartItem, this::requestRemoveCartItem);
             productsBox.getChildren().add(card);
         }
 
