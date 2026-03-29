@@ -24,8 +24,8 @@ public final class ProductCardHelper {
     }
 
     // MAIN METHOD
-    public static <T> VBox createCard(T item, String titleLabel, String label2, String label3,
-                                      String label4, String image, String buttonText, Consumer<T> buttonAction, Consumer<T> cardAction) {
+    private static <T> VBox createCard(T item, String titleLabel, String label2, String label3,
+                                       String label4, String image, String buttonText, Consumer<T> buttonAction, Consumer<T> cardAction) {
         // CREATE LABELS
         Label title = new Label(titleLabel);
         Label quantity = new Label(label2);
@@ -36,7 +36,7 @@ public final class ProductCardHelper {
         loadProductImage(itemImage, image);
         // SET STYLES AND CONFIG IMAGE / TITLE
         setLabelsStyles(title, quantity, price, extra);
-        setTitle(title);
+        setConfigLabel(title);
         setImage(itemImage);
         // CREATE CARD
         VBox card = new VBox(title, itemImage, quantity, price, extra);
@@ -68,7 +68,7 @@ public final class ProductCardHelper {
         CartItem item = cartItem;
         String title = item.getProduct().getName();
         String quantity = "Cantidad: " + item.getQuantity();
-        String price = String.format("Subtotal: %.2f €", item.calculateSubtotal());
+        String price = String.format("Subtotal: %.2f €", item.calculateTotal());
         String event = "Evento: " + item.getExhibition().getName();
         String urlImage = item.getProduct().getUrlImage();
         String textButton = "Eliminar";
@@ -99,18 +99,18 @@ public final class ProductCardHelper {
     }
 
     // AUXILIARY METHODS
-    private static void setLabelsStyles(Label... labels) {
+    public static void setLabelsStyles(Label... labels) {
         for (Label label : labels) {
             label.getStyleClass().add("label-a");
         }
     }
 
-    private static void setTitle(Label title) {
-        title.setWrapText(true);
-        title.setPrefWidth(180);
-        title.setMaxWidth(180);
-        title.setTextAlignment(TextAlignment.CENTER);
-        title.setAlignment(Pos.CENTER);
+    public static void setConfigLabel(Label label) {
+        label.setWrapText(true);
+        label.setPrefWidth(180);
+        label.setMaxWidth(180);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setAlignment(Pos.CENTER);
     }
 
     private static void setImage(ImageView itemImage) {
@@ -119,7 +119,7 @@ public final class ProductCardHelper {
         itemImage.setPreserveRatio(true);
     }
 
-    private static void setCard(VBox card) {
+    public static void setCard(VBox card) {
         card.getStyleClass().add("card-a");
         card.setAlignment(Pos.CENTER);
         card.setSpacing(10);

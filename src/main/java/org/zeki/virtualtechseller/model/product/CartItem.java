@@ -16,7 +16,7 @@ public class CartItem {
     private Exhibition exhibition;
     private int quantity;
 
-    public double calculateSubtotal() {
+    public double calculateTotal() {
         return product.calculateUnitPrice() * quantity;
     }
 

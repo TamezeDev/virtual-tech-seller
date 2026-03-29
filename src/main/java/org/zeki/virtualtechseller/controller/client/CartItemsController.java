@@ -124,7 +124,7 @@ public class CartItemsController implements Initializable {
         String content = "Se va a proceder al pago de los productos, ¿Continuar?";
         if (AlertHelper.choiceAlert(alertTitle, content)) {
             // CHECK CREDIT AND STOCK
-            double amountSale = cartItems.stream().mapToDouble(CartItem::calculateSubtotal).sum();
+            double amountSale = cartItems.stream().mapToDouble(CartItem::calculateTotal).sum();
             if (checkCredit(amountSale) && checkAvailableStock()) {
                 // DO TRANSACTION
                 ResultService<Void> resultTransaction = cartService.checkoutCart(currentUser.getCartItems(), amountSale);

@@ -9,11 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.model.product.Sale;
 import org.zeki.virtualtechseller.model.user.Client;
-import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.ProductCardHelper;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -36,8 +34,6 @@ public class ClientProductController implements Initializable {
     // USER
     private Client currentUser;
     private ObservableList<Sale> listSales;
-    // SERVICES
-    private SaleService saleService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,8 +44,6 @@ public class ClientProductController implements Initializable {
 
     private void instances() {
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
-        saleService = AppContext.getInstance().getSaleService();
-        saleService.setSalesList(currentUser);
         listSales = FXCollections.observableArrayList(currentUser.getSales());
     }
 

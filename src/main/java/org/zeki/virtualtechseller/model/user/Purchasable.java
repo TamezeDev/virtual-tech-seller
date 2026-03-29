@@ -23,5 +23,4 @@ public interface Purchasable {
 
     List<Sale> buyCart(List<CartItem> cartItems);
 
-
 }

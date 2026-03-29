@@ -11,6 +11,7 @@ import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -51,6 +52,7 @@ public class ClientMenuController implements Initializable {
     private Client currentUser;
     // SERVICES
     private CartService cartService;
+    private SaleService saleService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,9 +64,12 @@ public class ClientMenuController implements Initializable {
     private void instances() {
         AppContext.getInstance().getConnectionManager().getDatabaseConfig().useClientConnection(); // CHANGE DB USER
         cartService = AppContext.getInstance().getCartService();
+        saleService = AppContext.getInstance().getSaleService();
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
         loadCartUser();
+        saleService.setSalesList(currentUser);
+
     }
 
     private void initGUI() {

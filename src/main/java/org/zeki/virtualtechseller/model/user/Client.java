@@ -2,7 +2,6 @@ package org.zeki.virtualtechseller.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.model.product.CartItem;
@@ -61,7 +60,7 @@ public final class Client extends User implements Purchasable {
             sale.setClient(this);
             sale.setExhibition(cartItem.getExhibition());
             sale.setQuantity(cartItem.getQuantity());
-            sale.setTotalPrice(cartItem.calculateSubtotal());
+            sale.setTotalPrice(cartItem.calculateTotal());
             sale.setPurchaseDate(LocalDate.now());
             salesCart.add(sale);
         }

@@ -23,8 +23,4 @@ public class Sale {
     private double totalPrice;
     private LocalDate purchaseDate;
 
-    public void calculateTotalPrice(){
-        totalPrice = product.calculateUnitPrice() * quantity;
-    }
-
 }

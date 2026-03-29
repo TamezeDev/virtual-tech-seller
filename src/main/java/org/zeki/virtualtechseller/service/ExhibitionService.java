@@ -1,6 +1,12 @@
 package org.zeki.virtualtechseller.service;
 
+import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
+import org.zeki.virtualtechseller.util.AlertHelper;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class ExhibitionService {
 
@@ -8,5 +14,24 @@ public class ExhibitionService {
 
     public ExhibitionService() {
         this.exhibitionRepository = new ExhibitionRepository();
+    }
+
+    public ResultService<List<Exhibition>> getAllExhibitions() {
+        try {
+            List<Exhibition> exhibitions = exhibitionRepository.getExhibitionsData();
+            if (exhibitions == null || exhibitions.isEmpty()) {
+                return new ResultService<>(false, "No se pudo cargar la lista de eventos", null);
+            }
+            return new ResultService<>(true, "Mostrando listado de eventos", exhibitions);
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return new ResultService<>(false, "Error de conexión con el servidor", null);
+
+        } catch (SQLException e) {
+            String message = "Error obteniendo listado de eventos";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return new ResultService<>(false, message, null);
+        }
     }
 }
