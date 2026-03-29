@@ -44,7 +44,7 @@ public class EventSelectController implements Initializable {
     }
 
     private void instances() {
-        
+
     }
 
     private void initGUI() {
