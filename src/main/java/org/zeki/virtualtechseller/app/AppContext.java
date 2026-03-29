@@ -1,6 +1,6 @@
 package org.zeki.virtualtechseller.app;
 
-import  lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.zeki.virtualtechseller.database.ConnectionManager;

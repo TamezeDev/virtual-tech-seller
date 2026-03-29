@@ -6,21 +6,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
-import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.UserService;
-import org.zeki.virtualtechseller.util.AlertHelper;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ClientMenuController implements Initializable {

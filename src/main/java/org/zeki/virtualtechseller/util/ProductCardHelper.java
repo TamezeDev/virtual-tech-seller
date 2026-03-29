@@ -18,10 +18,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 
-public class ProductCardHelper {
+public final class ProductCardHelper {
 
     private ProductCardHelper() {
     }
+
     // MAIN METHOD
     public static <T> VBox createCard(T item, String titleLabel, String label2, String label3,
                                       String label4, String image, String buttonText, Consumer<T> buttonAction, Consumer<T> cardAction) {
@@ -129,7 +130,7 @@ public class ProductCardHelper {
         card.setPadding(new Insets(10));
     }
 
-    private static void loadProductImage(ImageView imageView, String pathImage) {
+    public static void loadProductImage(ImageView imageView, String pathImage) {
         URL urlImage = ProductCardHelper.class.getResource(pathImage);
 
         if (urlImage != null) {

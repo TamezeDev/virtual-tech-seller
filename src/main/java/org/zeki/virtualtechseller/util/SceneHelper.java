@@ -6,44 +6,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.zeki.virtualtechseller.Main;
-import org.zeki.virtualtechseller.controller.client.DetailProductController;
-import org.zeki.virtualtechseller.controller.client.DetailPurchaseController;
-import org.zeki.virtualtechseller.model.product.Product;
-import org.zeki.virtualtechseller.model.product.Sale;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.function.Consumer;
 
 public final class SceneHelper {
     private SceneHelper() {
     }
 
     public static void changeScene(Node node, String viewPath) {
+        changeScene(node, viewPath, null);
+    }
+
+    public static <C> void changeScene(Node node, String viewPath, Consumer<C> controllerAction) {
         // GLOBAL FUNCTION TO CHANGE AMONG SCENES
         try {
             URL resource = Main.class.getResource(viewPath);
-
-            if (resource == null) {
-                AlertHelper.showErrorAlert("Error de escena", "No se encontró la ruta de la escena");
-                return;
-            }
-
-            Parent root = FXMLLoader.load(resource);
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) node.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            AlertHelper.showErrorAlert("Error de escena", "Error en la carga de la escena");
-        }
-
-    }
-
-    public static void goToSaleDetails(Node node, String viewPath, Sale sale) {
-        try {
-            URL resource = Main.class.getResource(viewPath);
-
+            // CHECK URL
             if (resource == null) {
                 AlertHelper.showErrorAlert("Error de escena", "No se encontró la ruta de la escena");
                 return;
@@ -51,36 +31,12 @@ public final class SceneHelper {
 
             FXMLLoader loader = new FXMLLoader(resource);
             Parent root = loader.load();
-
-            DetailPurchaseController detailPurchaseController = loader.getController();
-            detailPurchaseController.setCurrentSale(sale);
-
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) node.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            AlertHelper.showErrorAlert("Error de escena", "Error en la carga de la escena");
-            e.printStackTrace();
-        }
-    }
-
-    public static void goToProductDetails(Node node, String viewPath, Product product) {
-        try {
-            URL resource = Main.class.getResource(viewPath);
-
-            if (resource == null) {
-                AlertHelper.showErrorAlert("Error de escena", "No se encontró la ruta de la escena");
-                return;
+            // CHECK CONTROLLER TO GET DATA
+            if (controllerAction != null) {
+                C controller = loader.getController();
+                controllerAction.accept(controller);
             }
-
-            FXMLLoader loader = new FXMLLoader(resource);
-            Parent root = loader.load();
-
-            DetailProductController detailProductController = loader.getController();
-            detailProductController.setCurrentProduct(product);
-
+            // SET SCENE
             Scene scene = new Scene(root);
             Stage stage = (Stage) node.getScene().getWindow();
             stage.setScene(scene);
@@ -88,7 +44,6 @@ public final class SceneHelper {
 
         } catch (IOException e) {
             AlertHelper.showErrorAlert("Error de escena", "Error en la carga de la escena");
-            e.printStackTrace();
         }
     }
 }

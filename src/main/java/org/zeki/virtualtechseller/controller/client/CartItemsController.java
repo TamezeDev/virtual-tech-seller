@@ -5,15 +5,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.model.product.CartItem;
@@ -25,7 +20,6 @@ import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.*;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CartItemsController implements Initializable {
@@ -183,12 +177,12 @@ public class CartItemsController implements Initializable {
 
     private void setCartItems() {
         productsBox.getChildren().clear();
-
+        // CREATE CARD EACH CART ITEM
         for (CartItem cartItem : cartItems) {
             VBox card = ProductCardHelper.createCartCard(cartItem, this::requestRemoveCartItem);
             productsBox.getChildren().add(card);
         }
-
+        // FEEDBACK MESSAGE
         if (!cartItems.isEmpty()) {
             feedbackLabel.setText("Productos del carrito cargados con éxito");
             Feedback.showFeedback(feedbackLabel);

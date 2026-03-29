@@ -16,7 +16,7 @@ public class ExhibitionRepository {
         this.connectionManager = AppContext.getInstance().getConnectionManager();
     }
 
-    public int decreaseExhibitionStock(Connection connection, int idProduct, int idExhibition, int quantity) throws SQLException, DBConnectionException {
+    public int decreaseExhibitionStock(Connection connection, int idProduct, int idExhibition, int quantity) throws SQLException {
         String query = "UPDATE products_exhibitions SET quantity = quantity - ? WHERE id_exhibition = ? AND id_product = ? AND quantity >= ?;";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, quantity);

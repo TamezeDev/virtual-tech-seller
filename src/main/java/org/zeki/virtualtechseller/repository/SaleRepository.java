@@ -21,7 +21,7 @@ public class SaleRepository {
 
     public List<Sale> getSalesByUser(User user) throws SQLException, DBConnectionException {
         String query = "SELECT s.quantity, s.total_price, s.purchase_date, p.name, p.description, p.id_product, " +
-                "p.url_image, c.name AS cat_name, c.id_category, np.id_product AS new_id, up.id_product AS used_id, e.name " +
+                "p.url_image, c.name AS cat_name, c.id_category, np.id_product AS new_id, up.id_product AS used_id, e.name AS event_name " +
                 "FROM sales s INNER JOIN products p ON p.id_product = s.id_product " +
                 "LEFT JOIN new_products np ON np.id_product = p.id_product " +
                 "LEFT JOIN used_products up ON up.id_product = p.id_product " +
@@ -57,12 +57,12 @@ public class SaleRepository {
                 // CREATE CATEGORY
                 Category category = new Category();
                 category.setIdCategory(rs.getInt("id_category"));
-                category.setName(rs.getString("name"));
+                category.setName(rs.getString("cat_name"));
                 product.setCategory(category);
                 sale.setProduct(product);
                 // CREATE EXHIBITION
                 Exhibition exhibition = new Exhibition();
-                exhibition.setName(rs.getString("cat_name"));
+                exhibition.setName(rs.getString("event_name"));
                 sale.setExhibition(exhibition);
                 sales.add(sale);
             }
