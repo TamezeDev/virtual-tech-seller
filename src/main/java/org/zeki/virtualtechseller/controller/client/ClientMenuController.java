@@ -68,6 +68,7 @@ public class ClientMenuController implements Initializable {
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
         loadCartUser();
+        currentUser.setCurrentExhibition(null);  // SET NULL CURRENT EVENT
         saleService.setSalesList(currentUser);
 
     }
@@ -75,8 +76,8 @@ public class ClientMenuController implements Initializable {
     private void initGUI() {
         fullNameLabel.setText("Bienvenid@: " + currentUser.getFullName());
         creditLabel.setText(currentUser.getCredit() + " €");
-        if (!currentUser.getCartItems().isEmpty()) {
-            numItemCartLabel.setText("X" + currentUser.getCartItems().size() + " ITEM");
+        if (!currentUser.emptyCartList()) {
+            numItemCartLabel.setText("X" + currentUser.checkQuantityCartItems() + " Artículos");
             numItemCartLabel.setVisible(true);
         }
     }
@@ -89,7 +90,7 @@ public class ClientMenuController implements Initializable {
 
         addCreditBtn.setOnAction(event -> SceneHelper.changeScene(addCreditBtn, ViewPath.ADD_CREDIT_VIEW));
         cartItemBtn.setOnAction(event -> {
-            if (currentUser.getCartItems().isEmpty()) {
+            if (currentUser.emptyCartList()) {
                 feedbackLabel.setText("No tiene productos en el carrito");
                 Feedback.showFeedback(feedbackLabel);
                 return;

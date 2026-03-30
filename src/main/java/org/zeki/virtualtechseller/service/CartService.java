@@ -17,14 +17,14 @@ import java.util.List;
 
 public class CartService {
 
-    private final CartRespository cartRespository;
+    private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ExhibitionRepository exhibitionRepository;
     private final ProductRepository productRepository;
     private final SaleRepository saleRepository;
 
     public CartService() {
-        this.cartRespository = new CartRespository();
+        this.cartRepository = new CartRepository();
         this.userRepository = new UserRepository();
         this.exhibitionRepository = new ExhibitionRepository();
         this.productRepository = new ProductRepository();
@@ -33,7 +33,7 @@ public class CartService {
 
     public void setCartItemList(User currentUser) {
         try {
-            List<CartItem> cartItems = cartRespository.getCartItem(currentUser);
+            List<CartItem> cartItems = cartRepository.getCartItem(currentUser);
             if (cartItems != null) {
                 ((Client) currentUser).setCartItems(cartItems);
             }
@@ -50,7 +50,7 @@ public class CartService {
         try {
 
             Client client = (Client) SessionManager.getInstance().getCurrentUser();
-            return cartRespository.removeUserCartItem(cartItem, client);
+            return cartRepository.removeUserCartItem(cartItem, client);
 
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
@@ -66,7 +66,7 @@ public class CartService {
     public boolean removeAllCartItemsFromDB() {
         try {
             Client client = (Client) SessionManager.getInstance().getCurrentUser();
-            return cartRespository.removeAllUserCartItems(client);
+            return cartRepository.removeAllUserCartItems(client);
 
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
@@ -83,7 +83,7 @@ public class CartService {
         Client client = (Client) SessionManager.getInstance().getCurrentUser();
 
         try {
-            return cartRespository.saveCartItem(
+            return cartRepository.saveCartItem(
                     client.getIdUser(),
                     item.getProduct().getIdProduct(),
                     client.getCurrentExhibition().getIdExhibition(),
@@ -157,7 +157,7 @@ public class CartService {
             }
         }
 
-        if (!cartRespository.removeAllUserCartItems(connection, client.getIdUser())) {
+        if (!cartRepository.removeAllUserCartItems(connection, client.getIdUser())) {
             return new ResultService<>(false, "No se pudo vaciar la cesta");
         }
 

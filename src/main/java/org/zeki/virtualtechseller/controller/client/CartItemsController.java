@@ -73,13 +73,21 @@ public class CartItemsController implements Initializable {
 
     private void actions() {
 
-        gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.CLIENT_MENU_VIEW));
+        gobackBtn.setOnAction(event -> checkCurrentExhibition());
 
         clearBtn.setOnAction(event -> requestRemoveAllCartItems());
 
         buyBtn.setOnAction(event -> requestCheckOutCart());
 
         cartItems.addListener((ListChangeListener<CartItem>) change -> reloadItems());
+    }
+
+    private void checkCurrentExhibition() {
+        if (currentUser.getCurrentExhibition() == null) {
+            SceneHelper.changeScene(gobackBtn, ViewPath.CLIENT_MENU_VIEW);
+            return;
+        }
+        SceneHelper.changeScene(gobackBtn, ViewPath.CATALOG_PRODUCT_VIEW);
     }
 
     private void clearCartItems() {

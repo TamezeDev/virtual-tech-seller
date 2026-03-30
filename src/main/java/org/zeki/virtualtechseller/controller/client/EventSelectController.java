@@ -2,6 +2,8 @@ package org.zeki.virtualtechseller.controller.client;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -93,6 +95,7 @@ public class EventSelectController implements Initializable {
             Label endDate = new Label("Fin: " + exhibition.getEndDate().format(formatter));
             // SET STYLES
             name.getStyleClass().add("label-m");
+            name.setPadding(new Insets(10, 0, 20, 0));
             ProductCardHelper.setLabelsStyles(description, initDate, endDate);
             ProductCardHelper.setConfigLabel(name);
             ProductCardHelper.setConfigLabel(description);
@@ -100,6 +103,7 @@ public class EventSelectController implements Initializable {
             VBox card = new VBox(name, description, initDate, endDate);
             ProductCardHelper.setCard(card);
             card.setPrefHeight(200);
+            card.setAlignment(Pos.TOP_CENTER);
             // SELECTION BOX
             selectExhibitionBox(exhibition, card);
         }

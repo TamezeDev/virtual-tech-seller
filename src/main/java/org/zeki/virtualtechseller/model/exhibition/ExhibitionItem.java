@@ -27,4 +27,8 @@ public class ExhibitionItem {
     public boolean quantityAvailable() {
         return this.quantity >= quantity;
     }
+
+    public boolean checkOutStock() {
+        return quantity == 0;
+    }
 }

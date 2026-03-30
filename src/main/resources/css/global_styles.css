@@ -35,19 +35,24 @@
 /* PANELS */
 .panel-a {
     -fx-background-color: -color-bg-secondary;
-    -fx-background-radius: 14;
+    -fx-background-radius: 14px;
     -fx-border-color: -color-border-soft;
-    -fx-border-radius: 14;
+    -fx-border-radius: 14px;
 }
 .card-a {
     -fx-background-color: -color-bg-card;
-    -fx-background-radius: 14;
+    -fx-background-radius: 14px;
     -fx-border-color: derive(-color-border-soft, 15%);
-    -fx-border-radius: 14;
+    -fx-border-radius: 14px;
 }
 .card-b:hover {
     -fx-background-color: -color-secondary-hover;
     -fx-cursor: hand;
+}
+.card-image {
+    -fx-background-color: white;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 8px;
 }
 /* LABELS */
 .label-a {

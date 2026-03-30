@@ -15,11 +15,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartRespository {
+public class CartRepository {
 
     private final ConnectionManager connectionManager;
 
-    public CartRespository() {
+    public CartRepository() {
         connectionManager = AppContext.getInstance().getConnectionManager();
     }
 

@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.model.user;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -12,6 +13,7 @@ import org.zeki.virtualtechseller.model.product.Sale;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -31,8 +33,14 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public void addToCart(Product product, int quantity) {
-
+    public void addToCart(Product product, Exhibition exhibition, int quantity) {
+        CartItem cartItem = new CartItem(product, exhibition, quantity);
+        Optional<CartItem> item = cartItems.stream().filter(cartProduct -> cartProduct.getProduct().getIdProduct() == product.getIdProduct()).findFirst();
+        if (item.isPresent()) {
+            item.get().setQuantity(item.get().getQuantity() + quantity);
+        } else {
+            cartItems.add(cartItem);
+        }
     }
 
     @Override
@@ -47,8 +55,13 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public void buyProduct(Product product, int quantity, Exhibition event, Sale sale) {
+    public boolean emptyCartList() {
+        return cartItems.isEmpty();
+    }
 
+    @Override
+    public int checkQuantityCartItems() {
+        return cartItems.stream().mapToInt(CartItem::getQuantity).sum();
     }
 
     @Override

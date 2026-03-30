@@ -6,8 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import org.zeki.virtualtechseller.controller.client.CatalogProductController;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.product.Product;
@@ -33,13 +36,14 @@ public final class ProductCardHelper {
         Label extra = new Label(label4);
         // SET IMAGE
         ImageView itemImage = new ImageView();
+        VBox boxImage = setBoxImage(itemImage);
         loadProductImage(itemImage, image);
         // SET STYLES AND CONFIG IMAGE / TITLE
         setLabelsStyles(title, quantity, price, extra);
         setConfigLabel(title);
         setImage(itemImage);
         // CREATE CARD
-        VBox card = new VBox(title, itemImage, quantity, price, extra);
+        VBox card = new VBox(title, boxImage, quantity, price, extra);
         setCard(card);
         if (item instanceof Sale || item instanceof Product || item instanceof ExhibitionItem) {
             card.getStyleClass().add("card-b");
@@ -99,6 +103,16 @@ public final class ProductCardHelper {
     }
 
     // AUXILIARY METHODS
+    private static VBox setBoxImage(ImageView itemImage) {
+        VBox vBox = new VBox();
+        vBox.getChildren().add(itemImage);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPrefHeight(130);
+        vBox.getStyleClass().add("card-image");
+        vBox.setMaxWidth(130);
+        return vBox;
+    }
+
     public static void setLabelsStyles(Label... labels) {
         for (Label label : labels) {
             label.getStyleClass().add("label-a");
@@ -139,6 +153,21 @@ public final class ProductCardHelper {
             String noImage = "/img/products/no_image.jpg";
             imageView.setImage(new Image(Objects.requireNonNull(ProductCardHelper.class.getResourceAsStream(noImage))));
         }
+    }
+
+    public static StackPane setNoAvailableImage(VBox card) {
+        // DISABLE CARD AND SET IMAGE NO AVAILABLE
+        card.setDisable(true);
+        card.getChildren().get(1).setDisable(true);
+        String pathImage = "/img/system/soldOut.png";
+
+        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(CatalogProductController.class.getResource(pathImage)).toExternalForm()));
+        imageView.setFitWidth(190);
+        imageView.setPreserveRatio(true);
+
+        StackPane pane = new StackPane(card, imageView);
+        pane.setAlignment(Pos.CENTER);
+        return pane;
     }
 
 }

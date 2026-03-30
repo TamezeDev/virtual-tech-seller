@@ -62,6 +62,12 @@ public class DetailProductController implements Initializable {
     @FXML
     private ImageView productImg;
 
+    @FXML
+    private Button cartItemBtn;
+
+    @FXML
+    private Label numItemCartLabel;
+
     // EVENT PRODUCT
     private ExhibitionItem item;
     // CLIENT
@@ -72,6 +78,7 @@ public class DetailProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instances();
+        initGui();
         actions();
     }
 
@@ -80,10 +87,24 @@ public class DetailProductController implements Initializable {
         cartService = AppContext.getInstance().getCartService();
     }
 
+    private void initGui() {
+        if (!client.emptyCartList()) {
+            numItemCartLabel.setText("X" + client.checkQuantityCartItems() + " Artículos");
+            numItemCartLabel.setVisible(true);
+        }
+    }
+
     private void actions() {
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.CATALOG_PRODUCT_VIEW));
 
-        addCartItemBtn.setOnAction(event -> requestCheckOutCart());
+        addCartItemBtn.setOnAction(event -> {
+            if (quantityTxt.getText().isEmpty() && item.getProduct() instanceof NewProduct) {
+                feedbackLabel.setText("Debe introducir la cantidad");
+                Feedback.showFeedback(feedbackLabel);
+                return;
+            }
+            requestCheckOutCart();
+        });
 
         quantityTxt.textProperty().addListener((obs, oldV, newV) -> {
             // TEXT FIELD CONTROL PATTERN
@@ -99,6 +120,16 @@ public class DetailProductController implements Initializable {
                 }
             }
         });
+
+        cartItemBtn.setOnAction(event -> {
+            if (client.emptyCartList()) {
+                feedbackLabel.setText("No tiene productos en el carrito");
+                Feedback.showFeedback(feedbackLabel);
+                return;
+            }
+            SceneHelper.changeScene(cartItemBtn, ViewPath.CART_ITEMS_VIEW);
+        });
+
     }
 
     private void requestCheckOutCart() {
@@ -113,7 +144,9 @@ public class DetailProductController implements Initializable {
             }
             // ADD PRODUCT TO CART
             if (cartService.addToCartItem(item, quantity)) {
-                cartService.setCartItemList(client);
+                client.addToCart(item.getProduct(), client.getCurrentExhibition(), quantity);
+                numItemCartLabel.setText("X" + client.checkQuantityCartItems() + " Artículos");
+                numItemCartLabel.setVisible(true);
                 feedbackLabel.setText("Producto añadido al carrito");
             } else {
                 feedbackLabel.setText("Ocurrió un error al añadir el producto al carrito");

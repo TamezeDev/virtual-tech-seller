@@ -35,15 +35,19 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="50.0">
                      <children>
-                        <ImageView fx:id="productImg" fitHeight="249.0" fitWidth="331.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/products/retrobox.jpg" />
-                           </image>
-                        </ImageView>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="360.0" styleClass="card-image">
+                           <children>
+                              <ImageView fx:id="productImg" fitHeight="249.0" fitWidth="331.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/products/retrobox.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="403.0" prefWidth="541.0" spacing="10.0">
                            <children>
                               <Label fx:id="nameLabel" styleClass="label-m" text="Nombre:" />
-                              <Label fx:id="descriptionLabel" layoutX="33.0" layoutY="10.0" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="488.0" styleClass="label-m" text="Descripción:" />
+                              <Label fx:id="descriptionLabel" maxWidth="-Infinity" prefWidth="520.0" styleClass="label-m" text="Descripción:" wrapText="true" />
                               <Label fx:id="categoryLabel" layoutX="10.0" layoutY="82.0" styleClass="label-m" text="Categoría:" />
                               <Label fx:id="priceLabel" layoutX="154.0" layoutY="34.0" styleClass="label-m" text="Total precio:" />
                               <Label fx:id="quantityLabel" styleClass="label-m" text="Unidades:" />
