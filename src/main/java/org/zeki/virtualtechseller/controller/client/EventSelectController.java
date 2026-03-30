@@ -14,6 +14,7 @@ import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.VisitService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.ProductCardHelper;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -49,6 +50,7 @@ public class EventSelectController implements Initializable {
     private Client client;
     // SERVICES
     private ExhibitionService exhibitionService;
+    private VisitService visitService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,6 +62,7 @@ public class EventSelectController implements Initializable {
     private void instances() {
         client = (Client) SessionManager.getInstance().getCurrentUser();
         exhibitionService = AppContext.getInstance().getExhibitionService();
+        visitService = AppContext.getInstance().getVisitService();
 
     }
 
@@ -125,6 +128,7 @@ public class EventSelectController implements Initializable {
             // ON CARD ACTION
             card.setOnMouseClicked(event -> {
                 client.setCurrentExhibition(exhibition);
+                visitService.updateUserVisit();
                 SceneHelper.changeScene(card, ViewPath.CATALOG_PRODUCT_VIEW);
             });
             availableEventsBox.getChildren().add(card);

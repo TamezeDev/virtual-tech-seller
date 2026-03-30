@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.service.*;
-import org.zeki.virtualtechseller.util.VisitService;
+import org.zeki.virtualtechseller.service.VisitService;
 
 @Getter
 @Setter

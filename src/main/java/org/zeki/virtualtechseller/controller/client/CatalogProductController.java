@@ -5,13 +5,9 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
@@ -26,7 +22,6 @@ import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CatalogProductController implements Initializable {
