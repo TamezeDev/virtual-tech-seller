@@ -5,10 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
-import org.zeki.virtualtechseller.model.user.User;
-import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.FormularyHelper;
@@ -78,7 +75,6 @@ public class RegisterController implements Initializable {
     private void instances() {
         userService = AppContext.getInstance().getUserService();
         textFields = new ArrayList<>();
-        setTestUser();
     }
 
     private void initGUI() {
@@ -198,14 +194,6 @@ public class RegisterController implements Initializable {
             feedbackLabel.setText(resultMessage);
             Feedback.showFeedback(feedbackLabel);
         }
-
-    }
-
-    //PROVISIONAL METHOD TO TEST ADMIN FUNCTIONS
-    private void setTestUser() {
-        UserService userService = AppContext.getInstance().getUserService();
-        ResultService<User> resultService = userService.login(new LoginUserDto("admin1@virtualtechseller.com", "Admin-123"));
-        SessionManager.getInstance().login(resultService.getData());
 
     }
 }

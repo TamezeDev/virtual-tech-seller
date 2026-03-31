@@ -72,3 +72,21 @@
 .personalTable .show-hide-column-button {
     -fx-background-color: -color-bg-control;
 }
+/* selected row */
+.personalTable.table-row-cell:selected {
+    -fx-background-color: -color-secondary-hover;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+.personalTable.table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+.personalTable.table-view:focused .table-row-cell:selected {
+    -fx-background-color: -color-secondary-hover;
+}
+
+.personalTable.table-view .table-row-cell:selected {
+    -fx-background-color: -color-secondary-hover;
+}

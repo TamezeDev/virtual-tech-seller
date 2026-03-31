@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
+import org.zeki.virtualtechseller.dto.UserAccessDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
@@ -13,6 +14,8 @@ import org.zeki.virtualtechseller.repository.UserRepository;
 import org.zeki.virtualtechseller.util.AlertHelper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
 
@@ -131,6 +134,32 @@ public class UserService {
             String message = "Error en consulta de crédito del cliente";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return null;
+        }
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            userRepository.getAllUsers(users);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+        } catch (SQLException e) {
+            String message = "Error el rol del usuario desde servidor";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+        }
+        return users;
+    }
+
+    public boolean changeActivateUSer(UserAccessDto userAccessDto){
+        try{
+            return userRepository.changeAccessToUser(userAccessDto.isAccess(), userAccessDto.getEmail());
+        }catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+        } catch (SQLException e) {
+            String message = "Error actualizando el estado de activo del usuario";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
         }
     }
 

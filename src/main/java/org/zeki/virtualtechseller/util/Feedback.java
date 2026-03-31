@@ -15,7 +15,7 @@ public final class Feedback {
             feedBackTransition.stop();
         }
         label.setVisible(true);
-        feedBackTransition = new PauseTransition(Duration.seconds(2));
+        feedBackTransition = new PauseTransition(Duration.seconds(3));
         feedBackTransition.setOnFinished((event) -> {
             label.setVisible(false);
             feedBackTransition = null;

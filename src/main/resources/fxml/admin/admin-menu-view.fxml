@@ -78,7 +78,7 @@
                            </padding>
                         </Label>
                         <Button fx:id="addProductBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir producto" />
-                        <Button fx:id="asignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar productos" />
+                        <Button fx:id="assignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar productos" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" />

@@ -7,9 +7,12 @@ import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
 import org.zeki.virtualtechseller.model.user.User;
+import org.zeki.virtualtechseller.model.user.UserFactory;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
 
@@ -155,12 +158,47 @@ public class UserRepository {
             preparedStatement.setString(6, String.valueOf(role));
             preparedStatement.setString(7, today);
 
-            if (role.equals(Role.ADMIN)) {
+            if (role.equals(Role.ADMIN) || role.equals(Role.MODERATOR)) {
                 emailActivate = true;
             }
             preparedStatement.setBoolean(8, emailActivate);
 
             return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
+    public List<User> getAllUsers(List<User> users) throws DBConnectionException, SQLException {
+        String query = "SELECT name, last_name, rol, email, email_activate FROM users";
+        UserFactory factory = new UserFactory();
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Role role = Role.valueOf(rs.getString("rol").toUpperCase());
+                User user = factory.createUser(role);
+
+                user.setName(rs.getString("name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setEmailActivate(rs.getBoolean("email_activate"));
+                users.add(user);
+            }
+            return users;
+        }
+    }
+
+    public boolean changeAccessToUser(boolean access, String email) throws DBConnectionException, SQLException {
+        String query = "UPDATE users SET email_activate = ? WHERE email = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setBoolean(1, access);
+            ps.setString(2, email);
+            return ps.executeUpdate() > 0;
         }
     }
 

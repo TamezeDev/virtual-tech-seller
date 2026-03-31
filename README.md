@@ -1,2 +1,2 @@
-# vitualTechSeller
+# virtualTechSeller
 Online sales application for technological products during exhibitions
