@@ -25,7 +25,6 @@ public final class VisitService {
         } catch (SQLException e) {
             String message = "Error actualizando las visitas del cliente";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
-            e.printStackTrace();
         }
     }
 }

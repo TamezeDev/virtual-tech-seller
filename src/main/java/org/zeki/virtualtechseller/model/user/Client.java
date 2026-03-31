@@ -35,8 +35,9 @@ public final class Client extends User implements Purchasable {
     @Override
     public void addToCart(Product product, Exhibition exhibition, int quantity) {
         CartItem cartItem = new CartItem(product, exhibition, quantity);
-        Optional<CartItem> item = cartItems.stream().filter(cartProduct -> cartProduct.getProduct().getIdProduct() == product.getIdProduct()).findFirst();
+        Optional<CartItem> item = cartItems.stream().filter(cartProduct -> cartProduct.getProduct().getIdProduct() == product.getIdProduct() && cartProduct.getExhibition().getIdExhibition() == cartItem.getExhibition().getIdExhibition()).findFirst();
         if (item.isPresent()) {
+
             item.get().setQuantity(item.get().getQuantity() + quantity);
         } else {
             cartItems.add(cartItem);

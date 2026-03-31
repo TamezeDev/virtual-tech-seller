@@ -101,7 +101,7 @@ public class CartRepository {
 
     public boolean saveCartItem(int idClient, int idProduct, int idExhibition, int quantity) throws DBConnectionException, SQLException {
 
-        String query = "INSERT INTO cart_items(id_user, id_product, id_exhibition, quantity) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
+        String query = "INSERT INTO cart_items(id_user, id_product, id_exhibition, quantity) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?";
 
         try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -109,6 +109,7 @@ public class CartRepository {
             ps.setInt(2, idProduct);
             ps.setInt(3, idExhibition);
             ps.setInt(4, quantity);
+            ps.setInt(5, quantity);
 
             return ps.executeUpdate() > 0;
         }

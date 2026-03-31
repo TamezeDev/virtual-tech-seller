@@ -23,9 +23,8 @@ public class ProductService {
         try {
             for (CartItem cartItem : cartItems) {
                 if (!productRepository.availableExhibitionStock(cartItem.getProduct(), cartItem.getExhibition(), cartItem.getQuantity())) {
-                    return new ResultService<>(false, "Producto no disponible : ", cartItem);
+                    return new ResultService<>(false, "Stock insuficiente en el evento " + cartItem.getExhibition().getName() + " del producto ", cartItem);
                 }
-
             }
             return new ResultService<>(true, "Hay stock y disponibilidad", null);
 
