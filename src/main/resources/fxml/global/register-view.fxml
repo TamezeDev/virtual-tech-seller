@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.global.RegisterController">
@@ -35,8 +36,18 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                      <children>
-                        <PasswordField fx:id="passTxt" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" promptText="Password" />
-                        <PasswordField fx:id="repeatPassTxt" alignment="CENTER" prefHeight="300.0" prefWidth="300.0" promptText="Repite password" />
+                        <StackPane alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="300.0">
+                           <children>
+                              <PasswordField fx:id="passTxt" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" promptText="Password" styleClass="password-field" />
+                              <TextField fx:id="visiblePasswordTxt" alignment="CENTER" managed="false" prefHeight="40.0" prefWidth="300.0" promptText="Password" visible="false" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="300.0">
+                           <children>
+                              <PasswordField fx:id="repeatPassTxt" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" promptText="Repite password" styleClass="password-field" />
+                              <TextField fx:id="repeatVisiblePasswordTxt" alignment="CENTER" managed="false" prefHeight="40.0" prefWidth="300.0" promptText="Repite password" visible="false" />
+                           </children>
+                        </StackPane>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="60.0">
@@ -67,7 +78,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="loginBtn" mnemonicParsing="false" styleClass="button-a" text="Resgistrar" />
+                  <Button fx:id="registerBtn" mnemonicParsing="false" styleClass="button-a" text="Resgistrar" />
                   <Button fx:id="clearBtn" mnemonicParsing="false" styleClass="button-a" text="Reiniciar" />
                </children>
                <VBox.margin>

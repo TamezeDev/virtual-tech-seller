@@ -2,15 +2,14 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
 import org.zeki.virtualtechseller.model.user.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class UserRepository {
 
@@ -139,4 +138,32 @@ public class UserRepository {
             return ps.executeUpdate();
         }
     }
+
+    public boolean registerNewUser(RegisterUserDto registerUserDto) throws DBConnectionException, SQLException {
+        String query = "INSERT INTO users(name, last_name, phone, email, password, rol, created_date, credit, email_activate) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?);";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            String today = String.valueOf(LocalDate.now());
+            Role role = registerUserDto.getUserRole();
+            boolean emailActivate = false;
+
+            preparedStatement.setString(1, registerUserDto.getName());
+            preparedStatement.setString(2, registerUserDto.getLastName());
+            preparedStatement.setString(3, registerUserDto.getPhone());
+            preparedStatement.setString(4, registerUserDto.getEmail());
+            preparedStatement.setString(5, registerUserDto.getPassword());
+            preparedStatement.setString(6, String.valueOf(role));
+            preparedStatement.setString(7, today);
+
+            if (role.equals(Role.ADMIN)) {
+                emailActivate = true;
+            }
+            preparedStatement.setBoolean(8, emailActivate);
+
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
 }

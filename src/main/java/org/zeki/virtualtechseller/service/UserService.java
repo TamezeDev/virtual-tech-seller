@@ -1,6 +1,8 @@
 package org.zeki.virtualtechseller.service;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
@@ -17,6 +19,49 @@ public class UserService {
 
     public UserService() {
         this.userRepository = new UserRepository();
+    }
+
+    public String registerNewUser(RegisterUserDto registerUserDto) {
+
+        try {
+            // CHECK IF EMAIL IS ALREADY REGISTERED
+            if (userRepository.emailExist(registerUserDto.getEmail())) {
+                return "Error: El email ya está registrado";
+            }
+            // ENCODE PASS
+            String plainPass = registerUserDto.getPassword();
+            String hashPass = BCrypt.withDefaults().hashToString(12, plainPass.toCharArray());
+            registerUserDto.setPassword(hashPass);
+            // REGISTER USER
+            if (!userRepository.registerNewUser(registerUserDto)) {
+                return "Error al registrar el usuario en el servidor";
+            }
+            return "Usuario registrado con éxito";
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return null;
+        } catch (SQLException e) {
+            String message = "Error registrando usuario en el servidor";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return null;
+        }
+
+    }
+
+    public boolean checkRoleCurrentUser() {
+        User user = SessionManager.getInstance().getCurrentUser();
+        try {
+            Role role = userRepository.getUserRole(user.getEmail());
+            return role.equals(Role.ADMIN);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+        } catch (SQLException e) {
+            String message = "Error el rol del usuario desde servidor";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
     }
 
     public ResultService<User> login(String email, String pass) {

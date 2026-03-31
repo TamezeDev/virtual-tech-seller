@@ -5,17 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
-import org.zeki.virtualtechseller.service.CartService;
 import org.zeki.virtualtechseller.service.ResultService;
-import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.*;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -47,6 +42,7 @@ public class LoginController implements Initializable {
     private Button gobackBtn;
 
     private List<TextField> textFields;
+    // SERVICES
     private UserService userService;
 
     @Override
@@ -70,13 +66,15 @@ public class LoginController implements Initializable {
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.START_VIEW));
         loginBtn.setOnAction(event -> checkLogin());
         clearBtn.setOnAction(event -> FormularyHelper.clearFields(textFields));
-        showPassCb.selectedProperty().addListener((obs, oldValue, selected) -> {
-            // INTERCHANGE BETWEEN HIDE OR VISIBLE TXT
-            visiblePasswordTxt.setVisible(selected);
-            visiblePasswordTxt.setManaged(selected);
-            passTxt.setVisible(!selected);
-            passTxt.setManaged(!selected);
-        });
+        showPassCb.selectedProperty().addListener((obs, oldValue, selected) -> exchangeVisibilityText(selected));
+    }
+
+    private void exchangeVisibilityText(boolean selected) {
+        // INTERCHANGE BETWEEN HIDE OR VISIBLE TXT
+        visiblePasswordTxt.setVisible(selected);
+        visiblePasswordTxt.setManaged(selected);
+        passTxt.setVisible(!selected);
+        passTxt.setManaged(!selected);
     }
 
     private void groupTextFields() {

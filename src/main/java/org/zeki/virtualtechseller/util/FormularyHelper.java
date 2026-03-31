@@ -3,8 +3,10 @@ package org.zeki.virtualtechseller.util;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
+import org.zeki.virtualtechseller.model.user.Role;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public final class FormularyHelper {
@@ -23,6 +25,29 @@ public final class FormularyHelper {
             }
         }
         return false;
+    }
+
+    public static boolean matchPassword(String passA, String passB) {
+        return passA.equals(passB);
+    }
+
+    public static boolean phoneFormatValid(String phone) {
+        return Pattern.matches("^\\+?[1-9][0-9]{7,14}$", phone);
+    }
+
+    public static Role getSelectedRole(String selectedRole) {
+        if (selectedRole == null) return Role.CLIENT;
+        switch (selectedRole) {
+            case "Administrador" -> {
+                return Role.ADMIN;
+            }
+            case "Moderador" -> {
+                return Role.MODERATOR;
+            }
+            default -> {
+                return Role.CLIENT;
+            }
+        }
     }
 
     public static boolean emailFormatValid(String email) {
