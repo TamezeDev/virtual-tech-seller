@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
@@ -25,17 +26,13 @@ public class UserService {
 
         try {
             // CHECK IF EMAIL IS ALREADY REGISTERED
-            if (userRepository.emailExist(registerUserDto.getEmail())) {
-                return "Error: El email ya está registrado";
-            }
+            if (userRepository.emailExist(registerUserDto.getEmail())) return "Error: El email ya está registrado";
             // ENCODE PASS
             String plainPass = registerUserDto.getPassword();
             String hashPass = BCrypt.withDefaults().hashToString(12, plainPass.toCharArray());
             registerUserDto.setPassword(hashPass);
             // REGISTER USER
-            if (!userRepository.registerNewUser(registerUserDto)) {
-                return "Error al registrar el usuario en el servidor";
-            }
+            if (!userRepository.registerNewUser(registerUserDto)) return "Error al registrar el usuario en el servidor";
             return "Usuario registrado con éxito";
 
         } catch (DBConnectionException e) {
@@ -64,28 +61,29 @@ public class UserService {
         }
     }
 
-    public ResultService<User> login(String email, String pass) {
+    public ResultService<User> login(LoginUserDto userDto) {
 
+        String userEmail = userDto.getEmail();
+        String plainPass = userDto.getPassword();
+        // ENCODE PASS
         try {
             // CHECK EMAIL
-            if (!userRepository.emailExist(email)) {
-                return new ResultService<>(false, "Email no registrado", null);
-            }
+            if (!userRepository.emailExist(userEmail)) return new ResultService<>(false, "Email no registrado", null);
             // CHECK CREDENTIALS
-            else if (!userRepository.matchCredentials(email, pass)) {
-                return new ResultService<>(false, "Credenciales incorrectas", null);
-            } else if (!userRepository.emailActive(email)) {
+            String dbPass = userRepository.getUserPassword(userEmail);
+            if (dbPass == null) return new ResultService<>(false, "Error obteniendo datos", null);
+            BCrypt.Result result = BCrypt.verifyer().verify(plainPass.toCharArray(), dbPass);
+            if (!result.verified) return new ResultService<>(false, "Credenciales incorrectas", null);
+                // CHECK EMAIL ACTIVE
+            else if (!userRepository.emailActive(userEmail))
                 return new ResultService<>(false, "No autorizado, contacte con un admin", null);
-            }
             // GET USER ROLE
-            Role role = userRepository.getUserRole(email);
-            if (role == null) {
-                return new ResultService<>(false, "Error obteniendo datos", null);
-            }
+            Role role = userRepository.getUserRole(userEmail);
+            if (role == null) return new ResultService<>(false, "Error obteniendo datos", null);
             // GET USER DATA
             UserFactory userFactory = new UserFactory();
             User currentUser = userFactory.createUser(role);
-            currentUser.setEmail(email);
+            currentUser.setEmail(userEmail);
             userRepository.getUserData(currentUser);
 
             return new ResultService<>(true, "Login correcto", currentUser);

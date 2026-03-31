@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
@@ -113,7 +114,8 @@ public class ClientMenuController implements Initializable {
     //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
-        ResultService<User> resultService = userService.login("client2@virtualtechseller.com", "client123");
+
+        ResultService<User> resultService = userService.login(new LoginUserDto("client2@virtualtechseller.com", "Client-123"));
         SessionManager.getInstance().login(resultService.getData());
         Exhibition exhibition = new Exhibition();
         exhibition.setIdExhibition(1);

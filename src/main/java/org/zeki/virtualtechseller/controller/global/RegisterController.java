@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.ResultService;
@@ -86,14 +87,14 @@ public class RegisterController implements Initializable {
         repeatPassTxt.textProperty().bindBidirectional(repeatVisiblePasswordTxt.textProperty());
         // CHECK IF USER IS ADMIN TO SHOW MENU TO CREATE SELECTED ROLES
         if (SessionManager.getInstance().isLogged() && userService.checkRoleCurrentUser()) {
-                loadRolesOnCb();
-                userRolCb.setVisible(true);
-            }
+            loadRolesOnCb();
+            userRolCb.setVisible(true);
+        }
 
     }
 
     private void actions() {
-        gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.START_VIEW));
+        gobackBtn.setOnAction(event -> loadBackScene());
 
         clearBtn.setOnAction(event -> FormularyHelper.clearFields(textFields));
 
@@ -113,6 +114,15 @@ public class RegisterController implements Initializable {
         passTxt.setManaged(!selected);
         repeatPassTxt.setVisible(!selected);
         repeatPassTxt.setManaged(!selected);
+    }
+
+    private void loadBackScene() {
+        // CHECK IF CURRENT USER IS ADMIN
+        if (SessionManager.getInstance().isLogged() && userService.checkRoleCurrentUser()) {
+            SceneHelper.changeScene(gobackBtn, ViewPath.ADMIN_MENU_VIEW);
+        } else {
+            SceneHelper.changeScene(gobackBtn, ViewPath.START_VIEW);
+        }
     }
 
     private void loadRolesOnCb() {
@@ -163,7 +173,7 @@ public class RegisterController implements Initializable {
             return;
         }
         // CHECK FORMAT PHONE
-        else if (!FormularyHelper.phoneFormatValid(phoneTxt.getText())){
+        else if (!FormularyHelper.phoneFormatValid(phoneTxt.getText())) {
             feedbackLabel.setText("Formato de teléfono no válido. Ejemplo: 600123123");
             Feedback.showFeedback(feedbackLabel);
             return;
@@ -175,7 +185,7 @@ public class RegisterController implements Initializable {
             return;
         }
         // CHECK FORMAT PASS
-        else if (!FormularyHelper.passFormatValid(passTxt.getText())){
+        else if (!FormularyHelper.passFormatValid(passTxt.getText())) {
             feedbackLabel.setText("La contraseña requiere 8 caracteres, mayúscula, minúscula y símbolo");
             Feedback.showFeedback(feedbackLabel);
             return;
@@ -194,7 +204,7 @@ public class RegisterController implements Initializable {
     //PROVISIONAL METHOD TO TEST ADMIN FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
-        ResultService<User> resultService = userService.login("admin1@virtualtechseller.com", "admin123");
+        ResultService<User> resultService = userService.login(new LoginUserDto("admin1@virtualtechseller.com", "Admin-123"));
         SessionManager.getInstance().login(resultService.getData());
 
     }

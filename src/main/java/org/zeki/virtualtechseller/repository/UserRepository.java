@@ -33,20 +33,19 @@ public class UserRepository {
         return false;
     }
 
-    public boolean matchCredentials(String email, String pass) throws DBConnectionException, SQLException {
-        String query = "SELECT EXISTS(SELECT 1 FROM users WHERE email = ? AND password = ?);";
+    public String getUserPassword(String email) throws DBConnectionException, SQLException {
+        String query = "SELECT password FROM users WHERE email = ?;";
 
         try (Connection connection = connectionManager.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, email);
-            ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return rs.getBoolean(1); // MATCH CREDENTIALS! RETURN TRUE
+                return rs.getString(1); // RETURN PASS TO COMPARE
             }
         }
-        return false;
+        return null;
     }
 
     public boolean emailActive(String email) throws DBConnectionException, SQLException {
@@ -72,8 +71,7 @@ public class UserRepository {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Role role = Role.valueOf(rs.getString(1).toUpperCase());
-                return role;
+                return Role.valueOf(rs.getString(1).toUpperCase());
             }
         }
         return null;

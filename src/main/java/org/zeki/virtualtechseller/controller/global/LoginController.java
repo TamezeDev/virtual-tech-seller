@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
@@ -83,13 +84,22 @@ public class LoginController implements Initializable {
         textFields.add(visiblePasswordTxt);
     }
 
+    private LoginUserDto createLoginUserDto() {
+        // CREATE  LOGIN USER TRANSFER OBJECT
+        LoginUserDto userDto = new LoginUserDto();
+        userDto.setEmail(userEmailTxt.getText());
+        userDto.setPassword(passTxt.getText());
+        return userDto;
+    }
+
     private void checkLogin() {
         // CHECK EMPTY FIELDS
         if (FormularyHelper.emptyFields(textFields, feedbackLabel)) {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
-        ResultService<User> resultUser = userService.login(userEmailTxt.getText(), passTxt.getText());
+        LoginUserDto userDto = createLoginUserDto();
+        ResultService<User> resultUser = userService.login(userDto);
         // ERROR CREDENTIALS
         if (!resultUser.isSuccess()) {
             feedbackLabel.setText(resultUser.getMessage());
