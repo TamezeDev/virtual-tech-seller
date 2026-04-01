@@ -39,7 +39,7 @@ public final class Moderator extends User implements DataAnalyzer {
     }
 
     @Override
-    public Role getRoleName() {
-        return Role.MODERATOR;
+    public UserRole getRoleName() {
+        return UserRole.MODERATOR;
     }
 }

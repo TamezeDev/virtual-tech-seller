@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.repository;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.*;
@@ -105,4 +106,37 @@ public class ExhibitionRepository {
         }
         return exhibitionItems;
     }
+
+    public boolean addNewExhibition(Exhibition exhibition) throws DBConnectionException, DuplicateExhibitionNameException, SQLException {
+        String query = "INSERT INTO exhibitions(name, description, init_date, end_date) VALUES (?, ?, ?, ?);";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, exhibition.getName());
+            ps.setString(2, exhibition.getDescription());
+            ps.setString(3, String.valueOf(exhibition.getInitDate()));
+            ps.setString(4, String.valueOf(exhibition.getEndDate()));
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
+                throw new DuplicateExhibitionNameException("El nombre de la exhibición ya está en uso");
+            }
+            throw new SQLException();
+        }
+    }
+
+    public boolean changeActivateExhibition(boolean access, int idExhibition) throws DBConnectionException, SQLException {
+        String query = "UPDATE exhibitions SET active = ? WHERE id_exhibition = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setBoolean(1, access);
+            ps.setInt(2, idExhibition);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
 }

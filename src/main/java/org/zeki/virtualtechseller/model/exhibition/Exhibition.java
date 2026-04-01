@@ -25,14 +25,8 @@ public class Exhibition {
         items = new ArrayList<>();
     }
 
-    public void addProduct(Product product, int quantity) {
-    }
-
-    public void removeProduct(Product product) {
-    }
-
-    public boolean containsProduct(Product product) {
-        return items.stream().anyMatch(item -> item.getProduct().getIdProduct() == product.getIdProduct());
+    public String checkActive() {
+        return active ? "Activada" : "Desactivada";
     }
 
     public void enable() {
@@ -43,8 +37,14 @@ public class Exhibition {
         this.active = false;
     }
 
-    public boolean isActive() {
-        return active;
+    public void addProduct(Product product, int quantity) {
+    }
+
+    public void removeProduct(Product product) {
+    }
+
+    public boolean containsProduct(Product product) {
+        return items.stream().anyMatch(item -> item.getProduct().getIdProduct() == product.getIdProduct());
     }
 
 }

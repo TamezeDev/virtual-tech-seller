@@ -6,7 +6,7 @@ import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
-import org.zeki.virtualtechseller.model.user.Role;
+import org.zeki.virtualtechseller.model.user.UserRole;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.model.user.UserFactory;
 
@@ -81,7 +81,7 @@ public class UserRepository {
         return false;
     }
 
-    public Role getUserRole(String email) throws DBConnectionException, SQLException {
+    public UserRole getUserRole(String email) throws DBConnectionException, SQLException {
         String query = "SELECT rol FROM users WHERE email = ?;";
 
         try (Connection connection = connectionManager.connect();
@@ -89,7 +89,7 @@ public class UserRepository {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return Role.valueOf(rs.getString(1).toUpperCase());
+                return UserRole.valueOf(rs.getString(1).toUpperCase());
             }
         }
         return null;
@@ -162,7 +162,7 @@ public class UserRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             String today = String.valueOf(LocalDate.now());
-            Role role = registerUserDto.getUserRole();
+            UserRole USerRole = registerUserDto.getUserRole();
             boolean emailActivate = false;
 
             preparedStatement.setString(1, registerUserDto.getName());
@@ -170,10 +170,10 @@ public class UserRepository {
             preparedStatement.setString(3, registerUserDto.getPhone());
             preparedStatement.setString(4, registerUserDto.getEmail());
             preparedStatement.setString(5, registerUserDto.getPassword());
-            preparedStatement.setString(6, String.valueOf(role));
+            preparedStatement.setString(6, String.valueOf(USerRole));
             preparedStatement.setString(7, today);
 
-            if (role.equals(Role.ADMIN) || role.equals(Role.MODERATOR)) {
+            if (USerRole.equals(USerRole.ADMIN) || USerRole.equals(USerRole.MODERATOR)) {
                 emailActivate = true;
             }
             preparedStatement.setBoolean(8, emailActivate);
@@ -192,8 +192,8 @@ public class UserRepository {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Role role = Role.valueOf(rs.getString("rol").toUpperCase());
-                User user = factory.createUser(role);
+                UserRole userRole = UserRole.valueOf(rs.getString("rol").toUpperCase());
+                User user = factory.createUser(userRole);
 
                 user.setIdUser(rs.getInt("id_user"));
                 user.setName(rs.getString("name"));

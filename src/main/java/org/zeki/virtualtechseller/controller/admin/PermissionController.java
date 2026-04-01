@@ -77,7 +77,7 @@ public class PermissionController implements Initializable {
     }
 
     private void instances() {
-        currentAdmin =(Admin) SessionManager.getInstance().getCurrentUser();
+        currentAdmin = (Admin) SessionManager.getInstance().getCurrentUser();
         userService = AppContext.getInstance().getUserService();
         users = FXCollections.observableArrayList();
     }
@@ -123,7 +123,7 @@ public class PermissionController implements Initializable {
         lastNameColumn.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getLastName()));
         emailColumn.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().getEmail()));
         categoryColumn.setCellValueFactory(cd -> new SimpleStringProperty(checkRoles(cd.getValue())));
-        accessColumn.setCellValueFactory(cd -> new SimpleStringProperty(checkAccess(cd.getValue())));
+        accessColumn.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue().checkAccess()));
 
     }
 
@@ -175,14 +175,10 @@ public class PermissionController implements Initializable {
         } else return "Cliente";
     }
 
-    private String checkAccess(User user) {
-        return Boolean.TRUE.equals(user.getEmailActivate()) ? "Permitido" : "Bloqueado";
-    }
-
     private void changeAccess(boolean access) {
         String result = currentAdmin.changeUserAccess(access, selectedUser, userService);
         feedbackLabel.setText(result);
-        if (result.equals("OK")){
+        if (result.equals("OK")) {
             feedbackLabel.setText("Operación cancelada por el administrador");
             listUsers();
             checkSelectedFilter();

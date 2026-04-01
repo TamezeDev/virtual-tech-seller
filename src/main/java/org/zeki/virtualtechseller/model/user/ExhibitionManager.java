@@ -1,9 +1,10 @@
 package org.zeki.virtualtechseller.model.user;
 
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.service.ExhibitionService;
 
 public interface ExhibitionManager {
-    void createExhibition(Exhibition exhibition);
+    String createExhibition(Exhibition exhibition, ExhibitionService exhibitionService);
 
     void enableExhibition(Exhibition exhibition);
 

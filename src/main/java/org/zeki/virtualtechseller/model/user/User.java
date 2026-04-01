@@ -22,6 +22,10 @@ public abstract class User implements UserIdentity {
     protected LocalDate createDate;
     protected Boolean emailActivate;
 
+    public String checkAccess() {
+        return Boolean.TRUE.equals(emailActivate) ? "Permitido" : "Bloqueado";
+    }
+
     public String getFullName() {
         return String.format(name + " " + lastName);
     }

@@ -8,7 +8,7 @@ import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
-import org.zeki.virtualtechseller.model.user.Role;
+import org.zeki.virtualtechseller.model.user.UserRole;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.model.user.UserFactory;
 import org.zeki.virtualtechseller.repository.UserRepository;
@@ -53,8 +53,8 @@ public class UserService {
     public boolean checkRoleCurrentUser() {
         User user = SessionManager.getInstance().getCurrentUser();
         try {
-            Role role = userRepository.getUserRole(user.getEmail());
-            return role.equals(Role.ADMIN);
+            UserRole USerRole = userRepository.getUserRole(user.getEmail());
+            return USerRole.equals(USerRole.ADMIN);
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return false;
@@ -82,11 +82,11 @@ public class UserService {
             else if (!userRepository.emailActive(userEmail))
                 return new ResultService<>(false, "No autorizado, contacte con un admin", null);
             // GET USER ROLE
-            Role role = userRepository.getUserRole(userEmail);
-            if (role == null) return new ResultService<>(false, "Error obteniendo datos", null);
+            UserRole USerRole = userRepository.getUserRole(userEmail);
+            if (USerRole == null) return new ResultService<>(false, "Error obteniendo datos", null);
             // GET USER DATA
             UserFactory userFactory = new UserFactory();
-            User currentUser = userFactory.createUser(role);
+            User currentUser = userFactory.createUser(USerRole);
             currentUser.setEmail(userEmail);
             userRepository.getUserData(currentUser);
 
@@ -145,7 +145,7 @@ public class UserService {
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
         } catch (SQLException e) {
-            String message = "Error el rol del usuario desde servidor";
+            String message = "Error recibiendo usuarios desde servidor";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
         }
         return users;
@@ -168,10 +168,11 @@ public class UserService {
         // CHECK EMAIL AVAILABLE
         try {
             // CHECK IF EMAIL IS ALREADY REGISTERED
-            if (userRepository.emailExist(userDto.getEmail(), userDto.getIdUser())) return "Error: El email ya está registrado";
+            if (userRepository.emailExist(userDto.getEmail(), userDto.getIdUser()))
+                return "Error: El email ya está registrado";
             // ENCODE PASS IF PRESENT
             String plainPass = userDto.getPassword();
-            if (plainPass != null && !plainPass.isBlank()){
+            if (plainPass != null && !plainPass.isBlank()) {
                 String hashPass = BCrypt.withDefaults().hashToString(12, plainPass.toCharArray());
                 userDto.setPassword(hashPass);
             }

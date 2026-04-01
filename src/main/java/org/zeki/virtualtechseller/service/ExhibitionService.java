@@ -1,14 +1,20 @@
 package org.zeki.virtualtechseller.service;
 
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.AccessUserDto;
+import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.user.Client;
+import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
 import org.zeki.virtualtechseller.util.AlertHelper;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExhibitionService {
@@ -56,4 +62,38 @@ public class ExhibitionService {
             return new ResultService<>(false, message, null);
         }
     }
+
+    public ResultService<Boolean> addNewExhibition(Exhibition exhibition) {
+
+        try {
+            if (!exhibitionRepository.addNewExhibition(exhibition))
+                return new ResultService<>(false, "No se pudo crear la exhibición", null);
+            return new ResultService<>(true, "Exhibición creada correctamente", null);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return new ResultService<>(false, "Error de conexión con el servidor", null);
+        } catch (DuplicateExhibitionNameException e) {
+            return new ResultService<>(false, e.getMessage(), null); // THROW EXCEPTION ON DUPLICATE DB NAME
+
+        } catch (SQLException e) {
+            String message = "Error guardando la exhibición";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return new ResultService<>(false, message, null);
+        }
+    }
+
+    public boolean changeActivateUSer(ExhibitionAccessDto exhibitionAccessDto) {
+        try {
+            return exhibitionRepository.changeActivateExhibition(exhibitionAccessDto.isActive(), exhibitionAccessDto.getIdExhibition());
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+        } catch (SQLException e) {
+            String message = "Error actualizando el estado de activo de la exhibición";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
+    }
+
+
 }

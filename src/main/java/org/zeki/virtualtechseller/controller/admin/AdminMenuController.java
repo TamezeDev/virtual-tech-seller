@@ -44,7 +44,7 @@ public class AdminMenuController implements Initializable {
     private Button modUserBtn;
 
     @FXML
-    private Button permissionBtn;
+    private Button importXMLBtn;
 
     // ADMIN
     private Admin currentAdmin;
@@ -75,9 +75,9 @@ public class AdminMenuController implements Initializable {
 
         adduserBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.REGISTER_VIEW));
 
-        permissionBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.PERMISSION_VIEW));
+        importXMLBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.PERMISSION_VIEW));
 
-        modUserBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.MODIFY_USER_VIEW));
+        modUserBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.PERMISSION_VIEW));
 
         addEventBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.ADD_EVENT_VIEW));
 

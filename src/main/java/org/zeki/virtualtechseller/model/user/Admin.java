@@ -7,9 +7,9 @@ import org.zeki.virtualtechseller.dto.AccessUserDto;
 import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Product;
+import org.zeki.virtualtechseller.service.ExhibitionService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.AlertHelper;
-import org.zeki.virtualtechseller.util.Feedback;
 
 @Getter
 @Setter
@@ -63,12 +63,13 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     }
 
     @Override
-    public void createExhibition(Exhibition exhibition) {
-        exhibition.enable();
+    public String createExhibition(Exhibition exhibition,ExhibitionService exhibitionService) {
+        return exhibitionService.addNewExhibition(exhibition).getMessage();
     }
 
     @Override
     public void enableExhibition(Exhibition exhibition) {
+        exhibition.enable();
     }
 
     @Override
@@ -78,7 +79,7 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     }
 
     @Override
-    public Role getRoleName() {
-        return Role.ADMIN;
+    public UserRole getRoleName() {
+        return UserRole.ADMIN;
     }
 }

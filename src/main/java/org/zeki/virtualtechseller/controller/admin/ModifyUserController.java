@@ -7,7 +7,7 @@ import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
-import org.zeki.virtualtechseller.model.user.Role;
+import org.zeki.virtualtechseller.model.user.UserRole;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.*;
@@ -103,11 +103,11 @@ public class ModifyUserController implements Initializable {
 
     private void selectRole(User user) {
         // SELECT DEFAULT ROLE
-        Role userRole = user.getRoleName();
+        UserRole userRole = user.getRoleName();
         switch (userRole) {
-            case Role.CLIENT -> userRolCb.getSelectionModel().select(0);
-            case Role.ADMIN -> userRolCb.getSelectionModel().select(1);
-            case Role.MODERATOR -> userRolCb.getSelectionModel().select(2);
+            case UserRole.CLIENT -> userRolCb.getSelectionModel().select(0);
+            case UserRole.ADMIN -> userRolCb.getSelectionModel().select(1);
+            case UserRole.MODERATOR -> userRolCb.getSelectionModel().select(2);
         }
     }
 
@@ -162,9 +162,9 @@ public class ModifyUserController implements Initializable {
         String selectedRole = userRolCb.getSelectionModel().getSelectedItem();
 
         switch (selectedRole) {
-            case "Cliente" -> userDto.setUserRole(Role.CLIENT);
-            case "Administrador" -> userDto.setUserRole(Role.ADMIN);
-            case "Moderador" -> userDto.setUserRole(Role.MODERATOR);
+            case "Cliente" -> userDto.setUserRole(UserRole.CLIENT);
+            case "Administrador" -> userDto.setUserRole(UserRole.ADMIN);
+            case "Moderador" -> userDto.setUserRole(UserRole.MODERATOR);
         }
         return userDto;
     }

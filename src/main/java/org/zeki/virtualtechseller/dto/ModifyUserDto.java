@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.zeki.virtualtechseller.model.user.Role;
+import org.zeki.virtualtechseller.model.user.UserRole;
 
 @Getter
 @Setter
@@ -18,6 +18,6 @@ public class ModifyUserDto {
     protected String email;
     protected String phone;
     protected String password;
-    protected Role userRole;
+    protected UserRole userRole;
 
 }

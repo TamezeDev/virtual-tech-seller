@@ -3,7 +3,6 @@ package org.zeki.virtualtechseller.model.user;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -42,6 +41,21 @@ public final class Client extends User implements Purchasable {
         } else {
             cartItems.add(cartItem);
         }
+    }
+
+    public void modifyUserVisit(Exhibition exhibition, Client client){
+       Optional<UserVisit> visit = visits.stream().filter(userVisit -> userVisit.getExhibition().getIdExhibition() == exhibition.getIdExhibition()).findFirst();
+       if (visit.isPresent()){
+           visit.get().increaseVisit();
+           visit.get().updateLastVisit();
+       }else {
+           UserVisit userVisit = new UserVisit();
+           userVisit.setExhibition(exhibition);
+           userVisit.updateLastVisit();
+           userVisit.setClient(client);
+           userVisit.setVisitCounter(1);
+           visits.add(userVisit);
+       }
     }
 
     @Override
@@ -92,7 +106,7 @@ public final class Client extends User implements Purchasable {
     }
 
     @Override
-    public Role getRoleName() {
-        return Role.CLIENT;
+    public UserRole getRoleName() {
+        return UserRole.CLIENT;
     }
 }
