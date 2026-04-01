@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
@@ -11,7 +12,6 @@ import org.zeki.virtualtechseller.model.user.UserFactory;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
@@ -27,6 +27,21 @@ public class UserRepository {
 
         try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBoolean(1); // FOUND! RETURN TRUE
+            }
+        }
+        return false;
+    }
+
+    public boolean emailExist(String email, int idUser) throws DBConnectionException, SQLException {
+        String query = "SELECT EXISTS(SELECT 1 FROM users WHERE email = ? AND id_user <> ?);";
+
+        try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, email);
+            ps.setInt(2, idUser);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -167,8 +182,8 @@ public class UserRepository {
         }
     }
 
-    public List<User> getAllUsers(List<User> users) throws DBConnectionException, SQLException {
-        String query = "SELECT name, last_name, rol, email, email_activate FROM users";
+    public void getAllUsers(List<User> users) throws DBConnectionException, SQLException {
+        String query = "SELECT id_user, name, last_name, phone, rol, email, email_activate FROM users";
         UserFactory factory = new UserFactory();
 
         try (Connection connection = connectionManager.connect();
@@ -180,13 +195,14 @@ public class UserRepository {
                 Role role = Role.valueOf(rs.getString("rol").toUpperCase());
                 User user = factory.createUser(role);
 
+                user.setIdUser(rs.getInt("id_user"));
                 user.setName(rs.getString("name"));
                 user.setLastName(rs.getString("last_name"));
+                user.setPhone(rs.getString("phone"));
                 user.setEmail(rs.getString("email"));
                 user.setEmailActivate(rs.getBoolean("email_activate"));
                 users.add(user);
             }
-            return users;
         }
     }
 
@@ -202,4 +218,29 @@ public class UserRepository {
         }
     }
 
+    public boolean modifyUserData(ModifyUserDto userDto) throws DBConnectionException, SQLException {
+
+        String passQuery = "UPDATE users SET name = ?, last_name = ?, phone = ?, email = ?, password = ?, rol = ? WHERE id_user = ?;";
+        String query = "UPDATE users SET name = ?, last_name = ?, phone = ?, email = ?, rol = ? WHERE id_user = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = userDto.getPassword().isEmpty() ?
+                     connection.prepareStatement(query) : connection.prepareStatement(passQuery)) {
+
+            ps.setString(1, userDto.getName());
+            ps.setString(2, userDto.getLastName());
+            ps.setString(3, userDto.getPhone());
+            ps.setString(4, userDto.getEmail());
+
+            if (userDto.getPassword().isEmpty()) {
+                ps.setString(5, String.valueOf(userDto.getUserRole()));
+                ps.setInt(6, userDto.getIdUser());
+            } else {
+                ps.setString(5, userDto.getPassword());
+                ps.setString(6, String.valueOf(userDto.getUserRole()));
+                ps.setInt(7, userDto.getIdUser());
+            }
+            return ps.executeUpdate() > 0;
+        }
+    }
 }

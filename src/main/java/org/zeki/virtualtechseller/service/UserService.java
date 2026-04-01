@@ -2,9 +2,10 @@ package org.zeki.virtualtechseller.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.AccessUserDto;
 import org.zeki.virtualtechseller.dto.LoginUserDto;
+import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.dto.RegisterUserDto;
-import org.zeki.virtualtechseller.dto.UserAccessDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.Role;
@@ -150,10 +151,10 @@ public class UserService {
         return users;
     }
 
-    public boolean changeActivateUSer(UserAccessDto userAccessDto){
-        try{
+    public boolean changeActivateUSer(AccessUserDto userAccessDto) {
+        try {
             return userRepository.changeAccessToUser(userAccessDto.isAccess(), userAccessDto.getEmail());
-        }catch (DBConnectionException e) {
+        } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return false;
         } catch (SQLException e) {
@@ -163,5 +164,28 @@ public class UserService {
         }
     }
 
-
+    public String modifyUser(ModifyUserDto userDto) {
+        // CHECK EMAIL AVAILABLE
+        try {
+            // CHECK IF EMAIL IS ALREADY REGISTERED
+            if (userRepository.emailExist(userDto.getEmail(), userDto.getIdUser())) return "Error: El email ya está registrado";
+            // ENCODE PASS IF PRESENT
+            String plainPass = userDto.getPassword();
+            if (plainPass != null && !plainPass.isBlank()){
+                String hashPass = BCrypt.withDefaults().hashToString(12, plainPass.toCharArray());
+                userDto.setPassword(hashPass);
+            }
+            // MODIFY USER DATA
+            if (!userRepository.modifyUserData(userDto)) return "Error actualizando los datos del usuario";
+            // MODIFY OK
+            return "Datos de usuario actualizados correctamente";
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return null;
+        } catch (SQLException e) {
+            String message = "Error actualizando los datos del usuario";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return message;
+        }
+    }
 }

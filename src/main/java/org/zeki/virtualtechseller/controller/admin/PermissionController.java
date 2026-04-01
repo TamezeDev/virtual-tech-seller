@@ -6,9 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import org.zeki.virtualtechseller.app.AppContext;
-import org.zeki.virtualtechseller.dto.UserAccessDto;
+import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.AccessUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.model.user.Moderator;
 import org.zeki.virtualtechseller.model.user.User;
@@ -39,6 +39,9 @@ public class PermissionController implements Initializable {
     private Button listUsersBtn;
 
     @FXML
+    private Button modifyBtn;
+
+    @FXML
     private ComboBox<String> filterCb;
 
     @FXML
@@ -59,9 +62,10 @@ public class PermissionController implements Initializable {
     @FXML
     private TableColumn<User, String> categoryColumn;
 
+    // USER
+    private Admin currentAdmin;
     private ObservableList<User> users;
     private User selectedUser;
-
     //SERVICES
     private UserService userService;
 
@@ -73,6 +77,7 @@ public class PermissionController implements Initializable {
     }
 
     private void instances() {
+        currentAdmin =(Admin) SessionManager.getInstance().getCurrentUser();
         userService = AppContext.getInstance().getUserService();
         users = FXCollections.observableArrayList();
     }
@@ -87,9 +92,11 @@ public class PermissionController implements Initializable {
 
         listUsersBtn.setOnAction(event -> listUsers());
 
-        authorizeBtn.setOnAction(event -> changeUserAccess(true));
+        authorizeBtn.setOnAction(event -> changeAccess(true));
 
-        blockBtn.setOnAction(event -> changeUserAccess(false));
+        blockBtn.setOnAction(event -> changeAccess(false));
+
+        modifyBtn.setOnAction(event -> changeToModifyScene());
 
         filterCb.setOnAction(event -> filterAccessUser());
 
@@ -98,6 +105,16 @@ public class PermissionController implements Initializable {
                 selectedUser = newUser;
             }
         });
+    }
+
+    private void changeToModifyScene() {
+        // GO TO MODIFY SCENE IF USER IS SELECTED
+        if (selectedUser == null) {
+            feedbackLabel.setText("Para esta operación debe seleccionar un usuario");
+            Feedback.showFeedback(feedbackLabel);
+            return;
+        }
+        SceneHelper.changeScene(modifyBtn, ViewPath.MODIFY_USER_VIEW, (ModifyUserController controller) -> controller.initData(selectedUser));
     }
 
     private void configTable() {
@@ -122,24 +139,31 @@ public class PermissionController implements Initializable {
     private void filterAccessUser() {
         // UPDATE LIST
         users.setAll(userService.getAllUsers());
-        List<User> usersFiltered = new ArrayList<>();
         if (users.isEmpty()) {
             feedbackLabel.setText("Error al cargar los usuarios");
             Feedback.showFeedback(feedbackLabel);
             return;
         }
-        if (filterCb.getSelectionModel().isSelected(0)) return;
-        if (filterCb.getSelectionModel().isSelected(1)) {
+        // APPLY FILTERS
+        if (checkSelectedFilter()) {
+            feedbackLabel.setText("Aplicado filtro seleccionado");
+            Feedback.showFeedback(feedbackLabel);
+        }
+    }
+
+    private boolean checkSelectedFilter() {
+        // FILTERED LIST
+        List<User> usersFiltered = new ArrayList<>();
+        if (filterCb.getSelectionModel().isSelected(0)) return false;
+        else if (filterCb.getSelectionModel().isSelected(1)) {
             // GET USERS ACTIVATED
             usersFiltered = users.stream().filter(user -> user.getEmailActivate().equals(true)).toList();
-        }
-        if (filterCb.getSelectionModel().isSelected(2)) {
+        } else if (filterCb.getSelectionModel().isSelected(2)) {
             // GET USERS ACTIVATED
             usersFiltered = users.stream().filter(user -> user.getEmailActivate().equals(false)).toList();
         }
         users.setAll(usersFiltered);
-        feedbackLabel.setText("Aplicado filtro seleccionado");
-        Feedback.showFeedback(feedbackLabel);
+        return true;
     }
 
     private String checkRoles(User user) {
@@ -155,14 +179,13 @@ public class PermissionController implements Initializable {
         return Boolean.TRUE.equals(user.getEmailActivate()) ? "Permitido" : "Bloqueado";
     }
 
-    private void changeUserAccess(boolean access) {
-        // CREATE USER DTO AND MODIFY ACTIVATE USER DB
-        UserAccessDto userAccessDto = new UserAccessDto(selectedUser.getEmail(), access);
-        if (!userService.changeActivateUSer(userAccessDto)) {
-            feedbackLabel.setText("Error modificando acceso al usuario");
-        } else {
-            feedbackLabel.setText("Se ha modificado el acceso correctamente");
+    private void changeAccess(boolean access) {
+        String result = currentAdmin.changeUserAccess(access, selectedUser, userService);
+        feedbackLabel.setText(result);
+        if (result.equals("OK")){
+            feedbackLabel.setText("Operación cancelada por el administrador");
             listUsers();
+            checkSelectedFilter();
         }
         Feedback.showFeedback(feedbackLabel);
     }

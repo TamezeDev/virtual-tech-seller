@@ -3,8 +3,13 @@ package org.zeki.virtualtechseller.model.user;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.zeki.virtualtechseller.dto.AccessUserDto;
+import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Product;
+import org.zeki.virtualtechseller.service.UserService;
+import org.zeki.virtualtechseller.util.AlertHelper;
+import org.zeki.virtualtechseller.util.Feedback;
 
 @Getter
 @Setter
@@ -35,18 +40,26 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     }
 
     @Override
-    public void activateUser(User user) {
-
+    public String changeUserAccess(boolean access, User selectedUser, UserService userService) {
+        // CREATE USER DTO AND MODIFY ACTIVATE USER DB
+        if (selectedUser == null) {
+            return "Para esta operación debe seleccionar un usuario";
+        }
+        AccessUserDto userAccessDto = new AccessUserDto(selectedUser.getEmail(), access);
+        if (!userService.changeActivateUSer(userAccessDto)) {
+            return "Error modificando acceso al usuario";
+        } else {
+            return "OK";
+        }
     }
 
     @Override
-    public void deactivateUser(User user) {
-
-    }
-
-    @Override
-    public void updateUser(User user) {
-
+    public String updateUser(String content, UserService userService, ModifyUserDto userDto) {
+        // REQUEST CONFIRM NEW CHANGES
+        String alertTitle = "Modificación de usuario";
+        if (AlertHelper.choiceAlert(alertTitle, content)) {
+            return userService.modifyUser(userDto);
+        } else return "Operación cancelada por el administrador";
     }
 
     @Override

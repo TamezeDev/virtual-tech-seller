@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAccessDto {
+public class AccessUserDto {
 
     private String email;
     private boolean access;
