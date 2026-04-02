@@ -1,5 +1,6 @@
 package org.zeki.virtualtechseller.model.user;
 
+import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,8 @@ import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.AlertHelper;
+
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -40,30 +43,21 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     }
 
     @Override
-    public String changeUserAccess(boolean access, User selectedUser, UserService userService) {
-        // CREATE USER DTO AND MODIFY ACTIVATE USER DB
-        if (selectedUser == null) {
-            return "Para esta operación debe seleccionar un usuario";
-        }
-        AccessUserDto userAccessDto = new AccessUserDto(selectedUser.getEmail(), access);
-        if (!userService.changeActivateUSer(userAccessDto)) {
-            return "Error modificando acceso al usuario";
-        } else {
-            return "OK";
-        }
+    public void changeUserAccess(ObservableList<User> users, User selectedUser, boolean status) {
+        Optional<User> foundUser = users.stream().filter(user -> user.getEmail().equals(selectedUser.getEmail())).findFirst();
+        foundUser.ifPresent(user -> user.setEmailActivate(status));
     }
 
     @Override
-    public String updateUser(String content, UserService userService, ModifyUserDto userDto) {
-        // REQUEST CONFIRM NEW CHANGES
-        String alertTitle = "Modificación de usuario";
-        if (AlertHelper.choiceAlert(alertTitle, content)) {
-            return userService.modifyUser(userDto);
-        } else return "Operación cancelada por el administrador";
+    public void updateUser(User selectedUser, ModifyUserDto userDto) {
+        selectedUser.setName(userDto.getName());
+        selectedUser.setLastName(userDto.getLastName());
+        selectedUser.setPhone(userDto.getPhone());
+        selectedUser.setEmail(userDto.getPhone());
     }
 
     @Override
-    public String createExhibition(Exhibition exhibition,ExhibitionService exhibitionService) {
+    public String createExhibition(Exhibition exhibition, ExhibitionService exhibitionService) {
         return exhibitionService.addNewExhibition(exhibition).getMessage();
     }
 

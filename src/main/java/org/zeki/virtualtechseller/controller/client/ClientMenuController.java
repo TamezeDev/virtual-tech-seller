@@ -8,17 +8,16 @@ import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.LoginUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
-import org.zeki.virtualtechseller.service.CartService;
-import org.zeki.virtualtechseller.service.ResultService;
-import org.zeki.virtualtechseller.service.SaleService;
-import org.zeki.virtualtechseller.service.UserService;
+import org.zeki.virtualtechseller.service.*;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ClientMenuController implements Initializable {
@@ -54,6 +53,7 @@ public class ClientMenuController implements Initializable {
     // SERVICES
     private CartService cartService;
     private SaleService saleService;
+    private VisitService visitService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,12 +66,15 @@ public class ClientMenuController implements Initializable {
         AppContext.getInstance().getConnectionManager().getDatabaseConfig().useClientConnection(); // CHANGE DB USER
         cartService = AppContext.getInstance().getCartService();
         saleService = AppContext.getInstance().getSaleService();
+        visitService = AppContext.getInstance().getVisitService();
+
         setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
         loadCartUser();
+        loadUserVisits();
+
         currentUser.setCurrentExhibition(null);  // SET NULL CURRENT EVENT
         saleService.setSalesList(currentUser);
-
     }
 
     private void initGUI() {
@@ -111,14 +114,18 @@ public class ClientMenuController implements Initializable {
         cartService.setCartItemList(currentUser);
     }
 
+    private void loadUserVisits() {
+        ResultService<List<UserVisit>> result = visitService.getAllUserVisits(currentUser);
+        if (result.isSuccess()) {
+            currentUser.setVisits(result.getData());
+        }
+    }
+
     //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
     private void setTestUser() {
         UserService userService = AppContext.getInstance().getUserService();
 
         ResultService<User> resultService = userService.login(new LoginUserDto("client2@virtualtechseller.com", "Client-123"));
         SessionManager.getInstance().login(resultService.getData());
-        Exhibition exhibition = new Exhibition();
-        exhibition.setIdExhibition(1);
-        ((Client) resultService.getData()).setCurrentExhibition(exhibition);
     }
 }

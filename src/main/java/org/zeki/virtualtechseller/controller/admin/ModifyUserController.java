@@ -9,6 +9,7 @@ import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.model.user.UserRole;
 import org.zeki.virtualtechseller.model.user.User;
+import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.*;
 
@@ -136,7 +137,7 @@ public class ModifyUserController implements Initializable {
         loadRolesOnCb();
         selectRole(user);
         //FEEDBACK
-        feedbackLabel.setText("Datos del usuario cargados");
+        feedbackLabel.setText("Mostrando datos del usuario");
         Feedback.showFeedback(feedbackLabel);
 
     }
@@ -169,49 +170,75 @@ public class ModifyUserController implements Initializable {
         return userDto;
     }
 
-    private void modifyUserdata() {
+    private boolean checkBasicFields() {
+        boolean accepted;
         // CHECK EMPTY FIELDS
         if (FormularyHelper.emptyFields(textFields, feedbackLabel)) {
-            Feedback.showFeedback(feedbackLabel);
-            return;
+            accepted = false;
         }
         // CHECK FORMAT PHONE
         else if (!FormularyHelper.phoneFormatValid(phoneTxt.getText())) {
             feedbackLabel.setText("Formato de teléfono no válido. Ejemplo: 600123123");
-            Feedback.showFeedback(feedbackLabel);
-            return;
+            accepted = false;
         }
         // CHECK FORMAT EMAIL
         else if (!FormularyHelper.emailFormatValid(emailTxt.getText())) {
             feedbackLabel.setText("El formato del email no es válido");
-            Feedback.showFeedback(feedbackLabel);
-            return;
+            accepted = false;
+        } else {
+            feedbackLabel.setText("");
+            accepted = true;
         }
-        StringBuilder content = new StringBuilder("¿Modificar los datos del usuario? ");
-        // CHECK IF THEY WANT TO MODIFY PASS
+        Feedback.showFeedback(feedbackLabel);
+        return accepted;
+    }
+
+    private boolean checkChangePass(StringBuilder content) {
+        boolean accepted;
+        content.append("¿Modificar los datos del usuario? ");
         if (!passTxt.getText().isEmpty() || !repeatPassTxt.getText().isEmpty()) {
             // CHECK MATCH PASS
             if (!FormularyHelper.matchPassword(passTxt.getText().trim(), repeatPassTxt.getText().trim())) {
                 feedbackLabel.setText("Las contraseñas no coinciden");
                 Feedback.showFeedback(feedbackLabel);
-                return;
+                accepted = false;
             }
             // CHECK FORMAT PASS
             else if (!FormularyHelper.passFormatValid(passTxt.getText())) {
                 feedbackLabel.setText("La contraseña requiere 8 caracteres, mayúscula, minúscula y símbolo");
                 Feedback.showFeedback(feedbackLabel);
-                return;
+                accepted = false;
+            } else {
+                accepted = true;
             }
             // ADD COMMENT CONSERVATE PASS
         } else {
             content.append(" Dejando la contraseña vacía se conservará la anterior contraseña, ¿Continuar?");
+            accepted = true;
         }
-        String result = currentAdmin.updateUser(content.toString(), userService, createModifyDto());
-        if (result != null){
-            feedbackLabel.setText(result);
-            Feedback.showFeedback(feedbackLabel);
-        }
+
+        return accepted;
     }
 
+    private void modifyUserdata() {
+        // CHECK OBLIGATORY FIELDS
+        if (!checkBasicFields()) return;
+        StringBuilder content = new StringBuilder();
+        // CHECK IF THEY WANT TO MODIFY PASS
+        if (!checkChangePass(content)) return;
+        // REQUEST CONFIRM NEW CHANGES
+        String alertTitle = "Modificación de usuario";
+        // UPDATE DB
+        if (AlertHelper.choiceAlert(alertTitle, content.toString())) {
+            ModifyUserDto userDto = createModifyDto();
+            ResultService<Boolean> result = userService.modifyUser(userDto);
+            if (result.isSuccess()) {
+                currentAdmin.updateUser(modifyUser, userDto); // UPDATE LOCAL USER
+            }
+            feedbackLabel.setText(result.getMessage());
+        } else feedbackLabel.setText("Operación cancelada por el administrador");
+
+        Feedback.showFeedback(feedbackLabel);
+    }
 
 }

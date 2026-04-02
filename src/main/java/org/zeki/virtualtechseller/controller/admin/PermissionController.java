@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.controller.admin;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -175,12 +176,23 @@ public class PermissionController implements Initializable {
         } else return "Cliente";
     }
 
+    private AccessUserDto createUserAccessDto(boolean access) {
+        return new AccessUserDto(selectedUser.getEmail(), access);
+    }
+
     private void changeAccess(boolean access) {
-        String result = currentAdmin.changeUserAccess(access, selectedUser, userService);
-        feedbackLabel.setText(result);
-        if (result.equals("OK")) {
-            feedbackLabel.setText("Operación cancelada por el administrador");
-            listUsers();
+        // CHECK SELECTED USER
+        if (selectedUser == null) {
+            feedbackLabel.setText("Para esta operación debe seleccionar un usuario");
+        }
+        // UPDATE USER DB
+        else if (!userService.changeActivateUSer(createUserAccessDto(access))) {
+            feedbackLabel.setText("Error modificando acceso al usuario");
+        } else {
+            // UPDATE TABLE AND FEEDBACK
+            feedbackLabel.setText("Permisos de usuario cambiados correctamente");
+            currentAdmin.changeUserAccess(users, selectedUser, access);
+            usersTable.refresh();
             checkSelectedFilter();
         }
         Feedback.showFeedback(feedbackLabel);
@@ -189,6 +201,7 @@ public class PermissionController implements Initializable {
     private void listUsers() {
         // GET USERS
         users.setAll(userService.getAllUsers());
+        filterCb.getSelectionModel().select(0);
         if (users.isEmpty()) {
             feedbackLabel.setText("Error al cargar los usuarios");
             Feedback.showFeedback(feedbackLabel);

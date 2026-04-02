@@ -164,12 +164,12 @@ public class UserService {
         }
     }
 
-    public String modifyUser(ModifyUserDto userDto) {
+    public ResultService<Boolean> modifyUser(ModifyUserDto userDto) {
         // CHECK EMAIL AVAILABLE
         try {
             // CHECK IF EMAIL IS ALREADY REGISTERED
             if (userRepository.emailExist(userDto.getEmail(), userDto.getIdUser()))
-                return "Error: El email ya está registrado";
+                return new ResultService<>(false, "Error: El email ya está registrado");
             // ENCODE PASS IF PRESENT
             String plainPass = userDto.getPassword();
             if (plainPass != null && !plainPass.isBlank()) {
@@ -177,16 +177,17 @@ public class UserService {
                 userDto.setPassword(hashPass);
             }
             // MODIFY USER DATA
-            if (!userRepository.modifyUserData(userDto)) return "Error actualizando los datos del usuario";
+            if (!userRepository.modifyUserData(userDto))
+                return new ResultService<>(false, "Error actualizando los datos del usuario");
             // MODIFY OK
-            return "Datos de usuario actualizados correctamente";
+            return new ResultService<>(true, "Datos de usuario actualizados correctamente");
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
-            return null;
+            return new ResultService<>(false, "Error conectando con el servidor");
         } catch (SQLException e) {
             String message = "Error actualizando los datos del usuario";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
-            return message;
+            return new ResultService<>(false, message);
         }
     }
 }

@@ -17,7 +17,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @AllArgsConstructor
-public final class Client extends User implements Purchasable {
+public final class Client extends User implements Purchasable, Visitable {
 
     private double credit;
     private List<CartItem> cartItems;
@@ -43,19 +43,20 @@ public final class Client extends User implements Purchasable {
         }
     }
 
-    public void modifyUserVisit(Exhibition exhibition, Client client){
-       Optional<UserVisit> visit = visits.stream().filter(userVisit -> userVisit.getExhibition().getIdExhibition() == exhibition.getIdExhibition()).findFirst();
-       if (visit.isPresent()){
-           visit.get().increaseVisit();
-           visit.get().updateLastVisit();
-       }else {
-           UserVisit userVisit = new UserVisit();
-           userVisit.setExhibition(exhibition);
-           userVisit.updateLastVisit();
-           userVisit.setClient(client);
-           userVisit.setVisitCounter(1);
-           visits.add(userVisit);
-       }
+    @Override
+    public void updateUserVisit(Exhibition exhibition, Client client) {
+        Optional<UserVisit> visit = visits.stream().filter(userVisit -> userVisit.getExhibition().getIdExhibition() == exhibition.getIdExhibition()).findFirst();
+        if (visit.isPresent()) {
+            visit.get().increaseVisit();
+            visit.get().updateLastVisit();
+        } else {
+            UserVisit userVisit = new UserVisit();
+            userVisit.setExhibition(exhibition);
+            userVisit.updateLastVisit();
+            userVisit.setClient(client);
+            userVisit.setVisitCounter(1);
+            visits.add(userVisit);
+        }
     }
 
     @Override

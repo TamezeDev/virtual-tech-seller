@@ -128,8 +128,11 @@ public class EventSelectController implements Initializable {
             // ON CARD ACTION
             card.setOnMouseClicked(event -> {
                 client.setCurrentExhibition(exhibition);
-                visitService.updateUserVisit();
-                SceneHelper.changeScene(card, ViewPath.CATALOG_PRODUCT_VIEW);
+                if (visitService.updateUserVisit()) {
+                    client.updateUserVisit(exhibition, client);
+                    SceneHelper.changeScene(card, ViewPath.CATALOG_PRODUCT_VIEW);
+                }
+
             });
             availableEventsBox.getChildren().add(card);
             return;
