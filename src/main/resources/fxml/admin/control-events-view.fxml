@@ -48,8 +48,9 @@
             </TableView>
             <HBox alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                <children>
-                  <Button fx:id="activateEvent" mnemonicParsing="false" styleClass="button-a" text="Activar evento" />
+                  <Button fx:id="activateEvent" mnemonicParsing="false" prefHeight="43.0" prefWidth="166.0" styleClass="button-a" text="Activar evento" />
                   <Button fx:id="finishEventBtn" mnemonicParsing="false" styleClass="button-a" text="Terminar evento" />
+                  <Button fx:id="modifyEventBtn" mnemonicParsing="false" styleClass="button-a" text="Modificar evento" />
                </children>
             </HBox>
          </children>

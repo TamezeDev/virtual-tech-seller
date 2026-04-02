@@ -20,6 +20,7 @@ public final class ViewPath {
     public static final String ADD_PRODUCT_VIEW = "/fxml/admin/add-product-view.fxml";
     public static final String ASSIGN_PRODUCT_VIEW = "/fxml/admin/assign-product-view.fxml";
     public static final String CONTROL_EVENTS_VIEW = "/fxml/admin/control-events-view.fxml";
+    public static final String MODIFY_EVENTS_VIEW = "/fxml/admin/modify-event-view.fxml";
     public static final String MODIFY_PRODUCTS_VIEW = "/fxml/admin/modify-products-view.fxml";
     public static final String MODIFY_USER_VIEW = "/fxml/admin/modify-user-view.fxml";
     public static final String PERMISSION_VIEW = "/fxml/admin/permission-view.fxml";

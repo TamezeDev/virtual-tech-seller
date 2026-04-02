@@ -39,6 +39,12 @@ public class ControlEventsController implements Initializable {
     private TableColumn<Exhibition, String> descriptionColumn;
 
     @FXML
+    private TableColumn<Exhibition, String> nameColumn;
+
+    @FXML
+    private TableColumn<Exhibition, String> statusColumn;
+
+    @FXML
     private TableView<Exhibition> eventsTable;
 
     @FXML
@@ -51,10 +57,7 @@ public class ControlEventsController implements Initializable {
     private Button listEventsBtn;
 
     @FXML
-    private TableColumn<Exhibition, String> nameColumn;
-
-    @FXML
-    private TableColumn<Exhibition, String> statusColumn;
+    private Button modifyEventBtn;
 
     // USER
     private Admin currentAdmin;
@@ -89,6 +92,8 @@ public class ControlEventsController implements Initializable {
         activateEvent.setOnAction(event -> changeEventStatus(true));
 
         finishEventBtn.setOnAction(event -> changeEventStatus(false));
+
+        modifyEventBtn.setOnAction(event -> SceneHelper.changeScene(modifyEventBtn, ViewPath.MODIFY_EVENTS_VIEW));
 
         eventsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldEv, newEv) -> {
             if (newEv != null) {
