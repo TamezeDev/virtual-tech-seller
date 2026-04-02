@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.service;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.AccessUserDto;
 import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
+import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -79,6 +80,26 @@ public class ExhibitionService {
             String message = "Error guardando la exhibición";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return new ResultService<>(false, message, null);
+        }
+    }
+
+    public String modifyExhibition(ExhibitionModifyDto exhibitionModifyDto) {
+        try {
+            if (!exhibitionRepository.modifyEventData(exhibitionModifyDto)) {
+                return "Error: No se ha podido modificar los datos del evento";
+            }
+            return "Datos del evento modificados correctamente";
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return "Error de conexión con el servidor";
+        } catch (DuplicateExhibitionNameException e) {
+            return e.getMessage(); // THROW EXCEPTION ON DUPLICATE DB NAME
+
+        } catch (SQLException e) {
+            String message = "Error modificando los datos de la exhibición";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return message;
         }
     }
 

@@ -1,5 +1,7 @@
 package org.zeki.virtualtechseller.model.user;
 
+import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
+import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 
@@ -9,4 +11,6 @@ public interface ExhibitionManager {
     void enableExhibition(Exhibition exhibition);
 
     void disableExhibition(Exhibition exhibition);
+
+    String modifyExhibition(ExhibitionService service, ExhibitionModifyDto exhibitionModifyDto);
 }

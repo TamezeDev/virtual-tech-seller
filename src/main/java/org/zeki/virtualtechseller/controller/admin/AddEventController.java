@@ -52,7 +52,6 @@ public class AddEventController implements Initializable {
     // SERVICES
     private ExhibitionService exhibitionService;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instances();
@@ -97,7 +96,7 @@ public class AddEventController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return false;
         }
-        if (endDatePk.getValue().isBefore(initDatePk.getValue())){
+        if (endDatePk.getValue().isBefore(initDatePk.getValue())) {
             feedbackLabel.setText("La fecha fin debe ser posterior a la fecha inicio");
             Feedback.showFeedback(feedbackLabel);
             return false;
@@ -122,13 +121,12 @@ public class AddEventController implements Initializable {
             return;
         }
         // CHECK DATE VALUES
-        if (checkDates()) {
+        if (FormularyHelper.checkDates(initDatePk, endDatePk, feedbackLabel)) {
             // ADMIN CREATE A EXHIBITION
             String result = currentAdmin.createExhibition(createExhibition(), exhibitionService);
             feedbackLabel.setText(result);
-            Feedback.showFeedback(feedbackLabel);
         }
-
+        Feedback.showFeedback(feedbackLabel);
     }
 
 }

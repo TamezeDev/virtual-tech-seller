@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.dto.AccessUserDto;
+import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
+import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.dto.ModifyUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Product;
@@ -70,6 +72,11 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     public void disableExhibition(Exhibition exhibition) {
         exhibition.disable();
 
+    }
+
+    @Override
+    public String modifyExhibition(ExhibitionService service, ExhibitionModifyDto exhibitionModifyDto) {
+        return service.modifyExhibition(exhibitionModifyDto);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -57,7 +58,7 @@ public class ExhibitionRepository {
         return exhibitions;
     }
 
-    public List<ExhibitionItem> getExhibitionItemsFromDB(int id_exhibition) throws DBConnectionException, SQLException {
+    public List<ExhibitionItem> getExhibitionItemsFromDB(int idExhibition) throws DBConnectionException, SQLException {
         String query = "SELECT pe.quantity, p.id_product, p.name AS prod_name, p.description AS prod_description, p.url_image, p.base_price, " +
                 "p.available, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " +
                 "np.release_date, up.id_product AS used_id, up.discount, up.remark " +
@@ -71,7 +72,7 @@ public class ExhibitionRepository {
 
         try (Connection connection = connectionManager.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, id_exhibition);
+            ps.setInt(1, idExhibition);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // CREATE PRODUCT (CHECK TYPE)
@@ -136,6 +137,28 @@ public class ExhibitionRepository {
             ps.setBoolean(1, access);
             ps.setInt(2, idExhibition);
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean modifyEventData(ExhibitionModifyDto exhibitionModifyDto) throws DBConnectionException, SQLException, DuplicateExhibitionNameException {
+
+        String query = "UPDATE exhibitions SET name = ?, description = ?, init_date = ?, end_date = ? WHERE id_exhibition = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, exhibitionModifyDto.getName());
+            ps.setString(2, exhibitionModifyDto.getDescription());
+            ps.setString(3, String.valueOf(exhibitionModifyDto.getInitDate()));
+            ps.setString(4, String.valueOf(exhibitionModifyDto.getEndDate()));
+            ps.setInt(5, exhibitionModifyDto.getIdExhibition());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
+                throw new DuplicateExhibitionNameException("El nombre de la exhibición ya está en uso");
+            }
+            throw new SQLException();
         }
     }
 

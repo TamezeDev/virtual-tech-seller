@@ -1,10 +1,12 @@
 package org.zeki.virtualtechseller.util;
 
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import org.zeki.virtualtechseller.model.user.UserRole;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -25,6 +27,28 @@ public final class FormularyHelper {
             }
         }
         return false;
+    }
+
+
+    public static boolean checkDates(DatePicker initDatePk, DatePicker endDatePk, Label feedbackLabel) {
+        // CHECK DATES
+        if (initDatePk.getValue() == null || endDatePk.getValue() == null) {
+            feedbackLabel.setText("Debe seleccionar las fechas de inicio y fin");
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        LocalDate today = LocalDate.now();
+        if (initDatePk.getValue().isBefore(today) || endDatePk.getValue().isBefore(today)) {
+            feedbackLabel.setText("Las fechas de inicio y fin deben ser igual o posterior al día actual");
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        if (endDatePk.getValue().isBefore(initDatePk.getValue())) {
+            feedbackLabel.setText("La fecha fin debe ser posterior a la fecha inicio");
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        return true;
     }
 
     public static boolean matchPassword(String passA, String passB) {

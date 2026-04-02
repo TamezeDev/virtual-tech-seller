@@ -92,8 +92,15 @@ public class ControlEventsController implements Initializable {
         activateEvent.setOnAction(event -> changeEventStatus(true));
 
         finishEventBtn.setOnAction(event -> changeEventStatus(false));
+        modifyEventBtn.setOnAction(event -> {
+            if (selectedExhibition == null) {
+                feedbackLabel.setText("Para esta operación debe seleccionar un evento");
+                Feedback.showFeedback(feedbackLabel);
+                return;
+            }
+            SceneHelper.changeScene(modifyEventBtn, ViewPath.MODIFY_EVENTS_VIEW, (ModifyEventController controller) -> controller.initData(selectedExhibition));
+        });
 
-        modifyEventBtn.setOnAction(event -> SceneHelper.changeScene(modifyEventBtn, ViewPath.MODIFY_EVENTS_VIEW));
 
         eventsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldEv, newEv) -> {
             if (newEv != null) {
