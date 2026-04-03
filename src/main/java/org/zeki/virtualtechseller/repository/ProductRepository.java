@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
@@ -53,6 +54,24 @@ public class ProductRepository {
             return true;
         }
 
+    }
+
+    public boolean addNewCategory(CategoryDto categoryDto) throws DBConnectionException, SQLException, DuplicateExhibitionNameException {
+        String query = "INSERT INTO categories(name, description) VALUES (?, ?);";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, categoryDto.getName());
+            ps.setString(2, categoryDto.getDescription());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
+                throw new DuplicateExhibitionNameException("El nombre de la categoría ya está registrada");
+            }
+            throw new SQLException();
+        }
     }
 
     public int decreaseNewProductStock(Connection connection, int quantity, int idProduct) throws SQLException {

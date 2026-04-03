@@ -21,14 +21,13 @@ public final class FormularyHelper {
 
     public static boolean emptyFields(List<TextField> fieldList, Label label) {
         for (TextField textField : fieldList) {
-            if (textField.getText().isBlank()) {
+            if (textField.getText() == null || textField.getText().isBlank()) {
                 label.setText("Debe completar todos los campos");
                 return true;
             }
         }
         return false;
     }
-
 
     public static boolean checkDates(DatePicker initDatePk, DatePicker endDatePk, Label feedbackLabel) {
         // CHECK DATES

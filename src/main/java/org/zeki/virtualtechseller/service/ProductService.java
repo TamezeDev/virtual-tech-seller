@@ -2,6 +2,7 @@ package org.zeki.virtualtechseller.service;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
@@ -15,7 +16,6 @@ import org.zeki.virtualtechseller.util.TransactionHelper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,6 +62,25 @@ public class ProductService {
         }
     }
 
+    public ResultService<Void> addCategory(CategoryDto categoryDto) {
+        try {
+            if (!productRepository.addNewCategory(categoryDto)) {
+                return new ResultService<>(false, "No se pudo crear la categoría nueva");
+            }
+            return new ResultService<>(true, "Categoria agregada correctamente");
+
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return new ResultService<>(false, null);
+
+        } catch (DuplicateExhibitionNameException e) {
+            return new ResultService<>(false, e.getMessage()); // THROW EXCEPTION ON DUPLICATE DB NAME
+        } catch (SQLException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return null;
+        }
+    }
+
     public ResultService<Void> addNewProduct(NewProductDto productDto, UsedProductDto usedProductDto) {
         Connection connection = null;
 
@@ -91,7 +110,6 @@ public class ProductService {
         } catch (SQLException e) {
             TransactionHelper.rollback(connection);
             AlertHelper.showSQLAlert("Error en la transacción");
-            e.printStackTrace();
             return new ResultService<>(false, "No se pudo completar la transacción");
 
         } finally {
@@ -127,7 +145,6 @@ public class ProductService {
         } catch (SQLException e) {
             TransactionHelper.rollback(connection);
             AlertHelper.showSQLAlert("Error en la transacción de añadir producto");
-            e.printStackTrace();
             return new ResultService<>(false, "No se pudo completar la transacción");
         }
     }
@@ -148,7 +165,6 @@ public class ProductService {
         } catch (SQLException e) {
             TransactionHelper.rollback(connection);
             AlertHelper.showSQLAlert("Error en la transacción de añadir producto");
-            e.printStackTrace();
             return new ResultService<>(false, "No se pudo completar la transacción");
 
         }

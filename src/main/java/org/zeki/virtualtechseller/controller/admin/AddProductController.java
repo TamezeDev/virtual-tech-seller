@@ -3,15 +3,16 @@ package org.zeki.virtualtechseller.controller.admin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
+import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.service.ProductService;
+import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.util.*;
 
 import java.io.File;
@@ -19,11 +20,19 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
 public class AddProductController implements Initializable {
+
+    @FXML
+    private Button addCategoryBtn;
+
+    @FXML
+    private TextField categoryNameTxt;
+
+    @FXML
+    private TextField categoryDescriptionTxt;
 
     @FXML
     private Button addProductBtn;
@@ -67,7 +76,6 @@ public class AddProductController implements Initializable {
     @FXML
     private TextField remarkTxt;
 
-
     private ToggleGroup typeGroup;
     private List<TextField> textFields;
     private File selectedFile;
@@ -102,6 +110,8 @@ public class AddProductController implements Initializable {
 
         gobackBtn.setOnAction(event -> SceneHelper.changeScene(gobackBtn, ViewPath.ADMIN_MENU_VIEW));
 
+        addCategoryBtn.setOnAction(event -> addNewCategory());
+
         addProductBtn.setOnAction(event -> addProduct());
 
         productImg.setOnMousePressed(event -> selectedFile = ImageHelper.setImage(event, productImg));
@@ -122,6 +132,27 @@ public class AddProductController implements Initializable {
             String newText = change.getControlNewText();
             return newText.matches("^$|^(?!(0|0\\.0{0,2})$)\\d*(\\.\\d{0,2})?$") ? change : null;
         }));
+    }
+
+    private void addNewCategory() {
+        // CHECK EMPTY FIELDS
+        if (categoryNameTxt.getText().isBlank() || categoryDescriptionTxt.getText().isBlank()) {
+            feedbackLabel.setText("Debe completar los campos nombre y descripción de la categoría");
+            Feedback.showFeedback(feedbackLabel);
+            return;
+        }
+        // ADD PRODUCT
+        ResultService<Void> result = productService.addCategory(new CategoryDto(categoryNameTxt.getText(), categoryDescriptionTxt.getText()));
+        if (result != null) {
+            feedbackLabel.setText(result.getMessage());
+            // IF OK RELOAD CATEGORIES BOX
+            if (result.isSuccess()) {
+                categoryCb.getItems().clear();
+                loadCategoriesCombo();
+            }
+            Feedback.showFeedback(feedbackLabel);
+        }
+
     }
 
     private NewProductDto createNewProductDTO() {
@@ -159,9 +190,9 @@ public class AddProductController implements Initializable {
     }
 
     private void addProduct() {
+        textFields.clear();
         // CHECK VALUES COMPLETES
         if (!checkCompleteAllFields()) {
-            textFields.clear();
             Feedback.showFeedback(feedbackLabel);
             return;
         }
@@ -173,7 +204,6 @@ public class AddProductController implements Initializable {
         else if (usedProductRb.isSelected()) {
             feedbackLabel.setText(currentAdmin.createProduct(productService, null, createUsedProductDTO()));
         }
-        textFields.clear();
         Feedback.showFeedback(feedbackLabel);
     }
 
@@ -214,6 +244,7 @@ public class AddProductController implements Initializable {
             }
         } else if (usedProductRb.isSelected()) {
             textFields.add(discountTxt);
+            textFields.add(remarkTxt);
             passed = true;
         }
         return passed;
@@ -254,11 +285,6 @@ public class AddProductController implements Initializable {
             return;
         }
         categories.forEach(category -> categoryCb.getItems().add(category));
-        Category category = new Category();
-        category.setName("Añadir categoría");
-        category.setIdCategory(-1);
-        categoryCb.getItems().add(category);
-
     }
 
 
