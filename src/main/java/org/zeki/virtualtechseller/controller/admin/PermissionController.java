@@ -2,14 +2,13 @@ package org.zeki.virtualtechseller.controller.admin;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.AccessUserDto;
+import org.zeki.virtualtechseller.dto.user.AccessUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.model.user.Moderator;
 import org.zeki.virtualtechseller.model.user.User;

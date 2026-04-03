@@ -2,7 +2,7 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
-import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;

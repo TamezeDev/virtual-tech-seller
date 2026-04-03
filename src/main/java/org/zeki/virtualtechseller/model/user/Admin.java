@@ -4,15 +4,15 @@ import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.zeki.virtualtechseller.dto.AccessUserDto;
-import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
-import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
-import org.zeki.virtualtechseller.dto.ModifyUserDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.product.NewProductDto;
+import org.zeki.virtualtechseller.dto.product.UsedProductDto;
+import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.service.ExhibitionService;
-import org.zeki.virtualtechseller.service.UserService;
-import org.zeki.virtualtechseller.util.AlertHelper;
+import org.zeki.virtualtechseller.service.ProductService;
+import org.zeki.virtualtechseller.service.ResultService;
 
 import java.util.Optional;
 
@@ -22,8 +22,8 @@ import java.util.Optional;
 public final class Admin extends User implements ProductManager, UserManager, ExhibitionManager {
 
     @Override
-    public void createProduct(Product product) {
-
+    public String createProduct(ProductService service, NewProductDto newProductDto, UsedProductDto usedProductDto) {
+       return service.addNewProduct(newProductDto,usedProductDto).getMessage();
     }
 
     @Override

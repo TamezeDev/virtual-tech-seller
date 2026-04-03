@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.RegisterUserDto;
+import org.zeki.virtualtechseller.dto.user.RegisterUserDto;
 import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.FormularyHelper;

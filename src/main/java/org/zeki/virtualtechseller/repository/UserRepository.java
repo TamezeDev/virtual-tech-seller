@@ -2,8 +2,8 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
-import org.zeki.virtualtechseller.dto.ModifyUserDto;
-import org.zeki.virtualtechseller.dto.RegisterUserDto;
+import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
+import org.zeki.virtualtechseller.dto.user.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.UserRole;

@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.dto;
+package org.zeki.virtualtechseller.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccessUserDto {
+public class LoginUserDto {
 
-    private String email;
-    private boolean access;
+    protected String email;
+    protected String password;
+
 }

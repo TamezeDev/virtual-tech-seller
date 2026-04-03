@@ -2,10 +2,10 @@ package org.zeki.virtualtechseller.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.AccessUserDto;
-import org.zeki.virtualtechseller.dto.LoginUserDto;
-import org.zeki.virtualtechseller.dto.ModifyUserDto;
-import org.zeki.virtualtechseller.dto.RegisterUserDto;
+import org.zeki.virtualtechseller.dto.user.AccessUserDto;
+import org.zeki.virtualtechseller.dto.user.LoginUserDto;
+import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
+import org.zeki.virtualtechseller.dto.user.RegisterUserDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.UserRole;

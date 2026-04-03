@@ -1,4 +1,4 @@
-package org.zeki.virtualtechseller.dto;
+package org.zeki.virtualtechseller.dto.exhibition;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

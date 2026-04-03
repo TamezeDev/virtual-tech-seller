@@ -1,7 +1,6 @@
 package org.zeki.virtualtechseller.model.user;
 
-import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
-import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 

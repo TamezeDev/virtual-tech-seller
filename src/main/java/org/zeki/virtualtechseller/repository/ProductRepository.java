@@ -2,15 +2,18 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.product.NewProductDto;
+import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
+import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
 import org.zeki.virtualtechseller.model.product.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductRepository {
 
@@ -87,6 +90,96 @@ public class ProductRepository {
         }
     }
 
+    public List<Category> getAllProductCategories() throws DBConnectionException, SQLException {
+        String query = "SELECT id_category, name, description FROM categories";
+        List<Category> categories = new ArrayList<>();
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Category category = new Category();
+                category.setIdCategory(rs.getInt("id_category"));
+                category.setName(rs.getString("name"));
+                category.setDescription(rs.getString("description"));
+
+                categories.add(category);
+            }
+
+        }
+        return categories;
+    }
+
+    public int getLastProductID(Connection connection) throws SQLException {
+        String query = "SELECT LAST_INSERT_ID();";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        }
+        return -1;
+    }
+
+    public int addProduct(Connection connection, NewProductDto productDto, UsedProductDto usedProductDto) throws SQLException, DuplicateExhibitionNameException {
+        String query = "INSERT INTO products(name, id_category, description, url_image, base_price, available) VALUES (?, ?, ?, ?, ?, 1);";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+            if (usedProductDto == null) {
+                ps.setString(1, productDto.getName());
+                ps.setInt(2, productDto.getCategory().getIdCategory());
+                ps.setString(3, productDto.getDescription());
+                ps.setString(4, productDto.getUrlImage());
+                ps.setDouble(5, productDto.getBasePrice());
+
+            } else if (productDto == null) {
+                ps.setString(1, usedProductDto.getName());
+                ps.setInt(2, usedProductDto.getCategory().getIdCategory());
+                ps.setString(3, usedProductDto.getDescription());
+                ps.setString(4, usedProductDto.getUrlImage());
+                ps.setDouble(5, usedProductDto.getBasePrice());
+            }
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
+                throw new DuplicateExhibitionNameException("El nombre o la imagen del producto deben ser únicos y ya están en uso");
+            }
+            throw new SQLException();
+        }
+
+    }
+
+    public int addNewProduct(Connection connection, NewProductDto productDto) throws SQLException {
+        String query = "INSERT INTO new_products(id_product, stock, release_date) VALUES (?, ?, ?);";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, productDto.getIdProduct());
+            ps.setInt(2, productDto.getStock());
+            ps.setDate(3, Date.valueOf(productDto.getReleaseDate()));
+            return ps.executeUpdate();
+        }
+
+    }
+
+    public int addUsedProduct(Connection connection, UsedProductDto productDto) throws SQLException {
+        String query = "INSERT INTO used_products(id_product, discount, remark) VALUES (?, ?, ?);";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, productDto.getIdProduct());
+            ps.setDouble(2, productDto.getDiscountPercentage());
+            ps.setString(3, productDto.getRemark());
+            return ps.executeUpdate();
+        }
+
+    }
 
 }
 

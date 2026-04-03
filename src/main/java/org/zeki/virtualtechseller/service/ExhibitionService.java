@@ -1,21 +1,17 @@
 package org.zeki.virtualtechseller.service;
 
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.AccessUserDto;
-import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
-import org.zeki.virtualtechseller.dto.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionAccessDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.user.Client;
-import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.repository.ExhibitionRepository;
 import org.zeki.virtualtechseller.util.AlertHelper;
 
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExhibitionService {

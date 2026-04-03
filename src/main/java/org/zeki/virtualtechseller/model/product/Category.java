@@ -14,4 +14,11 @@ public class Category {
     private int idCategory;
     private String name;
     private String description;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
+
+

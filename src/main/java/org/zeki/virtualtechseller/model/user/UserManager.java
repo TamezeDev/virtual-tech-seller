@@ -1,8 +1,7 @@
 package org.zeki.virtualtechseller.model.user;
 
 import javafx.collections.ObservableList;
-import org.zeki.virtualtechseller.dto.ModifyUserDto;
-import org.zeki.virtualtechseller.service.UserService;
+import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
 
 public interface UserManager {
 

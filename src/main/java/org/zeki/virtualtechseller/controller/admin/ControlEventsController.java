@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.ExhibitionAccessDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionAccessDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.service.ExhibitionService;

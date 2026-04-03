@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.ModifyUserDto;
+import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
 import org.zeki.virtualtechseller.model.user.UserRole;
 import org.zeki.virtualtechseller.model.user.User;
