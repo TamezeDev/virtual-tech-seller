@@ -8,6 +8,7 @@ import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.user.LoginUserDto;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
+import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.*;
@@ -110,7 +111,12 @@ public class ClientMenuController implements Initializable {
     }
 
     private void loadCartUser() {
-        cartService.setCartItemList(currentUser);
+        ResultService<List<CartItem>> result = cartService.setCartItemList(currentUser);
+        if (!result.isSuccess()) {
+            feedbackLabel.setText(result.getMessage());
+            Feedback.showFeedback(feedbackLabel);
+        }
+        currentUser.setCartItems(result.getData());
     }
 
     private void loadUserVisits() {

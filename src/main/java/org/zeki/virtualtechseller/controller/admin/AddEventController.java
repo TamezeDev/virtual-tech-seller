@@ -83,27 +83,6 @@ public class AddEventController implements Initializable {
         textFields.add(descriptionTxt);
     }
 
-    private boolean checkDates() {
-        // CHECK DATES
-        if (initDatePk.getValue() == null || endDatePk.getValue() == null) {
-            feedbackLabel.setText("Debe seleccionar las fechas de inicio y fin");
-            Feedback.showFeedback(feedbackLabel);
-            return false;
-        }
-        LocalDate today = LocalDate.now();
-        if (initDatePk.getValue().isBefore(today) || endDatePk.getValue().isBefore(today)) {
-            feedbackLabel.setText("Las fechas de inicio y fin deben ser igual o posterior al día actual");
-            Feedback.showFeedback(feedbackLabel);
-            return false;
-        }
-        if (endDatePk.getValue().isBefore(initDatePk.getValue())) {
-            feedbackLabel.setText("La fecha fin debe ser posterior a la fecha inicio");
-            Feedback.showFeedback(feedbackLabel);
-            return false;
-        }
-        return true;
-    }
-
     private Exhibition createExhibition() {
         // CREATE NEW EXHIBITION
         Exhibition exhibition = new Exhibition();

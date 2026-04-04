@@ -273,7 +273,7 @@ public class ProductRepository {
         }
     }
 
-    public boolean increaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto,Exhibition exhibition, int quantity) throws DBConnectionException, SQLException {
+    public boolean increaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) throws DBConnectionException, SQLException {
         String query = "INSERT INTO products_exhibitions(id_product, id_exhibition, quantity) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
 
         try (Connection connection = connectionManager.connect();
@@ -301,5 +301,7 @@ public class ProductRepository {
             return ps.executeUpdate() > 0;
         }
     }
+
+
 }
 

@@ -62,7 +62,7 @@ public class ModifyEventController implements Initializable {
 
     private void instances() {
         exhibitionService = AppContext.getInstance().getExhibitionService();
-        currentAdmin= (Admin) SessionManager.getInstance().getCurrentUser();
+        currentAdmin = (Admin) SessionManager.getInstance().getCurrentUser();
         textFields = new ArrayList<>();
     }
 
@@ -96,7 +96,7 @@ public class ModifyEventController implements Initializable {
 
     }
 
-    private ExhibitionModifyDto createExhibitionDto(){
+    private ExhibitionModifyDto createExhibitionDto() {
         // CREATE EXHIBITION DATA TRANSFER OBJECT
         ExhibitionModifyDto exhibitionModifyDto = new ExhibitionModifyDto();
         exhibitionModifyDto.setIdExhibition(selectedExhibition.getIdExhibition());
@@ -118,8 +118,8 @@ public class ModifyEventController implements Initializable {
         if (FormularyHelper.checkDates(initDatePk, endDatePk, feedbackLabel)) {
             // ADMIN MODIFY A EXHIBITION
             String result = currentAdmin.modifyExhibition(exhibitionService, createExhibitionDto());
-                feedbackLabel.setText(result);
-                Feedback.showFeedback(feedbackLabel);
+            feedbackLabel.setText(result);
+            Feedback.showFeedback(feedbackLabel);
 
         }
     }

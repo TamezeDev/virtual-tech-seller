@@ -224,7 +224,6 @@ public class ProductService {
         }
     }
 
-
     public boolean increaseEventItem(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) {
 
         try {

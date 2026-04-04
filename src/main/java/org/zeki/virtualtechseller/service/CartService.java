@@ -13,6 +13,7 @@ import org.zeki.virtualtechseller.util.TransactionHelper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartService {
@@ -31,20 +32,41 @@ public class CartService {
         this.saleRepository = new SaleRepository();
     }
 
-    public void setCartItemList(User currentUser) {
+    public ResultService<List<CartItem>> setCartItemList(User currentUser) {
         try {
+            // GET LIST
             List<CartItem> cartItems = cartRepository.getCartItem(currentUser);
-            if (cartItems != null) {
-
-
-                ((Client) currentUser).setCartItems(cartItems);
+            if (cartItems == null) {
+                return new ResultService<>(false, "Error cargando productos en el carrito", new ArrayList<>());
             }
-
+            ResultService<List<CartItem>> result = new ResultService<>(true, "Productos del carrito cargados con éxito", cartItems);
+            // CHECK STOCK AVAILABLE & DELETE ITEMS WITHOUT STOCK OR UPDATE ITEMS AVAILABLE
+            for (int i = cartItems.size() - 1; i >= 0; i--) {
+                int quantityAvailable = exhibitionRepository.checkExhibitionStockAvailable(cartItems.get(i));
+                int quantityRequired = cartItems.get(i).getQuantity();
+                if (quantityAvailable == -1) {
+                    if (!cartRepository.removeCartItem(cartItems.get(i), currentUser.getIdUser())) {
+                        return new ResultService<>(false, "Error eliminando producto sin stock del servidor", cartItems);
+                    }
+                    cartItems.remove(cartItems.get(i));
+                    result = new ResultService<>(false, "Alguno de los productos ya no están disponibles y se han eliminado", cartItems);
+                } else if (quantityRequired > quantityAvailable) {
+                    if (!cartRepository.updateCartItem(cartItems.get(i), currentUser.getIdUser(), quantityAvailable)) {
+                        return new ResultService<>(false, "Error actualizando stock de producto del carrito del servidor", cartItems);
+                    }
+                    cartItems.get(i).setQuantity(quantityAvailable);
+                    result = new ResultService<>(false, "Alguno de los productos se han actualizado por falta de stock", cartItems);
+                }
+            }
+            return result;
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return new ResultService<>(false, "Error conectando con el servidor", new ArrayList<>());
         } catch (SQLException e) {
             String message = "Error obteniendo datos de la cesta del usuario";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            e.printStackTrace();
+            return new ResultService<>(false, message, new ArrayList<>());
         }
     }
 
@@ -85,12 +107,7 @@ public class CartService {
         Client client = (Client) SessionManager.getInstance().getCurrentUser();
 
         try {
-            return cartRepository.saveCartItem(
-                    client.getIdUser(),
-                    item.getProduct().getIdProduct(),
-                    client.getCurrentExhibition().getIdExhibition(),
-                    quantity
-            );
+            return cartRepository.saveCartItem(client.getIdUser(), item.getProduct().getIdProduct(), client.getCurrentExhibition().getIdExhibition(), quantity);
 
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert();

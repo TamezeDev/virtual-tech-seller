@@ -59,6 +59,23 @@ public class ExhibitionRepository {
         return exhibitions;
     }
 
+    public int checkExhibitionStockAvailable(CartItem cartItem) throws DBConnectionException, SQLException {
+        String query = "SELECT quantity FROM products_exhibitions WHERE id_product = ? AND id_exhibition = ?;";
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, cartItem.getProduct().getIdProduct());
+            ps.setInt(2, cartItem.getExhibition().getIdExhibition());
+
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                return -1;
+            }
+            return rs.getInt(1);
+        }
+    }
+
     public List<ExhibitionItem> getExhibitionItemsFromDB(int idExhibition) throws DBConnectionException, SQLException {
         String query = "SELECT pe.quantity, p.id_product, p.name AS prod_name, p.description AS prod_description, p.url_image, p.base_price, " +
                 "p.available, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " +
@@ -67,7 +84,7 @@ public class ExhibitionRepository {
                 "LEFT JOIN new_products np ON np.id_product = p.id_product " +
                 "LEFT JOIN used_products up ON up.id_product = p.id_product " +
                 "INNER JOIN categories c ON c.id_category = p.id_category " +
-                "WHERE pe.id_exhibition = ? AND pe.active = TRUE";
+                "WHERE pe.id_exhibition = ?";
 
         List<ExhibitionItem> exhibitionItems = new ArrayList<>();
 

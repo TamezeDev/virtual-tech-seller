@@ -37,16 +37,6 @@ public class Exhibition {
         this.active = false;
     }
 
-    public void addProduct(Product product, int quantity) {
-    }
-
-    public void removeProduct(Product product) {
-    }
-
-    public boolean containsProduct(Product product) {
-        return items.stream().anyMatch(item -> item.getProduct().getIdProduct() == product.getIdProduct());
-    }
-
     @Override
     public String toString() {
         return name;

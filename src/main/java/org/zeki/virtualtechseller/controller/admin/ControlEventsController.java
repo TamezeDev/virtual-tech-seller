@@ -18,6 +18,7 @@ import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -93,12 +94,8 @@ public class ControlEventsController implements Initializable {
 
         finishEventBtn.setOnAction(event -> changeEventStatus(false));
         modifyEventBtn.setOnAction(event -> {
-            if (selectedExhibition == null) {
-                feedbackLabel.setText("Para esta operación debe seleccionar un evento");
-                Feedback.showFeedback(feedbackLabel);
-                return;
-            }
-            SceneHelper.changeScene(modifyEventBtn, ViewPath.MODIFY_EVENTS_VIEW, (ModifyEventController controller) -> controller.initData(selectedExhibition));
+            if (canModifyEvent())
+                SceneHelper.changeScene(modifyEventBtn, ViewPath.MODIFY_EVENTS_VIEW, (ModifyEventController controller) -> controller.initData(selectedExhibition));
         });
 
 
@@ -108,6 +105,25 @@ public class ControlEventsController implements Initializable {
             }
         });
 
+    }
+
+    private boolean canModifyEvent() {
+        // CHECK IF ANY EVENT IS SELECTED
+        if (selectedExhibition == null) {
+            feedbackLabel.setText("Para esta operación debe seleccionar un evento");
+            Feedback.showFeedback(feedbackLabel);
+            return false;
+        }
+        LocalDate initDate = selectedExhibition.getInitDate();
+        LocalDate now = LocalDate.now();
+        // EVENT NOT STARTED -> YOU CAN MODIFY
+        if (now.isBefore(initDate)) {
+            return true;
+        }
+        // YOU CAN'T MODIFY
+        feedbackLabel.setText("No se puede modificar un evento que está en proceso o ha acabado");
+        Feedback.showFeedback(feedbackLabel);
+        return false;
     }
 
     private void configTable() {
@@ -125,6 +141,8 @@ public class ControlEventsController implements Initializable {
         ExhibitionAccessDto exhibitionAccessDto = new ExhibitionAccessDto();
         exhibitionAccessDto.setIdExhibition(selectedExhibition.getIdExhibition());
         exhibitionAccessDto.setActive(selectedExhibition.isActive());
+        exhibitionAccessDto.setInitDate(selectedExhibition.getInitDate());
+        exhibitionAccessDto.setEndDate(selectedExhibition.getEndDate());
         return exhibitionAccessDto;
     }
 
@@ -135,6 +153,11 @@ public class ControlEventsController implements Initializable {
             Feedback.showFeedback(feedbackLabel);
             return;
         }
+        // CHECK CURRENT STATUS
+        if (!availableStatusEvent(access)) {
+            Feedback.showFeedback(feedbackLabel);
+            return;
+        }
         // CHANGE ACCESS
         if (access) {
             currentAdmin.enableExhibition(selectedExhibition);
@@ -142,14 +165,25 @@ public class ControlEventsController implements Initializable {
             currentAdmin.disableExhibition(selectedExhibition);
         }
         // CHANGE DB EVENT STATUS
-        if (!exhibitionService.changeActivateUSer(createExhibitionDTO())) {
-            feedbackLabel.setText("Hubo un error cambiando el estado del evento");
-
-        } else {
-            feedbackLabel.setText("Acceso a exhibición modificado correctamente");
-            listExhibitions();
+        ResultService<Void> result = exhibitionService.changeActivateUSer(createExhibitionDTO());
+        if (result != null) {
+            feedbackLabel.setText(result.getMessage());
+            if (result.isSuccess()) {
+                listExhibitions();
+            }
+            Feedback.showFeedback(feedbackLabel);
         }
-        Feedback.showFeedback(feedbackLabel);
+    }
+
+    private boolean availableStatusEvent(boolean access) {
+        if (selectedExhibition.isActive() && access) {
+            feedbackLabel.setText("Este evento ya está activo");
+            return false;
+        } else if (!selectedExhibition.isActive() && !access) {
+            feedbackLabel.setText("Este evento ya está desactivado");
+            return false;
+        }
+        return true;
     }
 
     private void listExhibitions() {

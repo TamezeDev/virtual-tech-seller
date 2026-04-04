@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,6 +14,8 @@ import lombok.Setter;
 public class ExhibitionAccessDto {
 
     private int idExhibition;
+    private LocalDate initDate;
+    private LocalDate endDate;
     private boolean active;
 
 }

@@ -120,4 +120,33 @@ public class CartRepository {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public boolean removeCartItem(CartItem cartItem, int idUser) throws DBConnectionException, SQLException {
+        String query = "DELETE FROM cart_items WHERE id_user = ? AND id_exhibition = ? AND id_product = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, idUser);
+            ps.setInt(2, cartItem.getExhibition().getIdExhibition());
+            ps.setInt(3, cartItem.getProduct().getIdProduct());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean updateCartItem(CartItem cartItem, int idUser, int quantity) throws DBConnectionException, SQLException {
+        String query = "UPDATE cart_items SET quantity = ? WHERE id_user = ? AND id_exhibition = ? AND id_product = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, quantity);
+            ps.setInt(2, idUser);
+            ps.setInt(3, cartItem.getExhibition().getIdExhibition());
+            ps.setInt(4, cartItem.getProduct().getIdProduct());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
