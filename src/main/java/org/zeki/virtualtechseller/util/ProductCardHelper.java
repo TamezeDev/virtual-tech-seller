@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import org.zeki.virtualtechseller.controller.client.CatalogProductController;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
@@ -150,7 +149,7 @@ public final class ProductCardHelper {
         if (urlImage != null) {
             imageView.setImage(new Image(urlImage.toExternalForm()));
         } else {
-            String noImage = "/img/products/no_image.jpg";
+            String noImage = "/img/system/no_image.jpg";
             imageView.setImage(new Image(Objects.requireNonNull(ProductCardHelper.class.getResourceAsStream(noImage))));
         }
     }

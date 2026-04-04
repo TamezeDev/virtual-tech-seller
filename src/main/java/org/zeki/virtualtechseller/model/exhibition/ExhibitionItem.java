@@ -15,7 +15,6 @@ public class ExhibitionItem {
     private Product product;
     private int quantity;
 
-
     public void increaseQuantity(int quantity) {
         this.quantity += quantity;
     }
@@ -24,8 +23,12 @@ public class ExhibitionItem {
         this.quantity -= quantity;
     }
 
-    public boolean quantityAvailable() {
+    public boolean quantityAvailable(int quantity) {
         return this.quantity >= quantity;
+    }
+
+    public boolean newQuantityIsZero(int quantity){
+        return this.quantity - quantity == 0;
     }
 
     public boolean checkOutStock() {

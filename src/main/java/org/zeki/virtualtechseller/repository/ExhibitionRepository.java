@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.repository;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -66,7 +67,7 @@ public class ExhibitionRepository {
                 "LEFT JOIN new_products np ON np.id_product = p.id_product " +
                 "LEFT JOIN used_products up ON up.id_product = p.id_product " +
                 "INNER JOIN categories c ON c.id_category = p.id_category " +
-                "WHERE pe.id_exhibition = ?";
+                "WHERE pe.id_exhibition = ? AND pe.active = TRUE";
 
         List<ExhibitionItem> exhibitionItems = new ArrayList<>();
 
@@ -80,7 +81,7 @@ public class ExhibitionRepository {
                 if (rs.getObject("new_id") != null) {
                     product = new NewProduct();
                     ((NewProduct) product).setStock(rs.getInt("stock"));
-                    ((NewProduct) product).setReleaseDate(rs.getDate("release_Date").toLocalDate());
+                    ((NewProduct) product).setReleaseDate(rs.getDate("release_date").toLocalDate());
                 } else if (rs.getObject("used_id") != null) {
                     product = new UsedProduct();
                     ((UsedProduct) product).setDiscountPercentage(rs.getDouble("discount"));

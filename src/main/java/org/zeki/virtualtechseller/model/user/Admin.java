@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.dto.user.ModifyUserDto;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
-import org.zeki.virtualtechseller.model.product.Product;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.service.ExhibitionService;
 import org.zeki.virtualtechseller.service.ProductService;
-import org.zeki.virtualtechseller.service.ResultService;
 
 import java.util.Optional;
 
@@ -22,26 +22,42 @@ import java.util.Optional;
 public final class Admin extends User implements ProductManager, UserManager, ExhibitionManager {
 
     @Override
+    public void assignProductToExhibition(ObservableList<ExhibitionProductsDto> productsDto, ExhibitionProductsDto selectedProductDto, Exhibition selectedExhibicion, int quantity) {
+        int productId = selectedProductDto.getProduct().getIdProduct();
+        int exhibitionId = selectedExhibicion.getIdExhibition();
+
+        Optional<ExhibitionProductsDto> result = productsDto.stream().filter(item -> item.getProduct() != null
+                && item.getProduct().getIdProduct() == productId && item.getExhibition() != null && item.getExhibition().getIdExhibition() == exhibitionId).findFirst();
+
+        if (result.isPresent()) {
+            result.get().getExhibitionItem().increaseQuantity(quantity);
+            return;
+        }
+
+        ExhibitionItem exhibitionItem = new ExhibitionItem();
+        exhibitionItem.setProduct(selectedProductDto.getProduct());
+        exhibitionItem.setQuantity(quantity);
+        ExhibitionProductsDto newDto = new ExhibitionProductsDto();
+        newDto.setProduct(selectedProductDto.getProduct());
+        newDto.setExhibition(selectedExhibicion);
+        newDto.setExhibitionItem(exhibitionItem);
+        productsDto.add(newDto);
+    }
+
+    @Override
+    public void decreaseProductFromExhibition(ExhibitionProductsDto selectedProductDto, int quantity) {
+        selectedProductDto.getExhibitionItem().decreaseQuantity(quantity);
+    }
+
+    @Override
+    public void retireProductFromExhibition(ExhibitionProductsDto selectedProductDto) {
+        selectedProductDto.setExhibition(null);
+        selectedProductDto.setExhibitionItem(null);
+    }
+
+    @Override
     public String createProduct(ProductService service, NewProductDto newProductDto, UsedProductDto usedProductDto) {
-       return service.addNewProduct(newProductDto,usedProductDto).getMessage();
-    }
-
-    @Override
-    public void modifyProduct(Product currentProduct, Product newDataProduct) {
-        currentProduct.setName(newDataProduct.getName());
-        currentProduct.setDescription(newDataProduct.getDescription());
-        currentProduct.setBasePrice(newDataProduct.getBasePrice());
-        currentProduct.setAvailable(newDataProduct.isAvailable());
-    }
-
-    @Override
-    public void assignProductToExhibition(Product product, Exhibition exhibition, int quantity) {
-        exhibition.addProduct(product, quantity);
-    }
-
-    @Override
-    public void retireProductFromExhibition(Product product, Exhibition exhibition) {
-        exhibition.removeProduct(product);
+        return service.addNewProduct(newProductDto, usedProductDto).getMessage();
     }
 
     @Override

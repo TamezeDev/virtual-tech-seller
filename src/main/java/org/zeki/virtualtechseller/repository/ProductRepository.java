@@ -2,15 +2,18 @@ package org.zeki.virtualtechseller.repository;
 
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.database.ConnectionManager;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
+import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
 import org.zeki.virtualtechseller.model.product.Product;
+import org.zeki.virtualtechseller.model.product.UsedProduct;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,7 +56,6 @@ public class ProductRepository {
 
             return true;
         }
-
     }
 
     public boolean addNewCategory(CategoryDto categoryDto) throws DBConnectionException, SQLException, DuplicateExhibitionNameException {
@@ -102,10 +104,32 @@ public class ProductRepository {
     }
 
     public int setNoAvailableProduct(Connection connection, int idProduct) throws SQLException {
-        String query = "UPDATE products SET available = 0 WHERE id_product = ? AND available = 1";
+        String query = "UPDATE products SET available = 0 WHERE id_product = ? AND available = 1;";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, idProduct);
             return ps.executeUpdate();
+        }
+    }
+
+    public int setAvailableProduct(int idProduct) throws SQLException, DBConnectionException {
+        String query = "UPDATE products SET available = 1 WHERE id_product = ?;";
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idProduct);
+            return ps.executeUpdate();
+        }
+    }
+
+    public boolean removeExhibitionItem(ExhibitionProductsDto productsDto) throws DBConnectionException, SQLException {
+        String query = "DELETE FROM products_exhibitions WHERE id_product = ? AND id_exhibition = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, productsDto.getProduct().getIdProduct());
+            ps.setInt(2, productsDto.getExhibition().getIdExhibition());
+
+            return ps.executeUpdate() > 0;
         }
     }
 
@@ -200,5 +224,82 @@ public class ProductRepository {
 
     }
 
+    public List<ExhibitionProductsDto> getFullProductAssociateOrNot() throws DBConnectionException, SQLException {
+        String query = "SELECT p.id_product, p.name AS product_name, p.description, p.available, np.stock, c.name AS category_name, e.id_exhibition, e.name AS exhibition_name, pe.quantity" +
+                " FROM products p INNER JOIN categories c ON c.id_category = p.id_category " +
+                "LEFT JOIN new_products np ON np.id_product = p.id_product " +
+                "LEFT JOIN products_exhibitions pe ON pe.id_product = p.id_product " +
+                "LEFT JOIN exhibitions e ON e.id_exhibition = pe.id_exhibition;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ResultSet rs = ps.executeQuery();
+            List<ExhibitionProductsDto> exhibitionProductsDto = new ArrayList<>();
+
+            while (rs.next()) {
+                Product product;
+                Category category = new Category();
+                ExhibitionProductsDto exhibitionProducts = new ExhibitionProductsDto();
+                // CHECK NEW OR USED TO GET STOCK
+                if (rs.getObject("stock") != null) {
+                    product = new NewProduct();
+                    ((NewProduct) product).setStock(rs.getInt("stock"));
+                } else product = new UsedProduct();
+                // SET BASIC VALUES
+                product.setIdProduct(rs.getInt("id_product"));
+                product.setName(rs.getString("product_name"));
+                product.setDescription(rs.getString("description"));
+                product.setAvailable(rs.getBoolean("available"));
+                category.setName(rs.getString("category_name"));
+                product.setCategory(category);
+                exhibitionProducts.setProduct(product);
+                // CHECK IF PRESENT IN EXHIBITION
+                if (rs.getObject("id_exhibition") != null) {
+                    Exhibition exhibition = new Exhibition();
+                    ExhibitionItem exhibitionItem = new ExhibitionItem();
+                    exhibitionItem.setQuantity(rs.getInt("quantity"));
+                    exhibition.setIdExhibition(rs.getInt("id_exhibition"));
+                    exhibition.setName(rs.getString("exhibition_name"));
+
+                    exhibition.getItems().add(exhibitionItem);
+                    exhibitionProducts.setExhibition(exhibition);
+                    exhibitionProducts.setExhibitionItem(exhibitionItem);
+                }
+                // ADD PRODUCT DTO
+                exhibitionProductsDto.add(exhibitionProducts);
+            }
+            return exhibitionProductsDto;
+        }
+    }
+
+    public boolean increaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto,Exhibition exhibition, int quantity) throws DBConnectionException, SQLException {
+        String query = "INSERT INTO products_exhibitions(id_product, id_exhibition, quantity) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, exhibitionProductsDto.getProduct().getIdProduct());
+            ps.setInt(2, exhibition.getIdExhibition());
+            ps.setInt(3, quantity);
+            ps.setInt(4, quantity);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean decreaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, int quantity) throws DBConnectionException, SQLException {
+        String query = "UPDATE products_exhibitions SET quantity = quantity - ? WHERE id_product = ? AND id_exhibition = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, quantity);
+            ps.setInt(2, exhibitionProductsDto.getProduct().getIdProduct());
+            ps.setInt(3, exhibitionProductsDto.getExhibition().getIdExhibition());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
 

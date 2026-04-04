@@ -35,6 +35,8 @@ public class CartService {
         try {
             List<CartItem> cartItems = cartRepository.getCartItem(currentUser);
             if (cartItems != null) {
+
+
                 ((Client) currentUser).setCartItems(cartItems);
             }
 

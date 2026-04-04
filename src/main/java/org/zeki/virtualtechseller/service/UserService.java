@@ -94,6 +94,7 @@ public class UserService {
 
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            e.printStackTrace();
             return null;
         } catch (SQLException e) {
             String message = "Error obteniendo datos del usuario del servidor";

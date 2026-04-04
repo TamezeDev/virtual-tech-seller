@@ -47,4 +47,8 @@ public class Exhibition {
         return items.stream().anyMatch(item -> item.getProduct().getIdProduct() == product.getIdProduct());
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

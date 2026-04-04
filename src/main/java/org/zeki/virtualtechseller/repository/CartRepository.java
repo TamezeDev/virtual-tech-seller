@@ -24,7 +24,13 @@ public class CartRepository {
     }
 
     public List<CartItem> getCartItem(User user) throws DBConnectionException, SQLException {
-        String query = "SELECT p.id_product, cart.quantity, p.name AS prod_name, p.description AS prod_description, p.base_price, " + "p.url_image, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " + "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity, " + "e.id_exhibition, e.name AS ev_name " + "FROM cart_items cart INNER JOIN products p ON p.id_product = cart.id_product " + "LEFT JOIN new_products np ON np.id_product = p.id_product " + "LEFT JOIN used_products up ON up.id_product = p.id_product " + "INNER JOIN categories c ON c.id_category = p.id_category " + "INNER JOIN exhibitions e ON cart.id_exhibition = e.id_exhibition " + "WHERE cart.id_user = ?;";
+        String query = "SELECT p.id_product, cart.quantity, p.name AS prod_name, p.description AS prod_description, p.base_price, " +
+                "p.url_image, c.id_category, c.name AS cat_name, c.description AS cat_description, np.id_product AS new_id, np.stock, " +
+                "np.release_date, up.id_product AS used_id, up.discount, up.remark, cart.quantity, " +
+                "e.id_exhibition, e.name AS ev_name " + "FROM cart_items cart INNER JOIN products p ON p.id_product = cart.id_product " +
+                "LEFT JOIN new_products np ON np.id_product = p.id_product " + "LEFT JOIN used_products up ON up.id_product = p.id_product " +
+                "INNER JOIN categories c ON c.id_category = p.id_category " + "INNER JOIN exhibitions e ON cart.id_exhibition = e.id_exhibition " +
+                "WHERE cart.id_user = ?;";
         List<CartItem> cartItems = new ArrayList<>();
 
         try (Connection connection = connectionManager.connect(); PreparedStatement ps = connection.prepareStatement(query)) {
