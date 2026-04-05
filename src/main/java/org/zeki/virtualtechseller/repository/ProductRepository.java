@@ -111,12 +111,38 @@ public class ProductRepository {
         }
     }
 
-    public int setAvailableProduct(int idProduct) throws SQLException, DBConnectionException {
+    public boolean updateBasePriceProduct(Product product) throws SQLException, DBConnectionException {
+        String query = "UPDATE products SET base_price = ? WHERE id_product = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setDouble(1, product.getBasePrice());
+            ps.setInt(2, product.getIdProduct());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean setAvailableProduct(int idProduct) throws SQLException, DBConnectionException {
         String query = "UPDATE products SET available = 1 WHERE id_product = ?;";
         try (Connection connection = connectionManager.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, idProduct);
-            return ps.executeUpdate();
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean updateStockProduct(Product product) throws SQLException, DBConnectionException {
+        String query = "UPDATE new_products SET stock = ? WHERE id_product = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, ((NewProduct) product).getStock());
+            ps.setInt(2, product.getIdProduct());
+
+            return ps.executeUpdate() > 0;
         }
     }
 
@@ -273,35 +299,38 @@ public class ProductRepository {
         }
     }
 
-    public boolean increaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) throws DBConnectionException, SQLException {
-        String query = "INSERT INTO products_exhibitions(id_product, id_exhibition, quantity) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
+    public List<Product> getDataProducts() throws DBConnectionException, SQLException {
+        String query = "SELECT p.id_product, p.name AS prod_name, p.description, p.base_price, p.available, np.stock, c.name AS cat_name " +
+                "FROM products p INNER JOIN categories c ON p.id_category = c.id_category " +
+                "LEFT JOIN new_products np ON np.id_product = p.id_product;";
+        List<Product> products = new ArrayList<>();
 
         try (Connection connection = connectionManager.connect();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
-            ps.setInt(1, exhibitionProductsDto.getProduct().getIdProduct());
-            ps.setInt(2, exhibition.getIdExhibition());
-            ps.setInt(3, quantity);
-            ps.setInt(4, quantity);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
 
-            return ps.executeUpdate() > 0;
+                Product product;
+                if (rs.getObject("stock") != null) {
+                    product = new NewProduct();
+                    ((NewProduct) product).setStock(rs.getInt("stock"));
+                } else product = new UsedProduct();
+
+                Category category = new Category();
+                category.setName(rs.getString("cat_name"));
+                product.setIdProduct(rs.getInt("id_product"));
+                product.setName(rs.getString("prod_name"));
+                product.setDescription(rs.getString("description"));
+                product.setBasePrice(rs.getDouble("base_price"));
+                product.setAvailable(rs.getBoolean("available"));
+
+                product.setCategory(category);
+                products.add(product);
+            }
         }
+        return products;
     }
-
-    public boolean decreaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, int quantity) throws DBConnectionException, SQLException {
-        String query = "UPDATE products_exhibitions SET quantity = quantity - ? WHERE id_product = ? AND id_exhibition = ?;";
-
-        try (Connection connection = connectionManager.connect();
-             PreparedStatement ps = connection.prepareStatement(query)) {
-
-            ps.setInt(1, quantity);
-            ps.setInt(2, exhibitionProductsDto.getProduct().getIdProduct());
-            ps.setInt(3, exhibitionProductsDto.getExhibition().getIdExhibition());
-
-            return ps.executeUpdate() > 0;
-        }
-    }
-
 
 }
 

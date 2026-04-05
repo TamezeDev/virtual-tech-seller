@@ -10,11 +10,11 @@ import org.zeki.virtualtechseller.model.user.UserRole;
 @NoArgsConstructor
 public class RegisterUserDto {
 
-    protected String name;
-    protected String lastName;
-    protected String email;
-    protected String phone;
-    protected String password;
-    protected UserRole userRole;
+    private String name;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String password;
+    private UserRole userRole;
 
 }

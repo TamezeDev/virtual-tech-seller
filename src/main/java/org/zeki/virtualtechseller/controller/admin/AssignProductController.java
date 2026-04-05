@@ -276,7 +276,7 @@ public class AssignProductController implements Initializable {
             return;
         }
         // UPDATE DB
-        if (!productService.increaseEventItem(selectedProductDto, eventCb.getSelectionModel().getSelectedItem(), selectedQuantity)) {
+        if (!exhibitionService.increaseEventItem(selectedProductDto, eventCb.getSelectionModel().getSelectedItem(), selectedQuantity)) {
             feedbackLabel.setText("No se puede actualizar producto del evento");
             Feedback.showFeedback(feedbackLabel);
             return;
@@ -309,7 +309,7 @@ public class AssignProductController implements Initializable {
             removeExhibitionProduct();
         } else {
             // UPDATE DB
-            if (!productService.decreaseEventItem(selectedProductDto, selectedQuantity)) {
+            if (!exhibitionService.decreaseEventItem(selectedProductDto, selectedQuantity)) {
                 feedbackLabel.setText("No se pudo actualizar el producto del evento");
                 Feedback.showFeedback(feedbackLabel);
                 return;

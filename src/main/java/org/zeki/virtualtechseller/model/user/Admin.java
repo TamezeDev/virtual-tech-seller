@@ -25,15 +25,22 @@ public final class Admin extends User implements ProductManager, UserManager, Ex
     public void assignProductToExhibition(ObservableList<ExhibitionProductsDto> productsDto, ExhibitionProductsDto selectedProductDto, Exhibition selectedExhibicion, int quantity) {
         int productId = selectedProductDto.getProduct().getIdProduct();
         int exhibitionId = selectedExhibicion.getIdExhibition();
-
+        // CHECK IF THE EVENT HAS ITEMS
         Optional<ExhibitionProductsDto> result = productsDto.stream().filter(item -> item.getProduct() != null
                 && item.getProduct().getIdProduct() == productId && item.getExhibition() != null && item.getExhibition().getIdExhibition() == exhibitionId).findFirst();
-
+        // INCREASE QUANTITY
         if (result.isPresent()) {
             result.get().getExhibitionItem().increaseQuantity(quantity);
             return;
         }
-
+        // CHECK IF ITEM'S EVENT SELECTED IS NULL
+        Optional<ExhibitionProductsDto> emptyResult = productsDto.stream().filter(item -> item.getProduct() != null
+                && item.getProduct().getIdProduct() == productId).findFirst();
+        // REMOVE THIS ROW
+        if (emptyResult.isPresent() && emptyResult.get().getExhibition() == null) {
+            productsDto.remove(emptyResult.get());
+        }
+        // CREATE NEW ROW
         ExhibitionItem exhibitionItem = new ExhibitionItem();
         exhibitionItem.setProduct(selectedProductDto.getProduct());
         exhibitionItem.setQuantity(quantity);

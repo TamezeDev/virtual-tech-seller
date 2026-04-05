@@ -13,11 +13,11 @@ import org.zeki.virtualtechseller.model.product.Category;
 public class UsedProductDto {
 
     private int idProduct;
-    protected String name;
-    protected String description;
-    protected String urlImage;
-    protected double basePrice;
-    protected Category category;
+    private String name;
+    private String description;
+    private String urlImage;
+    private double basePrice;
+    private Category category;
     private double discountPercentage;
     private String remark;
 

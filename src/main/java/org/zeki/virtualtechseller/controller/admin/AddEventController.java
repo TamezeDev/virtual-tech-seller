@@ -17,7 +17,6 @@ import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;

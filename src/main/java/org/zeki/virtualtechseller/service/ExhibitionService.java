@@ -3,6 +3,7 @@ package org.zeki.virtualtechseller.service;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionAccessDto;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
+import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
 import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
@@ -127,5 +128,34 @@ public class ExhibitionService {
         }
     }
 
+    public boolean decreaseEventItem(ExhibitionProductsDto exhibitionProductsDto, int quantity) {
 
+        try {
+            return exhibitionRepository.decreaseExhibitionItems(exhibitionProductsDto, quantity);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+
+        } catch (SQLException e) {
+            String message = "Error actualizando cantidad de productos";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean increaseEventItem(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) {
+
+        try {
+            return exhibitionRepository.increaseExhibitionItems(exhibitionProductsDto, exhibition, quantity);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+
+        } catch (SQLException e) {
+            String message = "Error actualizando cantidad de productos";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
+    }
 }

@@ -15,11 +15,11 @@ import java.time.LocalDate;
 public class NewProductDto {
 
     private int idProduct;
-    protected String name;
-    protected String description;
-    protected String urlImage;
-    protected double basePrice;
-    protected Category category;
+    private String name;
+    private String description;
+    private String urlImage;
+    private double basePrice;
+    private Category category;
     private int stock;
     private LocalDate releaseDate;
 

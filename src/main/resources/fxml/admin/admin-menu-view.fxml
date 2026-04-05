@@ -42,7 +42,7 @@
                               <Insets bottom="20.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="adduserBtn" mnemonicParsing="false" styleClass="button-a" text="Agregar usuario" />
+                        <Button fx:id="adduserBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="153.0" styleClass="button-a" text="Añadir usuario" />
                         <Button fx:id="modUserBtn" layoutX="45.0" layoutY="188.0" mnemonicParsing="false" styleClass="button-a" text="Modificar datos" />
                         <Button fx:id="importXMLBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" styleClass="button-a" text="Importaciones" />
                      </children>
@@ -60,8 +60,9 @@
                               <Insets bottom="40.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="addEventBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" styleClass="button-a" text="Nuevo Evento" />
-                        <Button fx:id="activateEventBtn" mnemonicParsing="false" styleClass="button-a" text="Gestion eventos" />
+                        <Button fx:id="addEventBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="165.0" styleClass="button-a" text="Añadir Evento" />
+                        <Button fx:id="activateEventBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="165.0" styleClass="button-a" text="Gestion eventos" />
+                        <Button fx:id="assignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Art. Exposiciones" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="15.0" right="15.0" />
@@ -77,8 +78,8 @@
                               <Insets bottom="40.0" />
                            </padding>
                         </Label>
-                        <Button fx:id="addProductBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="179.0" styleClass="button-a" text="Añadir producto" />
-                        <Button fx:id="assignProductBtn" mnemonicParsing="false" styleClass="button-a" text="Asignar productos" />
+                        <Button fx:id="addProductBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir producto" />
+                        <Button fx:id="modifyProductBtn" layoutX="35.0" layoutY="135.0" mnemonicParsing="false" styleClass="button-a" text="Stock y precio" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" />

@@ -180,4 +180,35 @@ public class ExhibitionRepository {
         }
     }
 
+    public boolean increaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) throws DBConnectionException, SQLException {
+        String query = "INSERT INTO products_exhibitions(id_product, id_exhibition, quantity) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, exhibitionProductsDto.getProduct().getIdProduct());
+            ps.setInt(2, exhibition.getIdExhibition());
+            ps.setInt(3, quantity);
+            ps.setInt(4, quantity);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean decreaseExhibitionItems(ExhibitionProductsDto exhibitionProductsDto, int quantity) throws DBConnectionException, SQLException {
+        String query = "UPDATE products_exhibitions SET quantity = quantity - ? WHERE id_product = ? AND id_exhibition = ?;";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, quantity);
+            ps.setInt(2, exhibitionProductsDto.getProduct().getIdProduct());
+            ps.setInt(3, exhibitionProductsDto.getExhibition().getIdExhibition());
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+
+
 }

@@ -11,6 +11,8 @@ import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.product.Category;
+import org.zeki.virtualtechseller.model.product.NewProduct;
+import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.model.user.Client;
 import org.zeki.virtualtechseller.repository.ProductRepository;
 import org.zeki.virtualtechseller.util.AlertHelper;
@@ -18,6 +20,7 @@ import org.zeki.virtualtechseller.util.TransactionHelper;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -192,6 +195,26 @@ public class ProductService {
         }
     }
 
+    public ResultService<List<Product>> getStockPriceProducts() {
+        try {
+            List<Product> products = productRepository.getDataProducts();
+
+            if (products.isEmpty()) {
+                return new ResultService<>(false, "La lista de productos está vacía", new ArrayList<>());
+            }
+            return new ResultService<>(true, "Mostrando todos los productos", products);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return null;
+
+        } catch (SQLException e) {
+            String message = "Error obteniendo disponibilidad de los productos";
+            e.printStackTrace();
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return null;
+        }
+    }
+
     public boolean removeEventItem(ExhibitionProductsDto exhibitionProductsDto) {
         try {
             return productRepository.removeExhibitionItem(exhibitionProductsDto);
@@ -203,40 +226,32 @@ public class ProductService {
         } catch (SQLException e) {
             String message = "Error eliminando el producto de la sala";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
-            e.printStackTrace();
             return false;
         }
     }
 
-    public boolean decreaseEventItem(ExhibitionProductsDto exhibitionProductsDto, int quantity) {
-
+    public boolean updateProduct(Product product) {
         try {
-            return productRepository.decreaseExhibitionItems(exhibitionProductsDto, quantity);
+            if (product instanceof NewProduct) {
+                if (productRepository.updateStockProduct(product) && productRepository.setAvailableProduct(product.getIdProduct()) && productRepository.updateBasePriceProduct(product)) {
+                    return true;
+                }
+            } else {
+                if (productRepository.updateBasePriceProduct(product)) {
+                    return true;
+                }
+            }
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return false;
 
         } catch (SQLException e) {
-            String message = "Error actualizando cantidad de productos";
-            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean increaseEventItem(ExhibitionProductsDto exhibitionProductsDto, Exhibition exhibition, int quantity) {
-
-        try {
-            return productRepository.increaseExhibitionItems(exhibitionProductsDto, exhibition, quantity);
-        } catch (DBConnectionException e) {
-            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
-            return false;
-
-        } catch (SQLException e) {
-            String message = "Error actualizando cantidad de productos";
+            String message = "Error eliminando el producto de la sala";
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return false;
         }
+        return false;
     }
 }
+
 
