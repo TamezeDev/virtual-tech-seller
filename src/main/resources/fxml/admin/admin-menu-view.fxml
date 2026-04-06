@@ -44,7 +44,6 @@
                         </Label>
                         <Button fx:id="adduserBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="153.0" styleClass="button-a" text="Añadir usuario" />
                         <Button fx:id="modUserBtn" layoutX="45.0" layoutY="188.0" mnemonicParsing="false" styleClass="button-a" text="Modificar datos" />
-                        <Button fx:id="importXMLBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" styleClass="button-a" text="Importaciones" />
                      </children>
                      <padding>
                         <Insets bottom="30.0" left="15.0" right="15.0" />
@@ -80,6 +79,7 @@
                         </Label>
                         <Button fx:id="addProductBtn" mnemonicParsing="false" styleClass="button-a" text="Añadir producto" />
                         <Button fx:id="modifyProductBtn" layoutX="35.0" layoutY="135.0" mnemonicParsing="false" styleClass="button-a" text="Stock y precio" />
+                        <Button fx:id="importXMLBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" styleClass="button-a" text="Importaciones" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" />

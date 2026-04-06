@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<products
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="import_products.xsd">
+
+    <newProduct>
+        <name>KOCH MEDIA GMBH Evercade</name>
+        <description>Consola retro</description>
+        <basePrice>121.33</basePrice>
+        <urlImage>/img/products/ASSET_MP_162770075.jpg</urlImage>
+        <category>
+            <name>Videoconsolas</name>
+        </category>
+        <stock>15</stock>
+        <releaseDate>2026-01-10</releaseDate>
+    </newProduct>
+    <newProduct>
+        <description>Mando PS4</description>
+        <basePrice>15.00</basePrice>
+        <urlImage>/img/products/ASSET_MP_164534187.jpg</urlImage>
+        <category>
+            <name>Videoconsolas</name>
+        </category>
+        <stock>18</stock>
+        <releaseDate>2022-06-10</releaseDate>
+    </newProduct>
+    <usedProduct>
+        <name>Arcade Pokémon Friend</name>
+        <description>Consola portátil</description>
+        <basePrice>72.90</basePrice>
+        <urlImage>/img/products/ASSET_MMS_172899323.jpg</urlImage>
+        <available>true</available>
+        <category>
+            <name>Mobiliario</name>
+        </category>
+        <discountPercentage>32</discountPercentage>
+        <remark>Producto con desperfectos visiibles</remark>
+    </usedProduct>
+    <usedProduct>
+        <name>BLADE Verde</name>
+        <description>Accesorios PS5</description>
+        <basePrice>20.34</basePrice>
+        <urlImage>/img/products/ASSET_MP_173773653.jpg</urlImage>
+        <available>true</available>
+        <category>
+            <name>Videoconsolas</name>
+        </category>
+        <discountPercentage>50</discountPercentage>
+        <remark>Aún consevado en su caja</remark>
+    </usedProduct>
+    <newProduct>
+        <name>Logitech Lift Ergonómico</name>
+        <description>Ratón inalámbrico</description>
+        <basePrice>35.12</basePrice>
+        <urlImage>/img/products/ASSET_MMS_94407401.jpg</urlImage>
+        <category>
+            <name>Periféricos</name>
+        </category>
+        <stock>25</stock>
+        <releaseDate>2023-06-22</releaseDate>
+    </newProduct>
+    <newProduct>
+        <name>Google Pixel 9a</name>
+        <description>128 GB, 8 GB RAM, 6.3" Actua pOLED, Google Tensor G4, 5100 mAh</description>
+        <basePrice>322.68</basePrice>
+        <urlImage>/img/products/ASSET_MMS_150858184.jpg</urlImage>
+        <category>
+            <name>Smartphones</name>
+        </category>
+        <stock>15</stock>
+        <releaseDate>2024-07-14</releaseDate>
+    </newProduct>
+    <newProduct>
+        <name>OPPO Reno14FS</name>
+        <description>12GB, 12GB RAM, 6.57" 2.5D AMOLED, Snapdragon® 6 Gen 1</description>
+        <basePrice>280.18</basePrice>
+        <urlImage>/img/products/ASSET_MMS_160757795.jpg</urlImage>
+        <category>
+            <name>Smartphones</name>
+        </category>
+        <stock>12</stock>
+        <releaseDate>2025-03-14</releaseDate>
+    </newProduct>
+    <newProduct>
+        <name>Sveon STV60</name>
+        <description>Capturadora de vídeo</description>
+        <basePrice>8.15</basePrice>
+        <urlImage>/img/products/ASSET_MMS_93093830.jpg</urlImage>
+        <category>
+            <name>Componentes PC</name>
+        </category>
+        <stock>8</stock>
+        <releaseDate>2026-03-14</releaseDate>
+    </newProduct>
+    <newProduct>
+        <name>La Lego Ninjago Pelicula</name>
+        <description>Videojuego Nintendo Switch</description>
+        <basePrice>16.55</basePrice>
+        <urlImage>/img/products/pixelboxx-mss-78944035.jpg</urlImage>
+        <category>
+            <name>Videojuegos</name>
+        </category>
+        <stock>10</stock>
+        <releaseDate>2026-03-14</releaseDate>
+    </newProduct>
+</products>

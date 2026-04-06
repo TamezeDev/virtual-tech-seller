@@ -7,7 +7,10 @@ module org.zeki.virtualtechseller {
     requires java.desktop;
     requires javafx.base;
     requires bcrypt;
+    requires java.xml.bind;
 
+    opens org.zeki.virtualtechseller.model.product to java.xml.bind;
+    exports org.zeki.virtualtechseller.model.product;
     opens org.zeki.virtualtechseller to javafx.fxml;
     exports org.zeki.virtualtechseller;
     opens org.zeki.virtualtechseller.controller.client to javafx.fxml;

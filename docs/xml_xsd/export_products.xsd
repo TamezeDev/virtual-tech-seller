@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="PriceType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01"/>
+            <xs:maxInclusive value="2000.00"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="StockType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="99"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DiscountType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01"/>
+            <xs:maxInclusive value="99.9"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="CategoryType">
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:all>
+        <xs:attribute name="idCategory" type="xs:integer" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="NewProductType">
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="urlImage" type="xs:string"/>
+            <xs:element name="basePrice" type="PriceType"/>
+            <xs:element name="taxPercentage" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="available" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="category" type="CategoryType"/>
+            <xs:element name="stock" type="StockType"/>
+            <xs:element name="releaseDate" type="xs:date"/>
+        </xs:all>
+        <xs:attribute name="idProduct" type="xs:integer" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="UsedProductType">
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="urlImage" type="xs:string"/>
+            <xs:element name="basePrice" type="PriceType"/>
+            <xs:element name="taxPercentage" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="available" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="category" type="CategoryType"/>
+            <xs:element name="discountPercentage" type="DiscountType"/>
+            <xs:element name="remark" type="xs:string"/>
+        </xs:all>
+        <xs:attribute name="idProduct" type="xs:integer" use="optional"/>
+    </xs:complexType>
+
+    <xs:element name="products">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="newProduct" type="NewProductType"/>
+                <xs:element name="usedProduct" type="UsedProductType"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

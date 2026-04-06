@@ -86,6 +86,19 @@ public class ProductService {
         }
     }
 
+    public boolean setIdProductsByName(List<Product> products) {
+        try {
+            return productRepository.getCategoryID(products);
+        } catch (DBConnectionException e) {
+            AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
+            return false;
+        } catch (SQLException e) {
+            String message = "Error obteniendo los id de las categorías";
+            AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
+            return false;
+        }
+    }
+
     public ResultService<Void> addNewProduct(NewProductDto productDto, UsedProductDto usedProductDto) {
         Connection connection = null;
 
@@ -105,7 +118,7 @@ public class ProductService {
             }
 
             connection.commit();
-            return new ResultService<>(true, "Producto añadido correctamente");
+            return new ResultService<>(true, "Añadido al servidor con éxito");
 
         } catch (DBConnectionException e) {
             TransactionHelper.rollback(connection);
@@ -122,7 +135,8 @@ public class ProductService {
         }
     }
 
-    private ResultService<Void> setBaseProduct(Connection connection, NewProductDto newProductDto, UsedProductDto usedProductDto) {
+    private ResultService<Void> setBaseProduct(Connection connection, NewProductDto newProductDto, UsedProductDto
+            usedProductDto) {
         try {
             // ADD TO PRODUCT TABLE
             int rsBaseProduct = 0;
@@ -132,7 +146,7 @@ public class ProductService {
                 rsBaseProduct = productRepository.addProduct(connection, null, usedProductDto);
             }
             if (rsBaseProduct == 0) {
-                return new ResultService<>(false, "No se pudo insertar el producto");
+                return new ResultService<>(false, "No se pudo insertar en el servidor");
             }
             // GET PRODUCT ID
             int idProduct = productRepository.getLastProductID(connection);
@@ -154,7 +168,8 @@ public class ProductService {
         }
     }
 
-    private ResultService<Void> setDeterminateProduct(Connection connection, NewProductDto newProductDto, UsedProductDto usedProductDto) {
+    private ResultService<Void> setDeterminateProduct(Connection connection, NewProductDto
+            newProductDto, UsedProductDto usedProductDto) {
         try {
             int rsBaseProduct = 0;
             if (usedProductDto == null) {
@@ -209,7 +224,6 @@ public class ProductService {
 
         } catch (SQLException e) {
             String message = "Error obteniendo disponibilidad de los productos";
-            e.printStackTrace();
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return null;
         }

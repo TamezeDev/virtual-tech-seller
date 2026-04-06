@@ -14,6 +14,7 @@ import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
 import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.model.product.UsedProduct;
+import org.zeki.virtualtechseller.service.ResultService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -224,6 +225,22 @@ public class ProductRepository {
 
     }
 
+    public boolean getCategoryID(List<Product> products) throws DBConnectionException, SQLException {
+        String query = "SELECT id_category FROM categories WHERE name = ?";
+
+        try (Connection connection = connectionManager.connect();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            for (Product product : products) {
+                ps.setString(1, product.getCategory().getName());
+
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) product.getCategory().setIdCategory(rs.getInt("id_category"));
+            }
+            return true;
+        }
+    }
+
     public int addNewProduct(Connection connection, NewProductDto productDto) throws SQLException {
         String query = "INSERT INTO new_products(id_product, stock, release_date) VALUES (?, ?, ?);";
 
@@ -300,9 +317,11 @@ public class ProductRepository {
     }
 
     public List<Product> getDataProducts() throws DBConnectionException, SQLException {
-        String query = "SELECT p.id_product, p.name AS prod_name, p.description, p.base_price, p.available, np.stock, c.name AS cat_name " +
+        String query = "SELECT p.id_product, p.name AS prod_name, p.description AS prod_description, p.base_price, p.available, np.stock, np.release_date, " +
+                "p.url_image, c.id_category, c.name AS cat_name, c.description AS cat_description, up.discount, up.remark " +
                 "FROM products p INNER JOIN categories c ON p.id_category = c.id_category " +
-                "LEFT JOIN new_products np ON np.id_product = p.id_product;";
+                "LEFT JOIN new_products np ON np.id_product = p.id_product " +
+                "LEFT JOIN used_products up ON up.id_product = p.id_product;";
         List<Product> products = new ArrayList<>();
 
         try (Connection connection = connectionManager.connect();
@@ -315,15 +334,23 @@ public class ProductRepository {
                 if (rs.getObject("stock") != null) {
                     product = new NewProduct();
                     ((NewProduct) product).setStock(rs.getInt("stock"));
-                } else product = new UsedProduct();
+                    ((NewProduct) product).setReleaseDate(rs.getDate("release_date").toLocalDate());
+                } else {
+                    product = new UsedProduct();
+                    ((UsedProduct) product).setDiscountPercentage(rs.getDouble("discount"));
+                    ((UsedProduct) product).setRemark(rs.getString("remark"));
+                }
 
                 Category category = new Category();
+                category.setIdCategory(rs.getInt("id_category"));
                 category.setName(rs.getString("cat_name"));
+                category.setDescription(rs.getString("cat_description"));
                 product.setIdProduct(rs.getInt("id_product"));
                 product.setName(rs.getString("prod_name"));
-                product.setDescription(rs.getString("description"));
+                product.setDescription(rs.getString("prod_description"));
                 product.setBasePrice(rs.getDouble("base_price"));
                 product.setAvailable(rs.getBoolean("available"));
+                product.setUrlImage(rs.getString("url_image"));
 
                 product.setCategory(category);
                 products.add(product);

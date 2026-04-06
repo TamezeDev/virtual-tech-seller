@@ -4,11 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Product {
 
+    @XmlAttribute
     protected int idProduct;
     protected String name;
     protected String description;
@@ -16,6 +20,7 @@ public abstract class Product {
     protected double basePrice;
     private double taxPercentage;
     protected boolean available;
+    @XmlElement(name = "category")
     protected Category category;
 
     public Product() {

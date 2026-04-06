@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.model.product.Category;
+import org.zeki.virtualtechseller.model.product.NewProduct;
+import org.zeki.virtualtechseller.model.product.Product;
 
 import java.time.LocalDate;
 
@@ -23,4 +25,19 @@ public class NewProductDto {
     private int stock;
     private LocalDate releaseDate;
 
+
+    public NewProductDto createNewProductDTO(NewProduct product) {
+        // CREATE NEW PRODUCT TRANSFER OBJECT
+        NewProductDto productDto = new NewProductDto();
+
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setBasePrice(product.getBasePrice());
+        productDto.setCategory(product.getCategory());
+        productDto.setStock(product.getStock());
+        productDto.setReleaseDate(product.getReleaseDate());
+        productDto.setUrlImage(product.getUrlImage());
+
+        return productDto;
+    }
 }

@@ -78,7 +78,7 @@ public class AdminMenuController implements Initializable {
 
         adduserBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.REGISTER_VIEW));
 
-        importXMLBtn.setOnAction(event -> {});
+        importXMLBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.PRODUCT_XML_VIEW));
 
         modUserBtn.setOnAction(event -> SceneHelper.changeScene(adduserBtn, ViewPath.PERMISSION_VIEW));
 

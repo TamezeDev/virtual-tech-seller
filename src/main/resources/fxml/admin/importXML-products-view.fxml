@@ -14,11 +14,11 @@
 
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.zeki.virtualtechseller.controller.admin.ImportProductController">
    <center>
-      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="986.0" spacing="40.0" styleClass="panel-a">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="541.0" prefWidth="1125.0" spacing="40.0" styleClass="panel-a">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
                <children>
-                  <Button fx:id="gobackBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="188.0" styleClass="button-a" text=" Regresar">
+                  <Button fx:id="gobackBtn" mnemonicParsing="false" styleClass="button-a" text=" Regresar">
                      <graphic>
                         <ImageView fitHeight="21.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -27,15 +27,16 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="importXmlBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="191.0" styleClass="button-a" text="Importar XML" />
-                  <Button fx:id="exportXmlBtn" layoutX="616.0" layoutY="10.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="188.0" styleClass="button-a" text="Exportar XML" />
-                  <Button fx:id="saveOnDbBtn" mnemonicParsing="false" styleClass="button-a" text="Guardar en servidor" />
+                  <Button fx:id="getProductsBtn" layoutX="262.0" layoutY="10.0" mnemonicParsing="false" styleClass="button-a" text="Todos los productos" />
+                  <Button fx:id="importXmlBtn" mnemonicParsing="false" styleClass="button-a" text="Importar XML" />
+                  <Button fx:id="exportXmlBtn" disable="true" mnemonicParsing="false" styleClass="button-a" text="Exportar XML" />
+                  <Button fx:id="saveOnDbBtn" disable="true" mnemonicParsing="false" styleClass="button-a" text="Guardar en servidor" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="60.0" />
             <TableView fx:id="itemsTable" styleClass="personalTable">
                <columns>
                   <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Producto" />
@@ -67,7 +68,7 @@
       </HBox>
    </bottom>
    <top>
-      <ImageView fitHeight="170.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
+      <ImageView fitHeight="128.0" fitWidth="350.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
             <Image url="@../../img/system/logo.png" />
          </image>
