@@ -23,7 +23,7 @@ import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
-import org.zeki.virtualtechseller.util.XmlImportHelper;
+import org.zeki.virtualtechseller.util.XmlFilesHelper;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class ImportProductController implements Initializable {
+public class ProductsXMLController implements Initializable {
 
     @FXML
     private Button getProductsBtn;
@@ -99,7 +99,7 @@ public class ImportProductController implements Initializable {
 
         importXmlBtn.setOnAction(this::importProducts);
 
-        exportXmlBtn.setOnAction(event -> XmlImportHelper.exportProducts(event,feedbackLabel, productsObs));
+        exportXmlBtn.setOnAction(event -> XmlFilesHelper.exportProducts(event,feedbackLabel, productsObs));
 
         getProductsBtn.setOnAction(event -> loadAllProducts());
 
@@ -145,7 +145,7 @@ public class ImportProductController implements Initializable {
 
     private void importProducts(ActionEvent event) {
         // READ XML
-        List<Product> productsXML = Objects.requireNonNull(XmlImportHelper.importProducts(event, feedbackLabel)).getProducts();
+        List<Product> productsXML = Objects.requireNonNull(XmlFilesHelper.importProducts(event, feedbackLabel)).getProducts();
         if (productsXML != null && !productsXML.isEmpty()) {
             // LOAD LIST
             productsObs.setAll(productsXML);

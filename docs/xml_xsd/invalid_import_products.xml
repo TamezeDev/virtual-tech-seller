@@ -5,7 +5,7 @@
     xsi:noNamespaceSchemaLocation="import_products.xsd">
 
     <newProduct>
-        <name>KOCH MEDIA GMBH Evercade</name>
+        <name>KO</name>
         <description>Consola retro</description>
         <basePrice>121.33</basePrice>
         <urlImage>/img/products/ASSET_MP_162770075.jpg</urlImage>
@@ -40,7 +40,7 @@
     <usedProduct>
         <name>BLADE Verde</name>
         <description>Accesorios PS5</description>
-        <basePrice>20.34</basePrice>
+        <basePrice>0</basePrice>
         <urlImage>/img/products/ASSET_MP_173773653.jpg</urlImage>
         <available>true</available>
         <category>

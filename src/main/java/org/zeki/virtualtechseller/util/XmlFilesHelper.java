@@ -21,7 +21,9 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.util.List;
 
-public final class XmlImportHelper {
+public final class XmlFilesHelper {
+    private XmlFilesHelper() {
+    }
 
     public static ProductsXML importProducts(ActionEvent event, Label feedbackLabel) {
 
@@ -67,7 +69,7 @@ public final class XmlImportHelper {
             fileChooser.getExtensionFilters().add(
                     new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml")
             );
-            fileChooser.setInitialFileName("products.xml");
+            fileChooser.setInitialFileName("exported_products.xml");
             Node parent = (Node) event.getSource();
             Stage stage = (Stage) parent.getScene().getWindow();
             File xmlFile = fileChooser.showSaveDialog(stage);

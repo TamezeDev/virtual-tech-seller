@@ -1,70 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+    <!-- ========
+        SIMPLE TYPE
+        ============-->
+
+    <!-- Product name min:3 characters, max:60 characters -->
+    <xs:simpleType name="NameProductType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3" />
+            <xs:maxLength value="60" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Product description min:3 characters, max:250 characters -->
+    <xs:simpleType name="DescriptionProductType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3" />
+            <xs:maxLength value="250" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Product price min:0.01, max:10000 -->
     <xs:simpleType name="PriceType">
         <xs:restriction base="xs:decimal">
-            <xs:minInclusive value="0.01"/>
-            <xs:maxInclusive value="2000.00"/>
+            <xs:minInclusive value="0.01" />
+            <xs:maxInclusive value="10000.00" />
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Product urlImage 10 characters, max:150 characters -->
+    <xs:simpleType name="imageProductType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="10" />
+            <xs:maxLength value="150" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Product stock min:0, max:1000 -->
     <xs:simpleType name="StockType">
         <xs:restriction base="xs:integer">
-            <xs:minInclusive value="0"/>
-            <xs:maxInclusive value="99"/>
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="1000" />
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Product discount min:0.00, max:99.9 -->
     <xs:simpleType name="DiscountType">
         <xs:restriction base="xs:decimal">
-            <xs:minInclusive value="0.01"/>
-            <xs:maxInclusive value="99.9"/>
+            <xs:minInclusive value="0.00" />
+            <xs:maxInclusive value="99.9" />
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Taxes percentage min:0.01, max:99.9 -->
+    <xs:simpleType name="PercentageType">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01" />
+            <xs:maxInclusive value="99.9" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Product remark min:3 characters, max:200 characters -->
+    <xs:simpleType name="RemarkProductType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3" />
+            <xs:maxLength value="200" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Category name min:3 characters, max: 30 characters -->
+    <xs:simpleType name="CategoryNameType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3" />
+            <xs:maxLength value="30" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Category description min:3 characters, max: 30 characters -->
+    <xs:simpleType name="CategoryDescriptionType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3" />
+            <xs:maxLength value="150" />
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <!-- ========
+        COMPLEX TYPE
+            ========= -->
+
+    <!-- Categories -->
     <xs:complexType name="CategoryType">
-        <xs:all>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="description" type="xs:string"/>
-        </xs:all>
-        <xs:attribute name="idCategory" type="xs:integer" use="optional"/>
+        <xs:sequence>
+            <xs:element name="name" type="CategoryNameType" />
+            <xs:element name="description" type="CategoryDescriptionType" />
+        </xs:sequence>
+        <xs:attribute name="idCategory" type="xs:integer" use="required" />
     </xs:complexType>
 
+    <!-- New products type -->
     <xs:complexType name="NewProductType">
-        <xs:all>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="description" type="xs:string"/>
-            <xs:element name="urlImage" type="xs:string"/>
-            <xs:element name="basePrice" type="PriceType"/>
-            <xs:element name="taxPercentage" type="xs:decimal" minOccurs="0"/>
-            <xs:element name="available" type="xs:boolean" minOccurs="0"/>
-            <xs:element name="category" type="CategoryType"/>
-            <xs:element name="stock" type="StockType"/>
-            <xs:element name="releaseDate" type="xs:date"/>
-        </xs:all>
-        <xs:attribute name="idProduct" type="xs:integer" use="optional"/>
+        <xs:sequence>
+            <xs:element name="name" type="NameProductType" />
+            <xs:element name="description" type="DescriptionProductType" />
+            <xs:element name="urlImage" type="imageProductType" />
+            <xs:element name="basePrice" type="PriceType" />
+            <xs:element name="taxPercentage" type="PercentageType" minOccurs="0" />
+            <xs:element name="available" type="xs:boolean" />
+            <xs:element name="category" type="CategoryType" />
+            <xs:element name="stock" type="StockType" />
+            <xs:element name="releaseDate" type="xs:date" />
+        </xs:sequence>
+        <xs:attribute name="idProduct" type="xs:integer" use="required" />
     </xs:complexType>
 
+    <!-- Used products type -->
     <xs:complexType name="UsedProductType">
-        <xs:all>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="description" type="xs:string"/>
-            <xs:element name="urlImage" type="xs:string"/>
-            <xs:element name="basePrice" type="PriceType"/>
-            <xs:element name="taxPercentage" type="xs:decimal" minOccurs="0"/>
-            <xs:element name="available" type="xs:boolean" minOccurs="0"/>
-            <xs:element name="category" type="CategoryType"/>
-            <xs:element name="discountPercentage" type="DiscountType"/>
-            <xs:element name="remark" type="xs:string"/>
-        </xs:all>
-        <xs:attribute name="idProduct" type="xs:integer" use="optional"/>
+        <xs:sequence>
+            <xs:element name="name" type="NameProductType" />
+            <xs:element name="description" type="DescriptionProductType" />
+            <xs:element name="urlImage" type="imageProductType" />
+            <xs:element name="basePrice" type="PriceType" />
+            <xs:element name="taxPercentage" type="PercentageType" minOccurs="0" />
+            <xs:element name="available" type="xs:boolean" />
+            <xs:element name="category" type="CategoryType" />
+            <xs:element name="discountPercentage" type="DiscountType" />
+            <xs:element name="remark" type="RemarkProductType" />
+        </xs:sequence>
+        <xs:attribute name="idProduct" type="xs:integer" use="required" />
     </xs:complexType>
 
+
+    <!-- =============
+        ROOT ELEMENT
+        ============= -->
     <xs:element name="products">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded" minOccurs="0">
-                <xs:element name="newProduct" type="NewProductType"/>
-                <xs:element name="usedProduct" type="UsedProductType"/>
+                <xs:element name="newProduct" type="NewProductType" />
+                <xs:element name="usedProduct" type="UsedProductType" />
             </xs:choice>
         </xs:complexType>
     </xs:element>

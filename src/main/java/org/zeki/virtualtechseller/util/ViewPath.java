@@ -24,7 +24,7 @@ public final class ViewPath {
     public static final String MODIFY_PRODUCTS_VIEW = "/fxml/admin/modify-products-view.fxml";
     public static final String MODIFY_USER_VIEW = "/fxml/admin/modify-user-view.fxml";
     public static final String PERMISSION_VIEW = "/fxml/admin/permission-view.fxml";
-    public static final String PRODUCT_XML_VIEW = "/fxml/admin/importXML-products-view.fxml";
+    public static final String PRODUCT_XML_VIEW = "/fxml/admin/productsXML-view.fxml";
     // FXML - ADMIN
     public static final String MODERATOR_MENU_VIEW = "/fxml/moderator/moderator-menu-view.fxml";
     public static final String SALES_CONTROL_VIEW = "/fxml/moderator/sales-control-view.fxml";
