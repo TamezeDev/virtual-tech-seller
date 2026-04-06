@@ -1,11 +1,16 @@
 package org.zeki.virtualtechseller.model.user;
 
+import javafx.scene.control.Label;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Sale;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
+import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.VisitService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,18 +29,52 @@ public final class Moderator extends User implements DataAnalyzer {
     }
 
     @Override
-    public List<UserVisit> showVisitors() {
-        return List.of();
+    public int amountVisits(VisitService service, Exhibition exhibition) {
+        return service.getAmountVisitors(exhibition);
     }
 
     @Override
-    public void importVisitorsFromXML() {
-
+    public List<UserVisit> filterGroupEvent(VisitService service, Label feedBack) {
+        // GET VISIT LIST
+        ResultService<List<UserVisit>> result = service.visitsGroupByEvent();
+        feedBack.setText(result.getMessage());
+        // IF NOT EMPTY LIST COUNT VISITS
+        if (result.isSuccess()) {
+            List<UserVisit> visits = result.getData();
+            return result.getData();
+        }
+        return new ArrayList<>();
     }
 
     @Override
-    public void exportVisitorsToXML() {
+    public List<UserVisit> filterVisitors(VisitService service, Label feedBack, Label counter, int minValue, int maxValue) {
+        // GET VISIT LIST
+        ResultService<List<UserVisit>> result = service.visitsByNumAccessOrdered(minValue, maxValue);
+        feedBack.setText(result.getMessage());
+        // IF NOT EMPTY LIST COUNT VISITS
+        if (result.isSuccess()) {
+            List<UserVisit> visits = result.getData();
+            counter.setText(String.valueOf(visits.stream().mapToInt(UserVisit::getVisitCounter).sum()));
+            return result.getData();
+        }
+        return new ArrayList<>();
+    }
 
+    @Override
+    public List<UserVisit> filterVisitors(VisitService service, Label feedBack, Label counter, Exhibition exhibition) {
+        // GET VISIT LIST
+        ResultService<List<UserVisit>> result = service.getVisitors(exhibition);
+        feedBack.setText(result.getMessage());
+        // IF NOT EMPTY LIST COUNT VISITS
+        if (result.isSuccess()) {
+            int amount = amountVisits(service, exhibition);
+            if (amount == -1) {
+                feedBack.setText("Error recibiendo sumatorio total de visitas");
+            }
+            counter.setText(String.valueOf(amount));
+            return result.getData();
+        }
+        return new ArrayList<>();
     }
 
     @Override

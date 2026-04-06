@@ -36,7 +36,7 @@
             <name>Videoconsolas</name>
         </category>
         <discountPercentage>32</discountPercentage>
-        <remark>Producto con desperfectos visiibles</remark>
+        <remark>Producto con desperfectos visibles</remark>
     </usedProduct>
     <usedProduct>
         <name>BLADE Verde</name>
@@ -48,7 +48,7 @@
             <name>Videoconsolas</name>
         </category>
         <discountPercentage>50</discountPercentage>
-        <remark>Aún consevado en su caja</remark>
+        <remark>Aún conservado en su caja</remark>
     </usedProduct>
     <newProduct>
         <name>Logitech Lift Ergonómico</name>
@@ -63,7 +63,7 @@
     </newProduct>
     <newProduct>
         <name>Google Pixel 9a</name>
-        <description>128 GB, 8 GB RAM, 6.3" Actua pOLED, Google Tensor G4, 5100 mAh</description>
+        <description>128 GB, 8 GB RAM, 6.3" Actúa pOLED, Google Tensor G4, 5100 mAh</description>
         <basePrice>322.68</basePrice>
         <urlImage>/img/products/ASSET_MMS_150858184.jpg</urlImage>
         <category>
@@ -95,7 +95,7 @@
         <releaseDate>2026-03-14</releaseDate>
     </newProduct>
     <newProduct>
-        <name>La Lego Ninjago Pelicula</name>
+        <name>La Lego Ninjago Película</name>
         <description>Videojuego Nintendo Switch</description>
         <basePrice>16.55</basePrice>
         <urlImage>/img/products/pixelboxx-mss-78944035.jpg</urlImage>

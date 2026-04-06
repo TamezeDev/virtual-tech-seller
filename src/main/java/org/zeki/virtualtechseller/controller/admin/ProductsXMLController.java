@@ -99,7 +99,7 @@ public class ProductsXMLController implements Initializable {
 
         importXmlBtn.setOnAction(this::importProducts);
 
-        exportXmlBtn.setOnAction(event -> XmlFilesHelper.exportProducts(event,feedbackLabel, productsObs));
+        exportXmlBtn.setOnAction(event -> XmlFilesHelper.exportProducts(event, feedbackLabel, productsObs));
 
         getProductsBtn.setOnAction(event -> loadAllProducts());
 
