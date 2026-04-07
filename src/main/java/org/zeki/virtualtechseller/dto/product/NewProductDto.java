@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
-import org.zeki.virtualtechseller.model.product.Product;
 
 import java.time.LocalDate;
 

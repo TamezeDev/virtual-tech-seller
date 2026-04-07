@@ -76,11 +76,11 @@ public class VisitRepository {
     public List<UserVisit> getTotalVisits(Exhibition selectedExhibition) throws DBConnectionException, SQLException {
         String fullQuery = "SELECT u.id_user, u.name AS user_name, u.last_name, e.id_exhibition, e.name AS event_name, uv.last_visit, uv.visit_counter " +
                 "FROM user_visits uv INNER JOIN users u ON uv.id_user = u.id_user " +
-                "INNER JOIN exhibitions e ON uv.id_exhibition = e.id_exhibition;";
+                "INNER JOIN exhibitions e ON uv.id_exhibition = e.id_exhibition ORDER BY user_name ASC;";
 
         String eventQuery = "SELECT u.id_user, u.name AS user_name, u.last_name, e.id_exhibition, e.name AS event_name, uv.last_visit, uv.visit_counter " +
                 "FROM user_visits uv INNER JOIN users u ON uv.id_user = u.id_user " +
-                "INNER JOIN exhibitions e ON uv.id_exhibition = e.id_exhibition WHERE uv.id_exhibition = ?;";
+                "INNER JOIN exhibitions e ON uv.id_exhibition = e.id_exhibition WHERE uv.id_exhibition = ? ORDER BY user_name ASC;";
 
         List<UserVisit> userVisits = new ArrayList<>();
 
@@ -92,24 +92,7 @@ public class VisitRepository {
                 ps.setInt(1, selectedExhibition.getIdExhibition());
             }
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                UserVisit visit = new UserVisit();
-                Client user = new Client();
-                Exhibition exhibition = new Exhibition();
-
-                user.setIdUser(rs.getInt("id_user"));
-                user.setName(rs.getString("user_name"));
-                user.setLastName(rs.getString("last_name"));
-                exhibition.setIdExhibition(rs.getInt("id_exhibition"));
-                exhibition.setName(rs.getString("event_name"));
-                visit.setLastVisit(rs.getDate("last_visit").toLocalDate());
-                visit.setVisitCounter(rs.getInt("visit_counter"));
-
-                visit.setExhibition(exhibition);
-                visit.setClient(user);
-                userVisits.add(visit);
-            }
+            createVisitorAnalyst(rs, userVisits);
         }
         return userVisits;
     }
@@ -213,25 +196,28 @@ public class VisitRepository {
             ps.setInt(2, maxValue);
 
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                UserVisit visit = new UserVisit();
-                Client user = new Client();
-                Exhibition exhibition = new Exhibition();
-
-                user.setIdUser(rs.getInt("id_user"));
-                user.setName(rs.getString("user_name"));
-                user.setLastName(rs.getString("last_name"));
-                exhibition.setIdExhibition(rs.getInt("id_exhibition"));
-                exhibition.setName(rs.getString("event_name"));
-                visit.setLastVisit(rs.getDate("last_visit").toLocalDate());
-                visit.setVisitCounter(rs.getInt("visit_counter"));
-
-                visit.setExhibition(exhibition);
-                visit.setClient(user);
-                userVisits.add(visit);
-            }
+            createVisitorAnalyst(rs, userVisits);
         }
         return userVisits;
+    }
+
+    private static void createVisitorAnalyst(ResultSet rs, List<UserVisit> userVisits) throws SQLException {
+        while (rs.next()) {
+            UserVisit visit = new UserVisit();
+            Client user = new Client();
+            Exhibition exhibition = new Exhibition();
+
+            user.setIdUser(rs.getInt("id_user"));
+            user.setName(rs.getString("user_name"));
+            user.setLastName(rs.getString("last_name"));
+            exhibition.setIdExhibition(rs.getInt("id_exhibition"));
+            exhibition.setName(rs.getString("event_name"));
+            visit.setLastVisit(rs.getDate("last_visit").toLocalDate());
+            visit.setVisitCounter(rs.getInt("visit_counter"));
+
+            visit.setExhibition(exhibition);
+            visit.setClient(user);
+            userVisits.add(visit);
+        }
     }
 }

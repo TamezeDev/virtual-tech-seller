@@ -27,10 +27,6 @@ public abstract class Product {
         taxPercentage = 21.0; // PRODUCTS TAXES IN SPAIN 21%
     }
 
-    public boolean belongToCategory(Category category) {
-        return this.category.getIdCategory() == category.getIdCategory();
-    }
-
     public abstract double calculateUnitPrice();
 
 

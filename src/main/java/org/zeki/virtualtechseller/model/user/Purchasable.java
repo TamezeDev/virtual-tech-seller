@@ -1,7 +1,6 @@
 package org.zeki.virtualtechseller.model.user;
 
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
-import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.model.product.Sale;

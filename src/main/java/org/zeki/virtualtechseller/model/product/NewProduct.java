@@ -23,10 +23,6 @@ public final class NewProduct extends Product {
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate releaseDate;
 
-    public boolean hasStock(int quantity) {
-        return stock >= quantity;
-    }
-
     @Override
     public double calculateUnitPrice() {
         return getBasePrice() * (1 + (getTaxPercentage() / 100));

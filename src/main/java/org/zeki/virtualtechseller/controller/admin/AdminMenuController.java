@@ -6,11 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.user.LoginUserDto;
 import org.zeki.virtualtechseller.model.user.Admin;
-import org.zeki.virtualtechseller.model.user.User;
-import org.zeki.virtualtechseller.service.ResultService;
-import org.zeki.virtualtechseller.service.UserService;
 import org.zeki.virtualtechseller.util.SceneHelper;
 import org.zeki.virtualtechseller.util.ViewPath;
 
@@ -61,9 +57,7 @@ public class AdminMenuController implements Initializable {
 
     private void instances() {
         AppContext.getInstance().getConnectionManager().getDatabaseConfig().useAdminConnection(); // CHANGE DB ADMIN
-        setTestUser();
         currentAdmin = (Admin) SessionManager.getInstance().getCurrentUser();
-
     }
 
     private void initGUI() {
@@ -94,11 +88,4 @@ public class AdminMenuController implements Initializable {
 
     }
 
-    //PROVISIONAL METHOD TO TEST ADMIN FUNCTIONS
-    private void setTestUser() {
-        UserService userService = AppContext.getInstance().getUserService();
-        ResultService<User> resultService = userService.login(new LoginUserDto("admin1@virtualtechseller.com", "Admin-123"));
-        SessionManager.getInstance().login(resultService.getData());
-
-    }
 }

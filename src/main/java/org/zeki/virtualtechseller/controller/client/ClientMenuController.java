@@ -6,11 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
-import org.zeki.virtualtechseller.dto.user.LoginUserDto;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.user.Client;
-import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.*;
 import org.zeki.virtualtechseller.util.Feedback;
 import org.zeki.virtualtechseller.util.SceneHelper;
@@ -67,14 +65,11 @@ public class ClientMenuController implements Initializable {
         cartService = AppContext.getInstance().getCartService();
         saleService = AppContext.getInstance().getSaleService();
         visitService = AppContext.getInstance().getVisitService();
-
-        setTestUser();
         currentUser = (Client) SessionManager.getInstance().getCurrentUser();
-        loadCartUser();
-        loadUserVisits();
-
         currentUser.setCurrentExhibition(null);  // SET NULL CURRENT EVENT
         saleService.setSalesList(currentUser);
+        loadCartUser();
+        loadUserVisits();
     }
 
     private void initGUI() {
@@ -104,6 +99,8 @@ public class ClientMenuController implements Initializable {
         myProductsBtn.setOnAction(event -> {
             if (currentUser.getSales().isEmpty()) {
                 feedbackLabel.setText("Aún no ha hecho ninguna compra");
+                Feedback.showFeedback(feedbackLabel);
+                return;
             }
             SceneHelper.changeScene(myProductsBtn, ViewPath.CLIENT_PRODUCT_VIEW);
         });
@@ -124,13 +121,5 @@ public class ClientMenuController implements Initializable {
         if (result.isSuccess()) {
             currentUser.setVisits(result.getData());
         }
-    }
-
-    //PROVISIONAL METHOD TO TEST CLIENT FUNCTIONS
-    private void setTestUser() {
-        UserService userService = AppContext.getInstance().getUserService();
-
-        ResultService<User> resultService = userService.login(new LoginUserDto("client2@virtualtechseller.com", "Client-123"));
-        SessionManager.getInstance().login(resultService.getData());
     }
 }

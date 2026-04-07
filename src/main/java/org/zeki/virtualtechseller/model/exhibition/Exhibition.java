@@ -3,7 +3,6 @@ package org.zeki.virtualtechseller.model.exhibition;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.zeki.virtualtechseller.model.product.Product;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

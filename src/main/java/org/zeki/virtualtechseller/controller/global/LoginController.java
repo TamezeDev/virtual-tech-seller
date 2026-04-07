@@ -6,6 +6,9 @@ import javafx.scene.control.*;
 import org.zeki.virtualtechseller.app.AppContext;
 import org.zeki.virtualtechseller.app.SessionManager;
 import org.zeki.virtualtechseller.dto.user.LoginUserDto;
+import org.zeki.virtualtechseller.model.user.Admin;
+import org.zeki.virtualtechseller.model.user.Client;
+import org.zeki.virtualtechseller.model.user.Moderator;
 import org.zeki.virtualtechseller.model.user.User;
 import org.zeki.virtualtechseller.service.ResultService;
 import org.zeki.virtualtechseller.service.UserService;
@@ -108,6 +111,17 @@ public class LoginController implements Initializable {
         }
         // SET CURRENT USER
         SessionManager.getInstance().login(resultUser.getData());
-        SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
+        loadPostLoginScene();
+    }
+
+    public void loadPostLoginScene() {
+        User user = SessionManager.getInstance().getCurrentUser();
+        if (user instanceof Client) {
+            SceneHelper.changeScene(loginBtn, ViewPath.CLIENT_MENU_VIEW);
+        } else if (user instanceof Admin) {
+            SceneHelper.changeScene(loginBtn, ViewPath.ADMIN_MENU_VIEW);
+        } else if (user instanceof Moderator) {
+            SceneHelper.changeScene(loginBtn, ViewPath.MODERATOR_MENU_VIEW);
+        }
     }
 }

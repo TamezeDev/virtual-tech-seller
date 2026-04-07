@@ -153,9 +153,13 @@ public class VisitControlController implements Initializable {
         // GET INPUT VALUES
         int minValue = Integer.parseInt(minVisitsTxt.getText());
         int maxValue = Integer.parseInt(maxVisitsTxt.getText());
-        quantityBox.setVisible(true);
+        quantityBox.setVisible(false);
+        visitsObs.clear();
         // LOAD VISITS
         List<UserVisit> visits = currentModerator.filterVisitors(visitService, feedbackLabel, totalQuantityLabel, minValue, maxValue);
+        if (!visits.isEmpty()){
+            quantityBox.setVisible(true);
+        }
         visitsObs.setAll(visits);
         visitsTable.setItems(visitsObs);
         Feedback.showFeedback(feedbackLabel);
@@ -194,6 +198,8 @@ public class VisitControlController implements Initializable {
     private void loadTotalVisits() {
         // LOAD FULL VISITS TABLE
         quantityBox.setVisible(true);
+        eventsCb.setVisible(false);
+        visitFilterBox.setVisible(false);
         List<UserVisit> visits = currentModerator.filterVisitors(visitService, feedbackLabel, totalQuantityLabel, null);
         visitsObs.setAll(visits);
         visitsTable.setItems(visitsObs);
@@ -224,7 +230,6 @@ public class VisitControlController implements Initializable {
         textFields.add(maxVisitsTxt);
         textFields.add(minVisitsTxt);
     }
-
 
     private void configTable() {
         // CONFIG COLUMNS

@@ -8,8 +8,10 @@ import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.product.Sale;
 import org.zeki.virtualtechseller.model.exhibition.UserVisit;
 import org.zeki.virtualtechseller.service.ResultService;
+import org.zeki.virtualtechseller.service.SaleService;
 import org.zeki.virtualtechseller.service.VisitService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +19,40 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public final class Moderator extends User implements DataAnalyzer {
-
     @Override
-    public List<Sale> showSales() {
-        return List.of();
+    public List<Sale> filterSales(SaleService service, Label feedBack, Label counter, Exhibition exhibition) {
+        // GET SALES LIST
+        ResultService<List<Sale>> result = service.getTotalSales(exhibition);
+        feedBack.setText(result.getMessage());
+        // IF NOT EMPTY LIST GET AMOUNT EARNINGS
+        if (result.isSuccess()) {
+            int amount = amountEarnings(service, exhibition);
+            if (amount == -1) {
+                feedBack.setText("Error recibiendo sumatorio total de ganancias");
+            }
+            counter.setText(amount + " €");
+            return result.getData();
+        }
+        return new ArrayList<>();
     }
 
     @Override
-    public void exportSalesToXML() {
+    public List<Sale> filterSales(SaleService service, Label feedBack, Label counter, LocalDate initDate, LocalDate endDate) {
+        // GET SALES LIST
+        ResultService<List<Sale>> result = service.salesBetweenDates(initDate, endDate);
+        feedBack.setText(result.getMessage());
+        // IF NOT EMPTY LIST COUNT EARNINGS SALES
+        if (result.isSuccess()) {
+            List<Sale> sales = result.getData();
+            counter.setText(String.valueOf(sales.stream().mapToDouble(Sale::getTotalPrice).sum()));
+            return result.getData();
+        }
+        return new ArrayList<>();
+    }
 
+    @Override
+    public int amountEarnings(SaleService service, Exhibition exhibition) {
+        return service.getAmountEarnings(exhibition);
     }
 
     @Override

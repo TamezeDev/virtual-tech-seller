@@ -2,7 +2,6 @@ package org.zeki.virtualtechseller.database;
 
 import lombok.Getter;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.util.AlertHelper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
