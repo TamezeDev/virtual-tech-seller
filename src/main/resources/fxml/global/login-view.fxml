@@ -32,7 +32,7 @@
    <center>
       <VBox alignment="CENTER" spacing="50.0">
          <children>
-                <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="panel-a">
+                <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="536.0" prefWidth="638.0" styleClass="panel-a">
 
                                 <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
