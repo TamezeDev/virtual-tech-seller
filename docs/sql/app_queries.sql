@@ -16,7 +16,7 @@ SELECT rol FROM users WHERE email = 'client1@virtualtechseller.com';
 
 -- REGISTER NEW USER (CLIENT)
 INSERT INTO users(name, last_name, phone, email, password, rol, created_date, credit, email_activate) VALUES 
-('Segio', 'Benitez Leon', '600111121', 'client10@virtualtechseller.com', '$2a$12$1hrlxwUGJgoYtWIWjLpY2eJZTPtYLMgf2vVUUvadaTl3WX20YibhO', 'CLIENT', CURRENT_DATE, 0, 0);
+('Sergio', 'Benitez Leon', '600111121', 'client10@virtualtechseller.com', '$2a$12$1hrlxwUGJgoYtWIWjLpY2eJZTPtYLMgf2vVUUvadaTl3WX20YibhO', 'CLIENT', CURRENT_DATE, 0, 0);
 
 -- GET NECESARY USER DATA BY EMAIL
 SELECT id_user, name, last_name, phone, credit FROM users WHERE email = 'client1@virtualtechseller.com';

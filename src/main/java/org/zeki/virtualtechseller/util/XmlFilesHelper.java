@@ -35,7 +35,7 @@ public final class XmlFilesHelper {
             Node parent = (Node) event.getSource();
             Stage stage = (Stage) parent.getScene().getWindow();
             File xmlFile = fileChooser.showOpenDialog(stage);
-            File xsdFile = new File("docs/test_app/xml_xsd/import_products.xsd");
+            File xsdFile = new File("docs/xml/import_products.xsd");
             // CREATE SCHEMA VALIDATION
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(xsdFile);
@@ -74,7 +74,7 @@ public final class XmlFilesHelper {
             Stage stage = (Stage) parent.getScene().getWindow();
             File xmlFile = fileChooser.showSaveDialog(stage);
             // CREATE SCHEMA VALIDATION
-            File xsdFile = new File("docs/test_app/xml_xsd/export_products.xsd");
+            File xsdFile = new File("docs/xml/export_products.xsd");
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(xsdFile);
             ProductsXML productsXML = new ProductsXML();

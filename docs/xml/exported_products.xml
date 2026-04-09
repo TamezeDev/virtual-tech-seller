@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<products>
+    <newProduct idProduct="1">
+        <name>Samsung Galaxy A56</name>
+        <description>5G, Grey, Móvil Android, 256 GB, 8 GB RAM, 6,7 LCD, Processor, 5000 mAh</description>
+        <urlImage>/img/products/SamsungGalaxyA56.jpg</urlImage>
+        <basePrice>280.5</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="1">
+            <name>Smartphones</name>
+            <description>Teléfonos inteligentes</description>
+        </category>
+        <stock>20</stock>
+        <releaseDate>2026-01-23</releaseDate>
+    </newProduct>
+    <newProduct idProduct="2">
+        <name>XIAOMI Redmi Note 14</name>
+        <description>Negro medianoche, Móvil Android, 128 GB, 6 GB RAM, 6,67 AMOLED FHD+, MediaTek
+            Helio G99-Ultra, 5510 mAh</description>
+        <urlImage>/img/products/XIAOMIRedmiNote14.jpg</urlImage>
+        <basePrice>123.49</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="1">
+            <name>Smartphones</name>
+            <description>Teléfonos inteligentes</description>
+        </category>
+        <stock>13</stock>
+        <releaseDate>2025-10-20</releaseDate>
+    </newProduct>
+    <newProduct idProduct="3">
+        <name>iPhone 17 Pro Max</name>
+        <description>256 GB, 5G, 6.3 OLED Super Retina XDR, Chip A19 Pro, iOS</description>
+        <urlImage>/img/products/iPhone17ProMax.jpg</urlImage>
+        <basePrice>1220.23</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="1">
+            <name>Smartphones</name>
+            <description>Teléfonos inteligentes</description>
+        </category>
+        <stock>5</stock>
+        <releaseDate>2026-03-05</releaseDate>
+    </newProduct>
+    <usedProduct idProduct="4">
+        <name>Samsung Galaxy A36 5G</name>
+        <description>Negro, 256 GB, 8 GB RAM, 6.7 FHD+ Super AMOLED, Qualcomm Snapdragon 6 Gen 3,
+            5000 mAh, Android 15</description>
+        <urlImage>/img/products/SamsungGalaxyA365G.jpg</urlImage>
+        <basePrice>200.0</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="1">
+            <name>Smartphones</name>
+            <description>Teléfonos inteligentes</description>
+        </category>
+        <discountPercentage>20.0</discountPercentage>
+        <remark>Como nuevo, sin daños</remark>
+    </usedProduct>
+    <newProduct idProduct="6">
+        <name>Forspoken</name>
+        <description>Videojuego de consola PS5</description>
+        <urlImage>/img/products/PS5Forspoken.jpg</urlImage>
+        <basePrice>7.22</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="2">
+            <name>Videojuegos</name>
+            <description>Entretenimiento virtual</description>
+        </category>
+        <stock>10</stock>
+        <releaseDate>2025-03-12</releaseDate>
+    </newProduct>
+    <usedProduct idProduct="7">
+        <name>Zombie Cure Lab</name>
+        <description>Videojuego de consola PS5</description>
+        <urlImage>/img/products/ZombieCureLab.jpg</urlImage>
+        <basePrice>12.9</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="2">
+            <name>Videojuegos</name>
+            <description>Entretenimiento virtual</description>
+        </category>
+        <discountPercentage>50.0</discountPercentage>
+        <remark>Bastante uso</remark>
+    </usedProduct>
+    <usedProduct idProduct="8">
+        <name>Final Fantasy VII</name>
+        <description>Remake Intergrade &amp; Rebirth PS5</description>
+        <urlImage>/img/products/FinalFantasyVII.jpg</urlImage>
+        <basePrice>28.45</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="2">
+            <name>Videojuegos</name>
+            <description>Entretenimiento virtual</description>
+        </category>
+        <discountPercentage>15.0</discountPercentage>
+        <remark>Prácticamente sin usar</remark>
+    </usedProduct>
+    <newProduct idProduct="9">
+        <name>Leyendas Pokémon: Z-A</name>
+        <description>Videojuego de la consola Nintendo Switch 2</description>
+        <urlImage>/img/products/LeyendasPokemonZA.jpg</urlImage>
+        <basePrice>28.45</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="2">
+            <name>Videojuegos</name>
+            <description>Entretenimiento virtual</description>
+        </category>
+        <stock>12</stock>
+        <releaseDate>2026-02-15</releaseDate>
+    </newProduct>
+    <newProduct idProduct="10">
+        <name>MARS GAMING MPB1000SIM</name>
+        <description>Fuente de alimentación PC MPB1000SIM MARS GAMING, Negro</description>
+        <urlImage>/img/products/FuentedealimentaciónPC.jpg</urlImage>
+        <basePrice>65.34</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="3">
+            <name>Componentes PC</name>
+            <description>Hardware para tu equipo</description>
+        </category>
+        <stock>7</stock>
+        <releaseDate>2025-01-10</releaseDate>
+    </newProduct>
+    <usedProduct idProduct="11">
+        <name>MARS GAMING MF3AR</name>
+        <description>Ventilador PC</description>
+        <urlImage>/img/products/VentiladorPc.jpg</urlImage>
+        <basePrice>10.0</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="3">
+            <name>Componentes PC</name>
+            <description>Hardware para tu equipo</description>
+        </category>
+        <discountPercentage>35.0</discountPercentage>
+        <remark>3 meses de uso diario</remark>
+    </usedProduct>
+    <newProduct idProduct="12">
+        <name>TP-Link ARCHER TX50E</name>
+        <description>Tarjeta de red, AX3000, Wi-Fi 6, Bluetooth 5.0 PCIe, Negro</description>
+        <urlImage>/img/products/TarjetaRed.jpg</urlImage>
+        <basePrice>23.57</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="3">
+            <name>Componentes PC</name>
+            <description>Hardware para tu equipo</description>
+        </category>
+        <stock>0</stock>
+        <releaseDate>2025-08-13</releaseDate>
+    </newProduct>
+    <newProduct idProduct="13">
+        <name>KINGSTON ADATA</name>
+        <description>Memoria RAM</description>
+        <urlImage>/img/products/MemoriaRam.jpg</urlImage>
+        <basePrice>100.5</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="3">
+            <name>Componentes PC</name>
+            <description>Hardware para tu equipo</description>
+        </category>
+        <stock>8</stock>
+        <releaseDate>2025-06-03</releaseDate>
+    </newProduct>
+    <newProduct idProduct="5">
+        <name>MY ARCADE DGUNL-3283</name>
+        <description>Maquina Arcade con el fantástico juego Street Fighter II</description>
+        <urlImage>/img/products/MYARCADEDGUNL-3283.jpg</urlImage>
+        <basePrice>60.89</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="4">
+            <name>Videoconsolas</name>
+            <description>Equipo conectado a pantalla</description>
+        </category>
+        <stock>23</stock>
+        <releaseDate>2026-01-10</releaseDate>
+    </newProduct>
+    <newProduct idProduct="14">
+        <name>Consola PS5 Pro</name>
+        <description>PlayStation 5 Pro 2TB + Juego EA Sports FC 26 Digital, 2 TB, blanco</description>
+        <urlImage>/img/products/PS5PRO.jpg</urlImage>
+        <basePrice>550.45</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="4">
+            <name>Videoconsolas</name>
+            <description>Equipo conectado a pantalla</description>
+        </category>
+        <stock>3</stock>
+        <releaseDate>2025-09-13</releaseDate>
+    </newProduct>
+    <newProduct idProduct="15">
+        <name>RETROBOX 33K</name>
+        <description>Consola MANALEX RETROBOX33K, 64 GB, Azul</description>
+        <urlImage>/img/products/retrobox.jpg</urlImage>
+        <basePrice>50.03</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="4">
+            <name>Videoconsolas</name>
+            <description>Equipo conectado a pantalla</description>
+        </category>
+        <stock>5</stock>
+        <releaseDate>2023-02-12</releaseDate>
+    </newProduct>
+    <newProduct idProduct="16">
+        <name>Nintendo Switch 2</name>
+        <description>7.9 Full HD HDR 120 Hz, 256 GB, Magnetic Joy-Con 2 con modo ratón, Azul y Rojo
+            Neón</description>
+        <urlImage>/img/products/switch2.jpg</urlImage>
+        <basePrice>350.44</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="4">
+            <name>Videoconsolas</name>
+            <description>Equipo conectado a pantalla</description>
+        </category>
+        <stock>9</stock>
+        <releaseDate>2025-11-03</releaseDate>
+    </newProduct>
+    <usedProduct idProduct="17">
+        <name>Xbox Series S</name>
+        <description>MICROSOFT EP2-00644, 1 TB, Blanco</description>
+        <urlImage>/img/products/xboxS.jpg</urlImage>
+        <basePrice>350.44</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="4">
+            <name>Videoconsolas</name>
+            <description>Equipo conectado a pantalla</description>
+        </category>
+        <discountPercentage>10.0</discountPercentage>
+        <remark>Aún en garantía</remark>
+    </usedProduct>
+    <newProduct idProduct="18">
+        <name>MARS GAMING MSAURA</name>
+        <description>Altavoces para PC - 15 W, 2.0 canales, Bluetooth, Negro</description>
+        <urlImage>/img/products/altavocesPc.jpg</urlImage>
+        <basePrice>10.12</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="5">
+            <name>Periféricos</name>
+            <description>Accesorios de PC</description>
+        </category>
+        <stock>2</stock>
+        <releaseDate>2026-01-08</releaseDate>
+    </newProduct>
+    <newProduct idProduct="19">
+        <name>Epson EcoTank ET-2865</name>
+        <description>Impresora multifunción tinta - Color, Tinta recargable, Negro</description>
+        <urlImage>/img/products/impresoraEpson.jpg</urlImage>
+        <basePrice>133.65</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="5">
+            <name>Periféricos</name>
+            <description>Accesorios de PC</description>
+        </category>
+        <stock>7</stock>
+        <releaseDate>2025-05-03</releaseDate>
+    </newProduct>
+    <newProduct idProduct="20">
+        <name>Xiaomi G34 34</name>
+        <description>Monitor gaming - Xiaomi G34, WQHD, 1 ms, 180 Hz, FreeSync, DisplayPort x2, HDMI
+            x2, Negro</description>
+        <urlImage>/img/products/monitorXiaomi.jpg</urlImage>
+        <basePrice>200.12</basePrice>
+        <taxPercentage>21.0</taxPercentage>
+        <available>true</available>
+        <category idCategory="5">
+            <name>Periféricos</name>
+            <description>Accesorios de PC</description>
+        </category>
+        <stock>5</stock>
+        <releaseDate>2026-01-03</releaseDate>
+    </newProduct>
+</products>
