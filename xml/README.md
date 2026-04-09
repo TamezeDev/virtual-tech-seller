@@ -43,7 +43,7 @@ Los archivos XSD diseñados (`import_products.xsd` y `export_products.xsd`) no s
 4. **Enumeraciones (`xs:enumeration`):** El nombre de la categoría en la importación está estrictamente limitado a valores exactos (ej. "Smartphones", "Videojuegos", "Componentes PC").
 5. **Cardinalidades (`minOccurs`, `maxOccurs`):** Control estricto de elementos obligatorios frente a elementos opcionales.
 
-## Integración con el Proyecto (Contexto Global)
+## Integración con el Proyecto
 
 Esta entrega no es un ejercicio aislado. Los archivos XML y XSD interactúan directamente con la base de datos y la lógica Java (POO) del Proyecto Intermodular:
 

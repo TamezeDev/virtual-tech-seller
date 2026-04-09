@@ -40,10 +40,12 @@ El proyecto sigue una estructura de directorios profesional para separar el cód
 
 ```text
 /
-├── src/                # Código fuente Java (Modelos, Controladores, Servicios, DAOs)
-├── sql/                # Scripts de base de datos (DDL de creación, DML de datos y Consultas)
+├── src/                # Código fuente Java (Modelos, Controladores, Servicios, Repositorios)
+├── sql/                # Scripts de base de datos (DDL de creación, DML de datos, DCL y consultas)
 ├── xml/                # Archivos XML de exportación de catálogo y esquemas de validación (XSD)
 ├── docs/               # Documentación del proyecto
+│   ├── entornos/       # Acta de reunión y análisis de requisitos con el cliente
+│   ├── img/            # Capturas de pantalla de la aplicación y evidencias gráficas
 │   ├── bbdd/           # Diagramas ER, relacional y modelo de datos
 │   ├── uml/            # Diagramas de clases (PlantUML)
 │   ├── sistemas/       # Informe técnico del entorno de ejecución
@@ -68,9 +70,13 @@ cd virtualTechSeller
 3. Ejecuta el script `sql/02_initial_data_DML.sql` para poblar la base de datos con información de prueba (eventos, usuarios y 20 productos de hardware).
 4. Ejecuta el script `sql/users_roles.sql` para generar los usuarios y los roles con sus permisos y asignaciones correspondientes.
 
-### 3. Ejecución
-Ejecuta la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
-
+### 3. Ejecución de la Aplicación
+ - Ejecuta directamente la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
+ -  Descargar el archivo ejecutable (`virtualTechSeller.jar`) o compilar el código fuente.
+ - Hacer doble clic sobre el archivo `.jar` o ejecutar el siguiente comando en la terminal:
+   ```bash
+   java -jar virtualTechSeller.jar
+   ```
 > **Nota:** Puedes iniciar sesión con el usuario administrador de prueba: `admin1@virtualtechseller.com` / `Admin-123`, 
 > con un cliente de prueba: `client1@virtualtechseller.com` / `Client-123` o un moderador de prueba `moderator1@virtualtechseller.com` / `Moderator-123`.
 
