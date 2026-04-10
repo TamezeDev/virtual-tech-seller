@@ -44,6 +44,7 @@ public class UserService {
             return null;
         } catch (SQLException e) {
             String message = "Error registrando usuario en el servidor";
+            e.printStackTrace();
             AlertHelper.showSQLAlert(message); // SHOW SQL ALERT TO USER
             return null;
         }

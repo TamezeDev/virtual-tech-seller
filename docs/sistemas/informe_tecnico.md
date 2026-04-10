@@ -65,13 +65,20 @@ Las dependencias principales inyectadas mediante el archivo `pom.xml` son:
    * Ejecutar segundo `02_initial_data_DML.sql` (carga datos de las tablas).
    * Ejecutar tercero `03_users_roles.sql` (establecer usuarios y roles).
 
-### Ejecución de la Aplicación
-1. Descargar el archivo ejecutable (`virtualTechSeller.jar`) o compilar el código fuente.
-2. Hacer doble clic sobre el archivo `.jar` o ejecutar el siguiente comando en la terminal:
+### Modos de ejecución de la Aplicación
+a.  Ejecuta directamente la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
+ 
+ b. Acceder a la carpeta (`/virtual-tech-seller/out/artifacts/virtualTechSeller`) 
+ - ejecutar el siguiente comando en la terminal:
    ```bash
-   java -jar virtualTechSeller.jar
+   java -jar /virtualTechSeller.jar
    ```
+c. Si tienes un sistema operativo Windows puedes descargarlo desde el enlace:
 
+🔗 **https://drive.google.com/file/d/1qGUDTLOCVHnNUY8RbWItKNqms90Y6afx/view?usp=sharing**
+- Descomprime con winrar y ejecuta `virtualTechSeller.exe` teniendo previamente levantado y configurado el servidor.
+> **Nota:** Puedes iniciar sesión con el usuario administrador de prueba: `admin1@virtualtechseller.com` / `Admin-123`, 
+> con un cliente de prueba: `client1@virtualtechseller.com` / `Client-123` o un moderador de prueba `moderator1@virtualtechseller.com` / `Moderator-123`.
 ## Gestión de Usuarios, Permisos y Directorios
 
 El sistema está jerarquizado a nivel de base de datos para asegurar los permisos de operaciones (roles).

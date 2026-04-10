@@ -40,8 +40,8 @@ GRANT SELECT, INSERT ON virtual_tech_seller_db.sales TO 'role_client';
 GRANT SELECT, INSERT, UPDATE ON virtual_tech_seller_db.user_visits TO 'role_client';
 
 /* ADMIN */
-GRANT SELECT, UPDATE ON virtual_tech_seller_db.users TO 'role_admin';
-GRANT SELECT, UPDATE, INSERT ON virtual_tech_seller_db.exhibitions TO 'role_admin';
+GRANT SELECT, INSERT, UPDATE ON virtual_tech_seller_db.users TO 'role_admin';
+GRANT SELECT, INSERT, UPDATE ON virtual_tech_seller_db.exhibitions TO 'role_admin';
 GRANT SELECT, INSERT ON virtual_tech_seller_db.categories TO 'role_admin';
 GRANT SELECT, UPDATE, INSERT ON virtual_tech_seller_db.products TO 'role_admin';
 GRANT SELECT, UPDATE, INSERT ON virtual_tech_seller_db.new_products TO 'role_admin';

@@ -51,7 +51,19 @@ Para ejecutar el código fuente y levantar la aplicación:
 2. Inicia el servidor MariaDB localmente en el puerto `3306`.
 3. Verifica que la base de datos `virtual_tech_seller_db` esté creada y poblada (usando los scripts de la carpeta `/sql`).
 4. Importa el proyecto en tu IDE (ej. IntelliJ IDEA o Eclipse) como un proyecto **Maven** para que se descarguen las dependencias (`pom.xml`), especialmente JavaFX y el conector JDBC.
-5. Ejecuta la clase `Main.java`.
+5. Modos de ejecución de la Aplicación
+  
+ a.  Ejecuta directamente la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
+ 
+ b. Acceder a la carpeta (`/virtual-tech-seller/out/artifacts/virtualTechSeller`) 
+ - ejecutar el siguiente comando en la terminal:
+   ```bash
+   java -jar /virtualTechSeller.jar
+   ```
+c. Si tienes un sistema operativo Windows puedes descargarlo desde el enlace:
+
+🔗 **https://drive.google.com/file/d/1qGUDTLOCVHnNUY8RbWItKNqms90Y6afx/view?usp=sharing** 
+- Descomprime con winrar y ejecuta `virtualTechSeller.exe` teniendo previamente levantado y configurado el servidor.
 
 *(Nota: Para acceder a la app y probar todas sus vistas, puedes ser administrador utilizando el usuario predefinido `admin1@virtualtechseller.com` con contraseña `Admin-123`, o ser un cliente mediante `client1@virtualtechseller.com` con contraseña `Client-123` o incluso ser moderador a traves de `moderator1@virtualtechseller.com` con contraseña `Moderator-123`).
 *

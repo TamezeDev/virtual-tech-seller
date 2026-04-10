@@ -32,7 +32,7 @@ El proyecto está construido bajo una arquitectura modular usando las siguientes
 * **Conectividad:** JDBC (Java Database Connectivity).
 * **Intercambio de Datos:** XML y XSD mediante JAXBind (Para importación/exportación validada del catálogo de productos).
 * **Control de Versiones:** Git y GitHub.
-* **Modelado y Diseño:** PlantUML (Diagramas de Clases) y Draw.io/Word (Modelado ER y Relacional).
+* **Modelado y Diseño:** PlantUML (Diagramas de Clases) y Draw.io , Word (Modelado ER y Relacional).
 
 ## Estructura del Repositorio
 
@@ -62,23 +62,28 @@ Para desplegar el proyecto en un entorno local, sigue estos pasos:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/TamezeDev/virtualTechSeller.git
-cd virtualTechSeller
+git clone https://github.com/TamezeDev/virtual-tech-seller.git
+cd virtual-tech-seller
 ```
 
 ### 2. Configurar la Base de Datos
-1. Abre tu gestor de base de datos (ej. DBeaver, phpMyAdmin o terminal MariaDB).
+1. Abre tu gestor de base de datos (phpMyAdmin o MariaDB).
 2. Ejecuta el script `sql/01_schema_DDL.sql` para crear la estructura.
 3. Ejecuta el script `sql/02_initial_data_DML.sql` para poblar la base de datos con información de prueba (eventos, usuarios y 20 productos de hardware).
 4. Ejecuta el script `sql/users_roles.sql` para generar los usuarios y los roles con sus permisos y asignaciones correspondientes.
 
-### 3. Ejecución de la Aplicación
- - Ejecuta directamente la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
- -  Descargar el archivo ejecutable (`virtualTechSeller.jar`) o compilar el código fuente.
- - Hacer doble clic sobre el archivo `.jar` o ejecutar el siguiente comando en la terminal:
+### 3. Modos de ejecución de la Aplicación
+ a.  Ejecuta directamente la clase `Main.java` para arrancar la interfaz de la aplicación desde un IDE como IntelliJ.
+ 
+ b. Acceder a la carpeta (`/virtual-tech-seller/out/artifacts/virtualTechSeller`) 
+ - ejecutar el siguiente comando en la terminal:
    ```bash
-   java -jar virtualTechSeller.jar
+   java -jar /virtualTechSeller.jar
    ```
+c. Si tienes un sistema operativo Windows puedes descargarlo desde el enlace:
+
+🔗 **https://drive.google.com/file/d/1qGUDTLOCVHnNUY8RbWItKNqms90Y6afx/view?usp=sharing**
+- Descomprime con winrar y ejecuta `virtualTechSeller.exe` teniendo previamente levantado y configurado el servidor.
 > **Nota:** Puedes iniciar sesión con el usuario administrador de prueba: `admin1@virtualtechseller.com` / `Admin-123`, 
 > con un cliente de prueba: `client1@virtualtechseller.com` / `Client-123` o un moderador de prueba `moderator1@virtualtechseller.com` / `Moderator-123`.
 
