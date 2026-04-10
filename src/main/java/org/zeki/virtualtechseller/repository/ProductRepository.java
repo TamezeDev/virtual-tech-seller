@@ -7,14 +7,13 @@ import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
+import org.zeki.virtualtechseller.exception.DuplicateNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
 import org.zeki.virtualtechseller.model.product.Product;
 import org.zeki.virtualtechseller.model.product.UsedProduct;
-import org.zeki.virtualtechseller.service.ResultService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class ProductRepository {
         }
     }
 
-    public boolean addNewCategory(CategoryDto categoryDto) throws DBConnectionException, SQLException, DuplicateExhibitionNameException {
+    public boolean addNewCategory(CategoryDto categoryDto) throws DBConnectionException, SQLException, DuplicateNameException {
         String query = "INSERT INTO categories(name, description) VALUES (?, ?);";
 
         try (Connection connection = connectionManager.connect();
@@ -71,7 +70,7 @@ public class ProductRepository {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
-                throw new DuplicateExhibitionNameException("El nombre de la categoría ya está registrada");
+                throw new DuplicateNameException("El nombre de la categoría ya está registrada");
             }
             throw new SQLException();
         }
@@ -196,7 +195,7 @@ public class ProductRepository {
         return -1;
     }
 
-    public int addProduct(Connection connection, NewProductDto productDto, UsedProductDto usedProductDto) throws SQLException, DuplicateExhibitionNameException {
+    public int addProduct(Connection connection, NewProductDto productDto, UsedProductDto usedProductDto) throws SQLException, DuplicateNameException {
         String query = "INSERT INTO products(name, id_category, description, url_image, base_price, available) VALUES (?, ?, ?, ?, ?, 1);";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -218,7 +217,7 @@ public class ProductRepository {
             return ps.executeUpdate();
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
-                throw new DuplicateExhibitionNameException("El nombre o la imagen del producto deben ser únicos y ya están en uso");
+                throw new DuplicateNameException("El nombre o la imagen del producto deben ser únicos y ya están en uso");
             }
             throw new SQLException();
         }

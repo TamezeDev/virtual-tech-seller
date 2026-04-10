@@ -5,7 +5,7 @@ import org.zeki.virtualtechseller.dto.exhibition.ExhibitionAccessDto;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
+import org.zeki.virtualtechseller.exception.DuplicateNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.user.Client;
@@ -71,7 +71,7 @@ public class ExhibitionService {
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return new ResultService<>(false, "Error de conexión con el servidor", null);
-        } catch (DuplicateExhibitionNameException e) {
+        } catch (DuplicateNameException e) {
             return new ResultService<>(false, e.getMessage(), null); // THROW EXCEPTION ON DUPLICATE DB NAME
 
         } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class ExhibitionService {
         } catch (DBConnectionException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return "Error de conexión con el servidor";
-        } catch (DuplicateExhibitionNameException e) {
+        } catch (DuplicateNameException e) {
             return e.getMessage(); // THROW EXCEPTION ON DUPLICATE DB NAME
 
         } catch (SQLException e) {

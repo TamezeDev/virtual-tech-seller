@@ -7,7 +7,7 @@ import org.zeki.virtualtechseller.dto.product.CategoryDto;
 import org.zeki.virtualtechseller.dto.product.NewProductDto;
 import org.zeki.virtualtechseller.dto.product.UsedProductDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
+import org.zeki.virtualtechseller.exception.DuplicateNameException;
 import org.zeki.virtualtechseller.model.product.CartItem;
 import org.zeki.virtualtechseller.model.product.Category;
 import org.zeki.virtualtechseller.model.product.NewProduct;
@@ -77,7 +77,7 @@ public class ProductService {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
             return new ResultService<>(false, null);
 
-        } catch (DuplicateExhibitionNameException e) {
+        } catch (DuplicateNameException e) {
             return new ResultService<>(false, e.getMessage()); // THROW EXCEPTION ON DUPLICATE DB NAME
         } catch (SQLException e) {
             AlertHelper.showDBConnectAlert(); // SHOW DB CONNECTION ALERT
@@ -158,7 +158,7 @@ public class ProductService {
 
             return new ResultService<>(true, "OK");
 
-        } catch (DuplicateExhibitionNameException e) {
+        } catch (DuplicateNameException e) {
             return new ResultService<>(false, e.getMessage()); // THROW EXCEPTION ON DUPLICATE DB NAME
         } catch (SQLException e) {
             TransactionHelper.rollback(connection);

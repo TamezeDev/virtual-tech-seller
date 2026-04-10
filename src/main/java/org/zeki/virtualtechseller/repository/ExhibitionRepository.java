@@ -5,7 +5,7 @@ import org.zeki.virtualtechseller.database.ConnectionManager;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionModifyDto;
 import org.zeki.virtualtechseller.dto.exhibition.ExhibitionProductsDto;
 import org.zeki.virtualtechseller.exception.DBConnectionException;
-import org.zeki.virtualtechseller.exception.DuplicateExhibitionNameException;
+import org.zeki.virtualtechseller.exception.DuplicateNameException;
 import org.zeki.virtualtechseller.model.exhibition.Exhibition;
 import org.zeki.virtualtechseller.model.exhibition.ExhibitionItem;
 import org.zeki.virtualtechseller.model.product.*;
@@ -126,7 +126,7 @@ public class ExhibitionRepository {
         return exhibitionItems;
     }
 
-    public boolean addNewExhibition(Exhibition exhibition) throws DBConnectionException, DuplicateExhibitionNameException, SQLException {
+    public boolean addNewExhibition(Exhibition exhibition) throws DBConnectionException, DuplicateNameException, SQLException {
         String query = "INSERT INTO exhibitions(name, description, init_date, end_date) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = connectionManager.connect();
@@ -140,7 +140,7 @@ public class ExhibitionRepository {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
-                throw new DuplicateExhibitionNameException("El nombre de la exhibición ya está en uso");
+                throw new DuplicateNameException("El nombre de la exhibición ya está en uso");
             }
             throw new SQLException();
         }
@@ -158,7 +158,7 @@ public class ExhibitionRepository {
         }
     }
 
-    public boolean modifyEventData(ExhibitionModifyDto exhibitionModifyDto) throws DBConnectionException, SQLException, DuplicateExhibitionNameException {
+    public boolean modifyEventData(ExhibitionModifyDto exhibitionModifyDto) throws DBConnectionException, SQLException, DuplicateNameException {
 
         String query = "UPDATE exhibitions SET name = ?, description = ?, init_date = ?, end_date = ? WHERE id_exhibition = ?;";
 
@@ -174,7 +174,7 @@ public class ExhibitionRepository {
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062 || "23000".equals(e.getSQLState())) {
-                throw new DuplicateExhibitionNameException("El nombre de la exhibición ya está en uso");
+                throw new DuplicateNameException("El nombre de la exhibición ya está en uso");
             }
             throw new SQLException();
         }
