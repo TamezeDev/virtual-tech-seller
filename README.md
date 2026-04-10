@@ -49,6 +49,8 @@ El proyecto sigue una estructura de directorios profesional para separar el cód
 │   ├── bbdd/           # Diagramas ER, relacional y modelo de datos
 │   ├── uml/            # Diagramas de clases (PlantUML)
 │   ├── sistemas/       # Informe técnico del entorno de ejecución
+│   ├── programacion/   # Documentación de la lógica de negocio y POO base
+│   ├── mpo/            # Documentación de arquitectura, patrones de diseño y mejoras
 │   └── empleabilidad/  # Perfil profesional e investigación del sector
 └── README.md           # Este archivo con documentación general
 
