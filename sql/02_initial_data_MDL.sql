@@ -2,7 +2,7 @@
 INSERT INTO exhibitions(name, description, init_date, end_date, active) VALUES
     ('TecnoFest', 'Novedades informáticas', '2026-03-02', '2026-06-30', TRUE),
     ('RetroGamer', 'Solo juegos de catálogo antiguo', '2026-01-01', '2026-05-23', TRUE),
-    ('Phone Event', 'Evento de SmartPhones', '2026-05-01', '2026-07-15', TRUE),
+    ('Phone Event', 'Evento de SmartPhones', '2026-06-01', '2026-07-15', TRUE),
     ('Winter E-Sale', 'Catálogo tecnológico de invierno', '2025-12-21', '2026-03-20', FALSE);
 
 
