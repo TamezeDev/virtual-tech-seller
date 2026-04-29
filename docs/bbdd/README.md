@@ -31,9 +31,9 @@ A partir del diagrama E-R, se ha normalizado la base de datos generando las tabl
 
 Se ha implementado **integridad referencial** con borrados en cascada (`ON DELETE CASCADE`) para dependencias fuertes (ej. carrito) y borrados restrictivos (`ON DELETE RESTRICT`) para históricos financieros (ej. ventas).
 
-*Puedes consultar el diccionario de datos detallado en el archivo [modelo relacional.docx](./modelo-relacional.docx).*
+*Puedes consultar las restricciones de los datos detallado en el archivo [modelo relacional.docx](./restricciones_integridad.docx).*
 
-![Diagrama Relacional](./diagrama_relacional.png)
+![Diagrama Relacional](./Modelo_relacional.png)
 
 ## Creación e Inserción (Scripts SQL)
 
